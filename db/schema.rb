@@ -10,15 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_13_111005) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_13_131813) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
+
+  create_table "dish_ingredients", force: :cascade do |t|
+    t.bigint "dish_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dish_id"], name: "index_dish_ingredients_on_dish_id"
+    t.index ["ingredient_id"], name: "index_dish_ingredients_on_ingredient_id"
+  end
 
   create_table "dishes", force: :cascade do |t|
     t.string "title"
     t.text "description"
     t.decimal "price"
     t.string "image_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_allergen"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -34,4 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_13_111005) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
+
+  add_foreign_key "dish_ingredients", "dishes"
+  add_foreign_key "dish_ingredients", "ingredients"
 end
