@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :cart_dishes
-  resources :carts
+  resource :cart, only: [:show, :update]
   resources :dish_ingredients
   resources :ingredients
   resources :dishes
