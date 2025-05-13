@@ -1,9 +1,16 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# db/seeds.rb
+
+# Effacer les anciens articles avant de les recréer
+Dish.destroy_all
+
+# Générer 20 articles aléatoires
+20.times do |i|
+  Dish.create!(
+    title: "Plat ##{i + 1}",
+    description: "Description du plat ##{i + 1}. Un plat délicieux avec des ingrédients de qualité.",
+    price: rand(10..30).to_d,  # Génère un prix entre 10 et 30
+    image_url: "https://source.unsplash.com/200x200/?food,#{rand(1..100)}"  # Utilisation d'une image aléatoire de Unsplash
+  )
+end
+
+puts "20 plats créés avec succès !"
