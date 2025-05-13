@@ -8,6 +8,7 @@ class CartsController < ApplicationController
 
   # GET /carts/1
   def show
+    @cart = current_user.cart
   end
 
   # GET /carts/new
@@ -48,7 +49,16 @@ class CartsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
-      @cart = Cart.find(params.expect(:id))
+     if params[:id].present?
+    @cart = Cart.find_by(id: params[:id])
+    unless @cart
+      flash[:alert] = "Le panier n'a pas été trouvé."
+      redirect_to root_path # Redirige vers la page d'accueil ou une autre page en cas d'erreur
+    end
+  else
+    flash[:alert] = "L'ID du panier est manquant."
+    redirect_to root_path # Redirige vers la page d'accueil ou une autre page en cas d'erreur
+  end
     end
 
     # Only allow a list of trusted parameters through.
