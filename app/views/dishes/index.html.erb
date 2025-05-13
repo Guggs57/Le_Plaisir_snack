@@ -1,33 +1,36 @@
 <div class="w-full">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice">
+      <%= notice %>
+    </p>
   <% end %>
 
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Dishes</h1>
-    <%= link_to "New dish", new_dish_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" if current_user&.admin? %>  <!-- Bouton New uniquement pour l'admin -->
+    <%= link_to "New dish", new_dish_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" if current_user&.admin? %> <!-- Bouton New uniquement pour l'admin -->
   </div>
 
   <div id="dishes" class="dishes-container">
     <% if @dishes.any? %>
       <% @dishes.each do |dish| %>
-        <div class="dish-card">
-          <%= render dish %>
-          <div class="actions">
-            <%= link_to "Show", dish, class: "btn show-btn" %>
+        <div class="dish">
+          <h3><%= dish.title %></h3>
+          <p><%= dish.description %></p>
+          <p><%= number_to_currency(dish.price) %></p>
 
-            <% if current_user&.admin? %>  <!-- Vérification admin pour afficher le bouton Edit -->
-              <%= link_to "Edit", edit_dish_path(dish), class: "btn edit-btn" %>
-            <% end %>
-
-            <% if current_user&.admin? %>  <!-- Vérification admin pour afficher le bouton Destroy -->
-              <%= button_to "Destroy", dish, method: :delete, class: "btn destroy-btn", data: { turbo_confirm: "Are you sure?" } %>
-            <% end %>
-          </div>
+          <% if @cart.present? %>  <!-- Vérification si le panier existe avant d'afficher le bouton -->
+            <%= button_to 'Ajouter au panier', add_to_cart_cart_path(@cart.id, dish_id: dish.id), method: :post %>
+          <% else %>
+            <p class="text-red-500">Vous devez être connecté pour ajouter un plat au panier.</p>
+          <% end %>
         </div>
+      <% end %>
+
+      <% if current_user&.admin? %> <!-- Vérification admin pour afficher le bouton Destroy -->
+        <%= button_to "Destroy", dish, method: :delete, class: "btn destroy-btn", data: { turbo_confirm: "Are you sure?" } %>
       <% end %>
     <% else %>
       <p class="text-center my-10">No dishes found.</p>
     <% end %>
-  </div>
-</div>
+  </div> <!-- Fermeture de la div "dishes-container" -->
+</div> <!-- Fermeture de la div "w-full" -->
