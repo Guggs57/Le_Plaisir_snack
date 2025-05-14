@@ -23,6 +23,38 @@ class OrdersController < ApplicationController
     order_dishes.sum { |od| od.unit_price * od.quantity }
   end
 
+    def checkout
+    @order = current_user.orders.find(params[:id])
+
+    # Créer une session de paiement Stripe
+    session = Stripe::Checkout::Session.create(
+      payment_method_types: ['card'],
+      line_items: @order.order_dishes.map do |order_dish|
+        {
+          price_data: {
+            currency: 'eur',
+            unit_amount: (order_dish.dish.price * 100).to_i, # Convertir en centimes
+            product_data: {
+              name: order_dish.dish.title,
+              description: order_dish.dish.description
+            }
+          },
+          quantity: order_dish.quantity
+        }
+      end,
+      mode: 'payment',
+      success_url: order_url(@order),  # Remplace avec l'URL de succès
+      cancel_url: cart_url            # Remplace avec l'URL de retour en cas d'annulation
+    )
+
+    # Enregistrer l'ID de session Stripe dans la commande
+    @order.update(stripe_session_id: session.id)
+
+    # Rediriger l'utilisateur vers Stripe
+    redirect_to session.url, allow_other_host: true
+  end
+
+
 
   # POST /orders
   def create

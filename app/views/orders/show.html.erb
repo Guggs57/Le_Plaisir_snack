@@ -1,11 +1,11 @@
-<h1>Commande n°<%= @order.id %></h1>
+<h2>Commande n°<%= @order.id %></h2>
 
 <ul>
   <% @order.order_dishes.each do |od| %>
     <li>
-      <%= od.quantity %> x <%= od.item.title %> - <%= number_to_currency(od.unit_price * od.quantity) %>
+      <%= od.quantity %> x <%= od.dish.title %> - <%= number_to_currency(od.dish.price * od.quantity) %>
     </li>
   <% end %>
 </ul>
 
-<p>Total : <strong><%= number_to_currency(@order.total_price) %></strong></p>
+<p><strong>Total :</strong> <%= number_to_currency(@order.total_price) %></p>
