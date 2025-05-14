@@ -29,6 +29,7 @@ class CartDishesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
+  
 
   # PATCH/PUT /cart_dishes/1
   def update

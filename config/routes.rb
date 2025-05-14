@@ -4,7 +4,8 @@ Rails.application.routes.draw do
   resources :dish_ingredients
   resources :ingredients
   resources :dishes
-    devise_for :users, controllers: { 
+
+  devise_for :users, controllers: { 
       sessions: 'users/sessions', 
       registrations: 'users/registrations'
     }

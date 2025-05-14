@@ -13,10 +13,12 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
-  # DELETE /resource/sign_out
-  # def destroy
-  #   super
-  # end
+   #DELETE /resource/sign_out
+   def destroy
+        sign_out current_user
+        redirect_to root_path, notice: "Déconnecté avec succès."
+  
+   end
 
   # protected
 
