@@ -16,10 +16,8 @@ Rails.application.routes.draw do
   resources :ingredients
 
   resources :dishes
-    devise_for :users, controllers: { 
-      sessions: 'users/sessions', 
-      registrations: 'users/registrations'
-    }
+
+  devise_for :users
 
   resources :orders, only: [:create, :show]
 
