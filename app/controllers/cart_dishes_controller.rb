@@ -32,10 +32,11 @@ class CartDishesController < ApplicationController
 
   # PATCH/PUT /cart_dishes/1
   def update
+    @cart_dish = CartDish.find(params[:id])
     if @cart_dish.update(cart_dish_params)
-      redirect_to @cart_dish, notice: "Cart dish was successfully updated.", status: :see_other
+      redirect_to cart_path(@cart_dish.cart), notice: 'Quantité mise à jour avec succès.'
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to cart_path(@cart_dish.cart), alert: 'Une erreur est survenue.'
     end
   end
 
@@ -64,3 +65,10 @@ class CartDishesController < ApplicationController
     params.require(:cart_dish).permit(:cart_id, :dish_id, :quantity)
   end
 end
+
+
+  private
+
+  def cart_dish_params
+    params.require(:cart_dish).permit(:quantity)
+  end

@@ -1,5 +1,7 @@
 <h1>Mon Panier</h1>
 
+<% total_price = 0 %>
+
 <% @cart.cart_dishes.each do |cart_dish| %>
   <div class="flex items-center justify-between mb-4">
     <div>
@@ -14,7 +16,10 @@
 
     <%= button_to '🗑️', cart_dish_path(cart_dish), method: :delete, data: { turbo_confirm: "Supprimer ?" }, class: "ml-4 px-2 py-1 bg-red-500 text-white rounded" %>
   </div>
+
+  <% total_price += cart_dish.dish.price * cart_dish.quantity %>
 <% end %>
 
-<%= link_to '← Retour aux plats', dishes_path, class: 'text-blue-600 hover:underline' %>
+<p><strong>Prix total du panier: <%= number_to_currency(total_price) %></strong></p>
 
+<%= link_to '← Retour aux plats', dishes_path, class: 'text-blue-600 hover:underline' %>
