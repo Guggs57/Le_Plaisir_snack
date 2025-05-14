@@ -25,3 +25,6 @@ module LePlaisirSnack
     # config.eager_load_paths << Rails.root.join("extras")
   end
 end
+
+Dotenv::Railtie.load if defined?(Dotenv)
+
