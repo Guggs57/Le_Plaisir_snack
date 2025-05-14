@@ -21,13 +21,25 @@ class OrdersController < ApplicationController
 
   # POST /orders
   def create
-    @order = Order.new(order_params)
+    # Récupérer le panier de l'utilisateur connecté
+    @cart = current_user.cart
 
-    if @order.save
-      redirect_to @order, notice: "Order was successfully created."
-    else
-      render :new, status: :unprocessable_entity
+    # Créer une nouvelle commande avec le prix total du panier
+    @order = current_user.orders.create!(total_price: @cart.total_price, status: 'pending')
+
+    # Ajouter les plats du panier à la commande
+    @cart.cart_dishes.each do |cart_dish|
+      @order.order_dishes.create!(
+        dish: cart_dish.dish,
+        quantity: cart_dish.quantity
+      )
     end
+
+    # Vider le panier
+    @cart.cart_dishes.destroy_all
+
+    # Rediriger l'utilisateur vers la page de la commande
+    redirect_to @order, notice: 'Votre commande a été passée avec succès.'
   end
 
   # PATCH/PUT /orders/1

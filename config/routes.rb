@@ -21,6 +21,8 @@ Rails.application.routes.draw do
       registrations: 'users/registrations'
     }
 
+  resources :orders, only: [:create, :show]
+
   get "up" => "rails/health#show", as: :rails_health_check
 
 

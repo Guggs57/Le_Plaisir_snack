@@ -23,3 +23,6 @@
 <p><strong>Prix total du panier: <%= number_to_currency(total_price) %></strong></p>
 
 <%= link_to '← Retour aux plats', dishes_path, class: 'text-blue-600 hover:underline' %>
+
+<%= button_to 'Passer la commande', orders_path, method: :post, class: 'btn btn-primary' %>
+
