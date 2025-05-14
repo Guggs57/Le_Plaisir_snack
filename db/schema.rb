@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_14_102645) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_14_102858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -56,6 +56,16 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_102645) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "order_dishes", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "dish_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dish_id"], name: "index_order_dishes_on_dish_id"
+    t.index ["order_id"], name: "index_order_dishes_on_order_id"
+  end
+
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.decimal "total_price"
@@ -83,5 +93,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_14_102645) do
   add_foreign_key "carts", "users"
   add_foreign_key "dish_ingredients", "dishes"
   add_foreign_key "dish_ingredients", "ingredients"
+  add_foreign_key "order_dishes", "dishes"
+  add_foreign_key "order_dishes", "orders"
   add_foreign_key "orders", "users"
 end
