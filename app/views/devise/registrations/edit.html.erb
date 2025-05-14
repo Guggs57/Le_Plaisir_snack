@@ -32,6 +32,12 @@
     <%= f.password_field :current_password, autocomplete: "current-password" %>
   </div>
 
+  <!-- Ajout du champ 'name' ici -->
+  <div class="field">
+    <%= f.label :name, "Nom" %><br />
+    <%= f.text_field :name, class: 'form-control' %>
+  </div>
+
   <div class="actions">
     <%= f.submit "Mettre à jour", class: "btn", style: "margin-top: 1rem;" %>
   </div>
