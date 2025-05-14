@@ -7,4 +7,5 @@ class Dish < ApplicationRecord
   # Relations
   has_many :order_dishes
   has_many :orders, through: :order_dishes
+  has_one_attached :image
 end

@@ -1,36 +1,42 @@
-<div class="w-full">
+<div class="w-full max-w-6xl mx-auto px-4">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice">
+    <p class="py-2 px-3 bg-green-100 mb-5 text-green-700 font-medium rounded-md shadow-sm" id="notice">
       <%= notice %>
     </p>
   <% end %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Dishes</h1>
-    <%= link_to "New dish", new_dish_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" if current_user&.admin? %> <!-- Bouton New uniquement pour l'admin -->
+  <div class="flex justify-between items-center mb-6">
+    <h1 class="font-bold text-4xl text-gray-800">La carte</h1>
+    <% if current_user&.admin? %>
+      <%= link_to "Nouveau plat", new_dish_path, class: "rounded-md px-4 py-2 bg-blue-600 hover:bg-blue-500 text-white font-semibold shadow-md" %>
+    <% end %>
   </div>
 
-  <div id="dishes" class="dishes-container">
-    <% if @dishes.any? %>
+  <% if @dishes.any? %>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
       <% @dishes.each do |dish| %>
-        <div class="dish">
-          <h3><%= dish.title %></h3>
-          <p><%= dish.description %></p>
-          <p><%= number_to_currency(dish.price) %></p>
+        <div class="bg-white rounded-lg shadow-md p-4 flex flex-col justify-between">
+          <div>
+            <h3 class="text-xl font-semibold text-gray-800 mb-1"><%= dish.title %></h3>
+            <p class="text-gray-600 mb-2"><%= dish.description %></p>
+            <p class="text-lg font-bold text-gray-900"><%= number_to_currency(dish.price) %></p>
+          </div>
 
-          <% if @cart.present? %>  <!-- Vérification si le panier existe avant d'afficher le bouton -->
-            <%= button_to 'Ajouter au panier', add_to_cart_cart_path(@cart.id, dish_id: dish.id), method: :post %>
-          <% else %>
-            <p class="text-red-500">Vous devez être connecté pour ajouter un plat au panier.</p>
-          <% end %>
+          <div class="mt-4">
+            <% if @cart.present? %>
+              <%= button_to 'Ajouter au panier', add_to_cart_cart_path(@cart.id, dish_id: dish.id), method: :post, class: "w-full px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-md font-medium" %>
+            <% else %>
+              <p class="text-red-500 text-sm">Connectez-vous pour ajouter au panier.</p>
+            <% end %>
+
+            <% if current_user&.admin? %>
+              <%= button_to "Supprimer", dish, method: :delete, data: { turbo_confirm: "Supprimer ce plat ?" }, class: "mt-2 w-full px-4 py-2 bg-red-600 hover:bg-red-500 text-white rounded-md font-medium" %>
+            <% end %>
+          </div>
         </div>
       <% end %>
-
-      <% if current_user&.admin? %> <!-- Vérification admin pour afficher le bouton Destroy -->
-        <%= button_to "Destroy", dish, method: :delete, class: "btn destroy-btn", data: { turbo_confirm: "Are you sure?" } %>
-      <% end %>
-    <% else %>
-      <p class="text-center my-10">No dishes found.</p>
-    <% end %>
-  </div> <!-- Fermeture de la div "dishes-container" -->
-</div> <!-- Fermeture de la div "w-full" -->
+    </div>
+  <% else %>
+    <p class="text-center my-10 text-gray-600 text-lg">Aucun plat disponible pour le moment.</p>
+  <% end %>
+</div>

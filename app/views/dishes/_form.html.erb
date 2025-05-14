@@ -1,37 +1,36 @@
-<%= form_with(model: dish, class: "contents") do |form| %>
+<%= form_with(model: dish, local: true, html: { multipart: true }) do |form| %>
   <% if dish.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(dish.errors.count, "error") %> prohibited this dish from being saved:</h2>
-
-      <ul class="list-disc ml-6">
-        <% dish.errors.each do |error| %>
-          <li><%= error.full_message %></li>
+    <div class="bg-red-100 text-red-700 p-4 mb-4 rounded">
+      <h2 class="font-semibold">Erreur(s) :</h2>
+      <ul class="list-disc pl-5">
+        <% dish.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
         <% end %>
       </ul>
     </div>
   <% end %>
 
-  <div class="my-5">
+  <div class="mb-4">
     <%= form.label :title %>
-    <%= form.text_field :title, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dish.errors[:title].none?, "border-red-400 focus:outline-red-600": dish.errors[:title].any?}] %>
+    <%= form.text_field :title, class: "border rounded w-full py-2 px-3" %>
   </div>
 
-  <div class="my-5">
+  <div class="mb-4">
     <%= form.label :description %>
-    <%= form.textarea :description, rows: 4, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dish.errors[:description].none?, "border-red-400 focus:outline-red-600": dish.errors[:description].any?}] %>
+    <%= form.text_area :description, class: "border rounded w-full py-2 px-3" %>
   </div>
 
-  <div class="my-5">
+  <div class="mb-4">
     <%= form.label :price %>
-    <%= form.text_field :price, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dish.errors[:price].none?, "border-red-400 focus:outline-red-600": dish.errors[:price].any?}] %>
+    <%= form.number_field :price, step: 0.01, class: "border rounded w-full py-2 px-3" %>
   </div>
 
-  <div class="my-5">
-    <%= form.label :image_url %>
-    <%= form.text_field :image_url, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": dish.errors[:image_url].none?, "border-red-400 focus:outline-red-600": dish.errors[:image_url].any?}] %>
+  <div class="mb-4">
+    <%= form.label :image, "Image du plat" %>
+    <%= form.file_field :image, class: "mt-1" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div class="flex justify-end">
+    <%= form.submit class: "bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-500" %>
   </div>
 <% end %>
