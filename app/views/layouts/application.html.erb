@@ -60,7 +60,7 @@
           <li class="nav-item">
             <%= link_to "Nos Plats", dishes_path, class: "nav-link" %>
           </li>
-          <% if user_signed_in? %>
+          <% if user_signed_in? && current_user.cart.present? %>
             <li class="nav-item">
               <%= link_to "Mon Panier", cart_path(current_user.cart), class: "nav-link" %>
             </li>

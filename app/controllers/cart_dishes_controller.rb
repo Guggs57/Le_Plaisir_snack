@@ -1,5 +1,5 @@
 class CartDishesController < ApplicationController
-  before_action :set_cart_dish, only: %i[ show edit update destroy ]
+  before_action :set_cart_dish, only: %i[show edit update destroy update_quantity]
 
   # GET /cart_dishes
   def index
@@ -33,27 +33,43 @@ class CartDishesController < ApplicationController
 
   # PATCH/PUT /cart_dishes/1
   def update
+    @cart_dish = CartDish.find(params[:id])
     if @cart_dish.update(cart_dish_params)
-      redirect_to @cart_dish, notice: "Cart dish was successfully updated.", status: :see_other
+      redirect_to cart_path(@cart_dish.cart), notice: 'Quantité mise à jour avec succès.'
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to cart_path(@cart_dish.cart), alert: 'Une erreur est survenue.'
+    end
+  end
+
+  # PATCH /cart_dishes/1/update_quantity
+  def update_quantity
+    if @cart_dish.update(quantity: params[:quantity])
+      redirect_to cart_path(current_user.cart), notice: "Quantité mise à jour."
+    else
+      redirect_to cart_path(current_user.cart), alert: "Erreur lors de la mise à jour."
     end
   end
 
   # DELETE /cart_dishes/1
   def destroy
     @cart_dish.destroy!
-    redirect_to cart_dishes_path, notice: "Cart dish was successfully destroyed.", status: :see_other
+    redirect_to cart_path(current_user.cart), notice: "Plat supprimé du panier.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart_dish
-      @cart_dish = CartDish.find(params.expect(:id))
-    end
 
-    # Only allow a list of trusted parameters through.
-    def cart_dish_params
-      params.expect(cart_dish: [ :cart_id, :dish_id, :quantity ])
-    end
+  def set_cart_dish
+    @cart_dish = CartDish.find(params[:id])
+  end
+
+  def cart_dish_params
+    params.require(:cart_dish).permit(:cart_id, :dish_id, :quantity)
+  end
 end
+
+
+  private
+
+  def cart_dish_params
+    params.require(:cart_dish).permit(:quantity)
+  end
