@@ -46,6 +46,9 @@ class OrdersController < ApplicationController
       @order.order_dishes.create!(dish_id: cart_dish.dish_id, quantity: cart_dish.quantity)
     end
 
+    # Vider le panier après la création de la commande
+    @cart.cart_dishes.destroy_all
+
     # Créer une session de paiement Stripe
     session = Stripe::Checkout::Session.create({
       payment_method_types: ['card'],
