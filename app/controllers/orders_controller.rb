@@ -19,6 +19,11 @@ class OrdersController < ApplicationController
   def edit
   end
 
+  def total_price
+    order_dishes.sum { |od| od.unit_price * od.quantity }
+  end
+
+
   # POST /orders
   def create
     # Récupérer le panier de l'utilisateur connecté
