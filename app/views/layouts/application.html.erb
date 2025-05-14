@@ -75,18 +75,29 @@
                 <%= link_to "Admin", rails_admin_path, class: "nav-link" %>
               </li>
             <% end %>
-          <li class="nav-item">
-            <%= button_to "Déconnexion", destroy_user_session_path, method: :delete, data: {turbo: false} , class: "nav-link" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Connexion", new_user_session_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Inscription", new_user_registration_path, class: "nav-link" %>
-          </li>
-        <% end %>
-      </ul>
+            <li class="nav-item">
+              <%= button_to "Mon Profil", edit_user_registration_path,
+                    method: :get,
+                    class: "nav-link btn btn-link p-0 me-2",
+                    form_class: "d-inline" %>
+            </li>
+            <li class="nav-item">
+              <%= button_to "Déconnexion", destroy_user_session_path,
+                    method: :delete,
+                    data: { turbo: false },
+                    class: "nav-link btn btn-link p-0",
+                    form_class: "d-inline" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Connexion", new_user_session_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Inscription", new_user_registration_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
     </div>
   </nav>
 
