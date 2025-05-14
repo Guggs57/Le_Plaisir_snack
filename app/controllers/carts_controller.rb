@@ -46,10 +46,15 @@ class CartsController < ApplicationController
 
   private
 
-  # Méthode pour récupérer ou créer le panier de l'utilisateur
+    # Méthode pour récupérer ou créer le panier de l'utilisateur
   def set_cart
-    @cart = current_user.cart || Cart.create(user: current_user)
+    if current_user
+      @cart = current_user.cart || current_user.create_cart
+    else
+      @cart = nil
+    end
   end
+
 
   def cart_params
     params.require(:cart).permit(:user_id)

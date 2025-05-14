@@ -68,6 +68,11 @@ class DishesController < ApplicationController
 
   # Méthode pour récupérer ou créer le panier de l'utilisateur
   def set_cart
-    @cart = current_user.cart || current_user.create_cart
+    if current_user
+      @cart = current_user.cart || current_user.create_cart
+    else
+      @cart = nil
+    end
   end
+
 end
