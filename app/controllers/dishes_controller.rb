@@ -10,6 +10,8 @@ class DishesController < ApplicationController
 
   # GET /dishes/1
   def show
+    @dish = Dish.find(params[:id])
+    @cart = current_user.cart || current_user.create_cart
   end
 
   # GET /dishes/new
