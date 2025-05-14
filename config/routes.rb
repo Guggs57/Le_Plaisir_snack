@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   resources :cart_dishes
-  resource :cart, only: [:show, :update]
+   resources :carts, only: [:show, :create, :update, :destroy] do
+    post 'add_to_cart', on: :member
+  end
   resources :dish_ingredients
   resources :ingredients
   resources :dishes

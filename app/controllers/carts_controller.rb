@@ -1,68 +1,57 @@
 class CartsController < ApplicationController
-  before_action :set_cart, only: %i[ show edit update destroy ]
+  before_action :set_cart, only: %i[show edit update destroy add_to_cart]
 
-  # GET /carts
-  def index
-    @carts = Cart.all
-  end
-
-  # GET /carts/1
+  # Action existante : GET /carts/1
   def show
     @cart = current_user.cart
   end
 
-  # GET /carts/new
-  def new
-    @cart = Cart.new
+  # Action pour ajouter un plat au panier
+  def add_to_cart
+    @cart = current_user.cart || Cart.create(user: current_user)  # Crée le panier si aucun n'existe
+    @dish = Dish.find(params[:dish_id])  # Récupérer le plat par son ID
+  
+  # Ajouter le plat au panier (ou augmenter la quantité)
+    @cart_dish = @cart.cart_dishes.find_or_initialize_by(dish: @dish)
+    @cart_dish.quantity ||= 0  # Si quantity est nil, on l'initialise à 0
+    @cart_dish.quantity += 1    # On ajoute 1 à la quantité
+    @cart_dish.save
+
+  redirect_to cart_path(@cart), notice: "#{@dish.title} a été ajouté au panier."
   end
 
-  # GET /carts/1/edit
-  def edit
-  end
-
-  # POST /carts
+  # Actions existantes : create, update, destroy
   def create
     @cart = Cart.new(cart_params)
 
     if @cart.save
-      redirect_to @cart, notice: "Cart was successfully created."
+      redirect_to @cart, notice: "Panier créé avec succès."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
-  # PATCH/PUT /carts/1
   def update
     if @cart.update(cart_params)
-      redirect_to @cart, notice: "Cart was successfully updated.", status: :see_other
+      redirect_to @cart, notice: "Panier mis à jour avec succès.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  # DELETE /carts/1
   def destroy
     @cart.destroy!
-    redirect_to carts_path, notice: "Cart was successfully destroyed.", status: :see_other
+    redirect_to carts_path, notice: "Panier supprimé avec succès.", status: :see_other
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_cart
-     if params[:id].present?
-    @cart = Cart.find_by(id: params[:id])
-    unless @cart
-      flash[:alert] = "Le panier n'a pas été trouvé."
-      redirect_to root_path # Redirige vers la page d'accueil ou une autre page en cas d'erreur
-    end
-  else
-    flash[:alert] = "L'ID du panier est manquant."
-    redirect_to root_path # Redirige vers la page d'accueil ou une autre page en cas d'erreur
-  end
-    end
 
-    # Only allow a list of trusted parameters through.
-    def cart_params
-      params.expect(cart: [ :user_id ])
-    end
+  # Méthode pour récupérer ou créer le panier de l'utilisateur
+  def set_cart
+    @cart = current_user.cart || Cart.create(user: current_user)
+  end
+
+  def cart_params
+    params.require(:cart).permit(:user_id)
+  end
 end

@@ -1,6 +1,7 @@
 class DishesController < ApplicationController
   before_action :set_dish, only: %i[show edit update destroy]
   before_action :check_admin, only: %i[edit update destroy]  # Ajout de la vérification admin
+  before_action :set_cart, only: [:index]  # Ajouter cette ligne pour définir le panier
 
   # GET /dishes
   def index
@@ -63,5 +64,10 @@ class DishesController < ApplicationController
     unless current_user&.admin?
       redirect_to dishes_path, alert: "You are not authorized to perform this action."  # Redirige si non-admin
     end
+  end
+
+  # Méthode pour récupérer ou créer le panier de l'utilisateur
+  def set_cart
+    @cart = current_user.cart || current_user.create_cart
   end
 end
