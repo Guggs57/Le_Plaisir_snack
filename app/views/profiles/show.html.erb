@@ -1,0 +1,25 @@
+<h1>Bienvenue, <%= current_user.email %></h1>
+
+<h2>Mes commandes passées</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID de la commande</th>
+      <th>Statut</th>
+      <th>Date de la commande</th>
+      <th>Montant total</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.status.capitalize %></td>
+        <td><%= order.created_at.strftime('%d/%m/%Y') %></td>
+        <td><%= number_to_currency(order.total_price) %></td>
+        <td><%= link_to 'Voir', order_path(order), class: 'btn btn-info' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

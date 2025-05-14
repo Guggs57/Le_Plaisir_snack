@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "profiles/show"
   get "home/index"
   resources :order_dishes
   resources :orders
@@ -20,6 +21,8 @@ Rails.application.routes.draw do
 
 
   devise_for :users
+
+  resource :profile, only: [:show]
 
   resources :orders do
   member do
