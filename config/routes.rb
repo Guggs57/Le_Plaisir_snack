@@ -17,10 +17,11 @@ Rails.application.routes.draw do
 
   resources :dishes
 
-  devise_for :users, controllers: { 
-      sessions: 'users/sessions', 
-      registrations: 'users/registrations'
-    }
+
+  devise_for :users
+
+  resources :orders, only: [:create, :show]
+
 
   get "up" => "rails/health#show", as: :rails_health_check
 
