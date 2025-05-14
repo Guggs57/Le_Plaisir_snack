@@ -29,15 +29,13 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
-  # GET /resource/cancel
-  # Forces the session data which is usually expired after sign
-  # in to be expired now. This is useful if the user wants to
-  # cancel oauth signing in/up in the middle of the process,
-  # removing all OAuth session data.
-  # def cancel
-  #   super
-  # end
+ def destroy
+    # Dissocier l'utilisateur des commandes avant la suppression
+    current_user.orders.update_all(user_id: nil)  # Met à NULL les commandes associées à l'utilisateur
 
+    # Ensuite, supprimer l'utilisateur
+    super
+  end
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.

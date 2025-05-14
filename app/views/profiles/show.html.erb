@@ -1,14 +1,17 @@
-<h1>Bienvenue, <%= current_user.email %></h1>
+<!-- Affichage des informations de l'utilisateur -->
+<p><strong>Nom :</strong> <%= current_user.name.presence || "Non renseigné" %></p>
+<p><strong>Email :</strong> <%= current_user.email %></p>
 
-<h2>Mes commandes passées</h2>
+<!-- Lien pour modifier les informations -->
+<%= link_to "Modifier mes informations", edit_user_registration_path %>
+
+<!-- Récap des commandes -->
+<h3>Mes commandes :</h3>
 <table class="table">
   <thead>
     <tr>
-      <th>ID de la commande</th>
-      <th>Statut</th>
-      <th>Date de la commande</th>
-      <th>Montant total</th>
-      <th>Actions</th>
+      <th>ID</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
@@ -16,9 +19,6 @@
       <tr>
         <td><%= order.id %></td>
         <td><%= order.status.capitalize %></td>
-        <td><%= order.created_at.strftime('%d/%m/%Y') %></td>
-        <td><%= number_to_currency(order.total_price) %></td>
-        <td><%= link_to 'Voir', order_path(order), class: 'btn btn-info' %></td>
       </tr>
     <% end %>
   </tbody>

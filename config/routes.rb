@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resource :profile, only: [:show]
+  resource :profile
 
   resources :orders do
   member do
