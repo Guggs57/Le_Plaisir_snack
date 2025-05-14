@@ -14,3 +14,4 @@ class User < ApplicationRecord
     Cart.create(user: self)
   end
 end
+ 
