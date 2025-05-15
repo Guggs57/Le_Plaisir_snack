@@ -82,7 +82,7 @@ gem "administrate", "~> 0.19.0"
 
 gem "stripe", "~> 15.0"
 
-gem "dotenv-rails", "~> 2.8"
+gem "dotenv-rails", "~> 3.1"
 
 gem "rails_admin", "~> 3.3"
 gem "sassc-rails"
