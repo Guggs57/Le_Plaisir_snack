@@ -1,5 +1,5 @@
 class UserMailer < ApplicationMailer
-    default from: 'no-reply@le-plaisir-snack.fr'
+    default from: ENV["GMAIL_USERNAME"]
 
   def welcome_email(user)
     #on récupère l'instance user pour ensuite pouvoir la passer à la view en @user
