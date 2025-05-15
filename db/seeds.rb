@@ -1,16 +1,17 @@
-# db/seeds.rb
+require 'faker'
 
-# Effacer les anciens articles avant de les recréer
+puts "🧹 Nettoyage..."
 Dish.destroy_all
 
-# Générer 20 articles aléatoires
-20.times do |i|
+puts "🍔 Création de plats..."
+
+10.times do
   Dish.create!(
-    title: "Plat ##{i + 1}",
-    description: "Description du plat ##{i + 1}. Un plat délicieux avec des ingrédients de qualité.",
-    price: rand(10..30).to_d,  # Génère un prix entre 10 et 30
-    image_url: "https://source.unsplash.com/200x200/?food,#{rand(1..100)}"  # Utilisation d'une image aléatoire de Unsplash
+    title: Faker::Food.dish,
+    description: Faker::Food.description,
+    price: rand(5.0..15.0).round(2),
+    image_url: "https://source.unsplash.com/600x400/?food,#{rand(1000)}"
   )
 end
 
-puts "20 plats créés avec succès !"
+puts "✅ Plats créés !"

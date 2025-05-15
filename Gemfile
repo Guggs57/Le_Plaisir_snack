@@ -54,13 +54,25 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+
+
 end
 
+
+
+group :development, :test do
+  gem "rspec-rails", "~> 6.0"
+  gem "faker", "~> 3.2"
+  gem 'factory_bot_rails'  
+end
 group :test do
-  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem "capybara"
+  gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
+  gem 'nyan-cat-formatter'
+  gem 'capybara'
   gem "selenium-webdriver"
 end
+
 
 gem "devise", "~> 4.9"
 
@@ -69,3 +81,8 @@ gem "simple_form", "~> 5.3"
 gem "administrate", "~> 0.19.0"
 
 gem "stripe", "~> 15.0"
+
+gem "dotenv-rails", "~> 2.8"
+
+gem "rails_admin", "~> 3.3"
+gem "sassc-rails"

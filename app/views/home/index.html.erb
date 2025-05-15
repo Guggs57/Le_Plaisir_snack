@@ -1,0 +1,27 @@
+<div class="home-wrapper">
+  <div class="home-card">
+    <img src="<%= asset_path('logo.png') %>" alt="Logo Le Plaisir" class="home-logo">
+
+    <h1>Le Plaisir - Restauration rapide</h1>
+    <p class="address">180 rue Nationale, Forbach - 100% Halal</p>
+    <p class="hours">Ouvert du lundi au samedi de 11h à 23h • Dimanche de 11h30 à 23h</p>
+
+    <div class="cta-buttons">
+      <a href="<%= dishes_path %>" class="btn red-btn">Voir la carte</a>
+      <% if user_signed_in? %>
+        <a href="<%= cart_path(current_user.cart) %>" class="btn grey-btn">Commander</a>
+      <% else %>
+        <a href="<%= new_user_session_path %>" class="btn grey-btn">Se connecter</a>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="special-menus">
+    <h2>Menus Spéciaux</h2>
+    <ul>
+      <li><strong>Menu étudiant</strong> : Sandwich + Frites + Boisson 33cl – 7,50€</li>
+      <li><strong>Menu kids</strong> : Nuggets/Kebab/Pâtes + Frites + Boisson – 7€</li>
+      <li><strong>Menu Kébab</strong> : Kébab + Frites + Boisson – 8,50€</li>
+    </ul>
+  </div>
+</div>

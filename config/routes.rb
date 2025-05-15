@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  get "profiles/show"
+  get "home/index"
   resources :order_dishes
   resources :orders
   resources :cart_dishes, only: [:update]
@@ -20,11 +23,18 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :orders, only: [:create, :show]
+  resource :profile
+
+  resources :orders do
+  member do
+    post :checkout
+  end
+end
 
 
   get "up" => "rails/health#show", as: :rails_health_check
 
 
-  root "dishes#index"
+  root "home#index"
+
 end

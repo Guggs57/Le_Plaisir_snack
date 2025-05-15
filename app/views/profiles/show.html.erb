@@ -1,0 +1,25 @@
+<!-- Affichage des informations de l'utilisateur -->
+<p><strong>Nom :</strong> <%= current_user.name.presence || "Non renseigné" %></p>
+<p><strong>Email :</strong> <%= current_user.email %></p>
+
+<!-- Lien pour modifier les informations -->
+<%= link_to "Modifier mes informations", edit_user_registration_path %>
+
+<!-- Récap des commandes -->
+<h3>Mes commandes :</h3>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= order.status.capitalize %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

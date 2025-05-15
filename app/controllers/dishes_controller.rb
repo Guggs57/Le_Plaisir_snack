@@ -1,6 +1,6 @@
 class DishesController < ApplicationController
   before_action :set_dish, only: %i[show edit update destroy]
-  before_action :check_admin, only: %i[edit update destroy]  # Ajout de la vérification admin
+  before_action :check_admin, only: %i[new create edit update destroy]
   before_action :set_cart, only: [:index]  # Ajouter cette ligne pour définir le panier
 
   # GET /dishes
@@ -10,11 +10,17 @@ class DishesController < ApplicationController
 
   # GET /dishes/1
   def show
+      @dish = Dish.find(params[:id])
+      if user_signed_in?
+        @cart = current_user.cart || current_user.create_cart
+      else
+        @cart = nil
+      end
   end
 
   # GET /dishes/new
   def new
-    @dish = Dish.new
+      @dish = Dish.new
   end
 
   # GET /dishes/1/edit
