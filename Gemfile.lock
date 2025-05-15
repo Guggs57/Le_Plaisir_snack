@@ -133,6 +133,8 @@ GEM
     erubi (1.13.1)
     et-orbi (1.2.11)
       tzinfo
+    faker (3.5.1)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -477,6 +479,7 @@ DEPENDENCIES
   debug
   devise (~> 4.9)
   dotenv-rails (~> 2.8)
+  faker (~> 3.2)
   importmap-rails
   kamal
   pg (~> 1.1)
