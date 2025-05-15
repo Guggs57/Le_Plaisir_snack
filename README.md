@@ -1,24 +1,12 @@
-# README
+THP FINAL PROJECT FULLSTACK CERTIFICATION - MARCH 2025
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+As we are finishing the fullstack training, we have been asked to create a website.
+Nicolas had the idea of creating a website for his local snack, Le Plaisir.
 
-Things you may want to cover:
+Le Plaisir is a turkish fastfood based in Forbach, north of France.
 
-* Ruby version
+On this website, users will be able to view the dishes, to add them into their cart, modify the ingredient list if necessary (allergens for example) and submit the cart with payment.
 
-* System dependencies
+The Admin side of this website will allow administrateur to check the order, report forecast and results of sells, count the number of costumers and identify regular ones.
 
-* Configuration
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
