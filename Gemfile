@@ -67,6 +67,12 @@ end
 group :development, :test do
   gem "rspec-rails", "~> 6.0"
   gem "faker", "~> 3.2"
+  gem 'factory_bot_rails'  
+end
+group :test do
+  gem 'shoulda-matchers'
+  gem 'rails-controller-testing'
+  gem 'nyan-cat-formatter'
 end
 
 
