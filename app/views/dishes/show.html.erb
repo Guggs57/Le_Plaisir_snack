@@ -39,7 +39,10 @@
           </div>
         <% end %>
       <% else %>
-        <p class="text-red-500">Veuillez créer un panier pour ajouter ce plat.</p>
+        <p class="text-red-600 font-semibold">
+          Pour ajouter ce plat au panier, veuillez 
+          <%= link_to "vous connecter", new_user_session_path, class: "underline hover:text-red-800" %>.
+        </p>
       <% end %>
     </div>
   </div>
