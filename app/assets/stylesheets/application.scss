@@ -1,0 +1,19 @@
+<style>
+  .error-messages {
+    background: #ffe0e0;
+    border: 1px solid #cc0000;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+  }
+
+  .error-messages ul {
+    padding-left: 20px;
+    margin: 0;
+  }
+
+  .error-messages li {
+    color: #cc0000;
+    list-style: disc;
+  }
+</style>
