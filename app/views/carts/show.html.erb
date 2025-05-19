@@ -1,28 +1,33 @@
 <h1>Mon Panier</h1>
 
-<% total_price = 0 %>
-
-<% @cart.cart_dishes.each do |cart_dish| %>
-  <div class="flex items-center justify-between mb-4">
-    <div>
-      <p class="font-bold"><%= cart_dish.dish.title %></p>
-      <p><%= number_to_currency(cart_dish.dish.price) %></p>
-    </div>
-    
-    <%= form_with url: update_quantity_cart_dish_path(cart_dish), method: :patch, local: true do |f| %>
-      <%= f.number_field :quantity, value: cart_dish.quantity, min: 1, class: "w-16 text-center border rounded" %>
-      <%= f.submit "✔️", class: "ml-2 px-2 py-1 bg-green-500 text-white rounded" %>
-    <% end %>
-
-    <%= button_to '🗑️', cart_dish_path(cart_dish), method: :delete, data: { turbo_confirm: "Supprimer ?" }, class: "ml-4 px-2 py-1 bg-red-500 text-white rounded" %>
+<% if @cart_dishes.any? %>
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th>Article</th>
+        <th>Quantité</th>
+        <th>Prix</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart_dishes.each do |cart_dish| %>
+        <tr>
+          <td><%= cart_dish.dish.title %></td>
+          <td><%= cart_dish.quantity %></td>
+          <td><%= number_to_currency(cart_dish.total_price, unit: "€") %></td>
+          <td>
+            <%= button_to "Retirer", cart_dish_path(cart_dish), method: :delete, class: "btn btn-danger" %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <div class="cart-footer">
+    <p>Total : <%= number_to_currency(@cart.total_price, unit: "€") %></p>
+    <%= button_to "Passer commande", orders_path, method: :post, class: "btn btn-primary" %>
   </div>
-
-  <% total_price += cart_dish.dish.price * cart_dish.quantity %>
+<% else %>
+  <p>Votre panier est vide.</p>
+  <%= link_to "Retour à la carte", dishes_path, class: "btn btn-secondary" %>
 <% end %>
-
-<p><strong>Prix total du panier: <%= number_to_currency(total_price) %></strong></p>
-
-<%= link_to '← Retour aux plats', dishes_path, class: 'text-blue-600 hover:underline' %>
-
-<%= button_to 'Passer la commande', orders_path, method: :post, class: 'btn btn-primary' %>
-

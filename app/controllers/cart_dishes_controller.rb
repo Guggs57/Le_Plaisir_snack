@@ -1,25 +1,20 @@
 class CartDishesController < ApplicationController
   before_action :set_cart_dish, only: %i[show edit update destroy update_quantity]
 
-  # GET /cart_dishes
   def index
     @cart_dishes = CartDish.all
   end
 
-  # GET /cart_dishes/1
   def show
   end
 
-  # GET /cart_dishes/new
   def new
     @cart_dish = CartDish.new
   end
 
-  # GET /cart_dishes/1/edit
   def edit
   end
 
-  # POST /cart_dishes
   def create
     @cart_dish = CartDish.new(cart_dish_params)
 
@@ -29,11 +24,8 @@ class CartDishesController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  
 
-  # PATCH/PUT /cart_dishes/1
   def update
-    @cart_dish = CartDish.find(params[:id])
     if @cart_dish.update(cart_dish_params)
       redirect_to cart_path(@cart_dish.cart), notice: 'Quantité mise à jour avec succès.'
     else
@@ -41,7 +33,6 @@ class CartDishesController < ApplicationController
     end
   end
 
-  # PATCH /cart_dishes/1/update_quantity
   def update_quantity
     if @cart_dish.update(quantity: params[:quantity])
       redirect_to cart_path(current_user.cart), notice: "Quantité mise à jour."
@@ -50,7 +41,6 @@ class CartDishesController < ApplicationController
     end
   end
 
-  # DELETE /cart_dishes/1
   def destroy
     @cart_dish.destroy!
     redirect_to cart_path(current_user.cart), notice: "Plat supprimé du panier.", status: :see_other
@@ -63,13 +53,6 @@ class CartDishesController < ApplicationController
   end
 
   def cart_dish_params
-    params.require(:cart_dish).permit(:cart_id, :dish_id, :quantity)
-  end
-end
-
-
-  private
-
-  def cart_dish_params
     params.require(:cart_dish).permit(:quantity)
   end
+end

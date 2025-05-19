@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   get "home/index"
   resources :order_dishes
   resources :orders
-  resources :cart_dishes, only: [:update]
+  resources :cart_dishes, only: [:update, :show]
 
    resources :carts, only: [:show, :create, :update, :destroy] do
     post 'add_to_cart', on: :member
