@@ -1,12 +1,16 @@
 class CartDishesController < ApplicationController
   before_action :set_cart_dish, only: %i[show edit update destroy update_quantity]
+  
 
   def index
     @cart_dishes = CartDish.all
   end
 
   def show
-  end
+  @cart = Cart.find(params[:id])
+  @cart_dishes = @cart.cart_dishes.includes(:dish)
+end
+
 
   def new
     @cart_dish = CartDish.new
@@ -53,6 +57,6 @@ class CartDishesController < ApplicationController
   end
 
   def cart_dish_params
-    params.require(:cart_dish).permit(:quantity)
+    params.require(:cart_dish).permit(:quantity, ingredients: [], sauces: [])
   end
 end

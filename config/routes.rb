@@ -17,7 +17,7 @@ Rails.application.routes.draw do
 
   resources :order_dishes
 
-  resources :cart_dishes, only: [:show, :update, :destroy] do
+  resources :cart_dishes, only: [:index, :show, :edit, :update, :destroy] do
     patch :update_quantity, on: :member
   end
 

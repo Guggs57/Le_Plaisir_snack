@@ -1,15 +1,26 @@
-<% content_for :title, "Showing cart dish" %>
+<% content_for :title, "Détail de l'article dans le panier" %>
 
-<div class="md:w-2/3 w-full">
+<div class="container my-5">
   <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-md inline-block" id="notice"><%= notice %></p>
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="notice">
+      <%= notice %>
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+    </div>
   <% end %>
 
-  <h1 class="font-bold text-4xl">Showing cart dish</h1>
+  <h1 class="mb-4 display-5 fw-bold">Détail de l'article dans le panier</h1>
 
-  <%= render @cart_dish %>
+  <div class="card mb-4 shadow-sm">
+    <div class="card-body">
+      <%= render @cart_dish %>
+    </div>
+  </div>
 
-  <%= link_to "Edit this cart dish", edit_cart_dish_path(@cart_dish), class: "w-full sm:w-auto text-center rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to cart dishes", cart_dishes_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= button_to "Destroy this cart dish", @cart_dish, method: :delete, form_class: "sm:inline-block mt-2 sm:mt-0 sm:ml-2", class: "w-full rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium cursor-pointer", data: { turbo_confirm: "Are you sure?" } %>
+  <div class="d-flex flex-wrap gap-3">
+    <%= link_to "Modifier cet article", edit_cart_dish_path(@cart_dish), class: "btn btn-outline-primary flex-grow-1 flex-sm-grow-0" %>
+    
+    <%= link_to "Retour à la liste", cart_dishes_path, class: "btn btn-outline-secondary flex-grow-1 flex-sm-grow-0" %>
+    
+    <%= button_to "Supprimer cet article", @cart_dish, method: :delete, data: { turbo_confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger flex-grow-1 flex-sm-grow-0" %>
+  </div>
 </div>
