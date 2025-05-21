@@ -2,9 +2,10 @@ class CartsController < ApplicationController
   before_action :set_cart, only: %i[show edit update destroy add_to_cart]
 
   # Action existante : GET /carts/1
-  def show
-    @cart = current_user.cart
-  end
+def show
+  @cart = current_user.cart
+  @cart_dishes = @cart ? @cart.cart_dishes : []
+end
 
   # Action pour ajouter un plat au panier
   def add_to_cart

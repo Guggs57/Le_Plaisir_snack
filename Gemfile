@@ -61,7 +61,7 @@ end
 
 
 group :development, :test do
-  gem "rspec-rails", "~> 6.0"
+  gem "rspec-rails", "~> 8.0"
   gem "faker", "~> 3.2"
   gem 'factory_bot_rails'  
 end
@@ -82,7 +82,7 @@ gem "administrate", "~> 0.19.0"
 
 gem "stripe", "~> 15.0"
 
-gem "dotenv-rails", "~> 2.8"
+gem "dotenv-rails", "~> 3.1"
 
 gem "rails_admin", "~> 3.3"
 gem "sassc-rails"

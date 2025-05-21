@@ -1,10 +1,44 @@
 <% content_for :title, "Editing cart dish" %>
 
 <div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing cart dish</h1>
+  <h1 class="font-bold text-4xl mb-6">Modifier le plat dans le panier</h1>
 
-  <%= render "form", cart_dish: @cart_dish %>
+  <%= form_with(model: @cart_dish, local: true) do |f| %>
+    <div class="mb-4">
+      <%= f.label :quantity, "Quantité", class: "block font-semibold mb-1" %>
+      <%= f.number_field :quantity, in: 1..20, class: "border rounded px-2 py-1 w-20" %>
+    </div>
 
-  <%= link_to "Show this cart dish", @cart_dish, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to cart dishes", cart_dishes_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+    <div class="mb-4">
+      <p class="font-semibold mb-2">Choisissez les ingrédients</p>
+      <% ingrédients = ["salade", "tomate", "oignons", "choux blanc", "choux rouge", "piment vert", "piment rouge", "concombre"] %>
+      <% ingrédients.each do |ingr| %>
+        <div>
+          <%= check_box_tag "cart_dish[ingredients][]", ingr, @cart_dish.ingredients&.include?(ingr), id: "ingredient_#{ingr.parameterize}" %>
+          <%= label_tag "ingredient_#{ingr.parameterize}", ingr.capitalize %>
+        </div>
+      <% end %>
+    </div>
+
+    <div class="mb-6">
+      <p class="font-semibold mb-2">Choisissez les sauces</p>
+      <% sauces = ["ketchup", "mayonnaise", "moutarde", "sauce blanche", "barbecue", "sriracha"] %> 
+      <%# adapte cette liste à tes sauces réelles %>
+      <% sauces.each do |sauce| %>
+        <div>
+          <%= check_box_tag "cart_dish[sauces][]", sauce, @cart_dish.sauces&.include?(sauce), id: "sauce_#{sauce.parameterize}" %>
+          <%= label_tag "sauce_#{sauce.parameterize}", sauce.capitalize %>
+        </div>
+      <% end %>
+    </div>
+
+    <div>
+      <%= f.submit "Enregistrer les modifications", class: "bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" %>
+    </div>
+  <% end %>
+
+  <div class="mt-6 flex gap-4">
+    <%= link_to "Voir ce plat dans le panier", @cart_dish, class: "px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded" %>
+    <%= link_to "Retour à la liste des plats du panier", cart_dishes_path, class: "px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded" %>
+  </div>
 </div>

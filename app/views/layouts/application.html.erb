@@ -2,22 +2,22 @@
 <html lang="fr">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="mobile-web-app-capable" content="yes">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <title><%= content_for(:title) || "Le Plaisir Snack" %></title>
 
-  <!-- CSS Bootstrap via CDN -->
+  <!-- Bootstrap CSS via CDN -->
   <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css", crossorigin: "anonymous" %>
 
-  <!-- Ton CSS local -->
+  <!-- CSS local -->
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
-  <!-- Rails Turbo/Stimulus avec Importmap -->
+  <!-- Turbo + Importmap -->
   <%= javascript_importmap_tags %>
 
-  <!-- JS Bootstrap via CDN -->
+  <!-- Bootstrap JS via CDN -->
   <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js", crossorigin: "anonymous" %>
 
   <%= csrf_meta_tags %>
@@ -25,79 +25,154 @@
 
   <%= yield :head %>
 
-  <!-- Favicon & icônes -->
-  <link rel="icon" href="/icon.png" type="image/png">
-  <link rel="icon" href="/icon.svg" type="image/svg+xml">
-  <link rel="apple-touch-icon" href="/icon.png">
+  <!-- Favicon -->
+  <link rel="icon" href="/icon.png" type="image/png" />
+  <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/icon.png" />
 
-  <!-- Stripe (si utilisé plus tard) -->
+  <!-- Stripe (plus tard) -->
   <script src="https://js.stripe.com/v3/"></script>
+
+  <style>
+    /* Couleurs principales */
+    body {
+      background-color: #121212;
+      color: #eee;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    /* Navbar custom */
+    .custom-navbar {
+      background-color: #000;
+      border-bottom: 3px solid #d62828;
+      box-shadow: 0 2px 6px rgba(214, 40, 40, 0.6);
+    }
+
+    /* Liens navbar */
+    .nav-link.btn-custom {
+      color: #d62828 !important;
+      font-weight: 600;
+      text-transform: uppercase;
+      transition: color 0.3s ease;
+    }
+
+    .nav-link.btn-custom:hover,
+    .nav-link.btn-custom:focus {
+      color: #f77f00 !important; /* orange vif */
+      text-decoration: underline;
+    }
+
+    /* Navbar brand logo */
+    .navbar-brand img {
+      filter: drop-shadow(0 0 2px #d62828);
+    }
+
+    /* Flash messages */
+    .alert-success {
+      background-color: #1a4d1a;
+      border-color: #3cb371;
+      color: #d4edda;
+    }
+
+    .alert-danger {
+      background-color: #4a1a1a;
+      border-color: #d62828;
+      color: #f8d7da;
+    }
+
+    /* Boutons dans navbar (button_to) */
+    form.d-inline .nav-link.btn-custom {
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 0;
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    /* Conteneur principal */
+    .container.mt-5.pt-4 {
+      min-height: 80vh;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 1rem 0;
+      color: #aaa;
+      background-color: #000;
+      border-top: 1px solid #d62828;
+      margin-top: 3rem;
+    }
+  </style>
 </head>
 
 <body>
-  <!-- Flash messages -->
   <% flash.each do |key, value| %>
     <div class="alert alert-<%= key == "notice" ? "success" : "danger" %> alert-dismissible fade show" role="alert">
       <%= value %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
   <% end %>
 
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container-fluid">
-      <%= link_to "Le Plaisir Snack", root_path, class: "navbar-brand" %>
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+    <div class="container">
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+      <!-- Partie gauche -->
+      <ul class="navbar-nav navbar-left me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Accueil", root_path, class: "nav-link btn-custom" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Nos Plats", dishes_path, class: "nav-link btn-custom" %>
+        </li>
+        <% if user_signed_in? && current_user.cart.present? %>
+          <li class="nav-item">
+            <%= link_to "Mon Panier", cart_path(current_user.cart), class: "nav-link btn-custom" %>
+          </li>
+        <% end %>
+      </ul>
 
-      <div class="collapse navbar-collapse" id="navbarMain">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <%= link_to "Accueil", root_path, class: "nav-link" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Nos Plats", dishes_path, class: "nav-link" %>
-          </li>
-          <% if user_signed_in? && current_user.cart.present? %>
+      <!-- Logo centré -->
+      <%= link_to root_path, class: "navbar-brand mx-auto" do %>
+        <img src="<%= asset_path('logo.png') %>" alt="Le Plaisir Snack" style="height:40px;" />
+      <% end %>
+
+      <!-- Partie droite -->
+      <ul class="navbar-nav navbar-right ms-auto mb-2 mb-lg-0">
+        <% if user_signed_in? %>
+          <% if current_user.admin? %>
             <li class="nav-item">
-              <%= link_to "Mon Panier", cart_path(current_user.cart), class: "nav-link" %>
+              <%= link_to "Admin", rails_admin_path, class: "nav-link btn-custom" %>
             </li>
           <% end %>
-        </ul>
+          <li class="nav-item">
+            <%= button_to "Mon Profil", profile_path, method: :get, class: "nav-link btn-custom p-0 me-2", form_class: "d-inline" %>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Déconnexion", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "nav-link btn-custom p-0", form_class: "d-inline" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Connexion", new_user_session_path, class: "nav-link btn-custom" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Inscription", new_user_registration_path, class: "nav-link btn-custom" %>
+          </li>
+        <% end %>
+      </ul>
 
-        <!-- Partie droite : Connexion / Déconnexion -->
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <% if user_signed_in? %>
-            <% if current_user.admin? %>
-              <li class="nav-item">
-                <%= link_to "Admin", rails_admin_path, class: "nav-link" %>
-              </li>
-            <% end %>
-            <li class="nav-item">
-              <%= button_to "Mon Profil", profile_path, method: :get, class: "nav-link btn btn-link p-0 me-2", form_class: "d-inline" %>
-            </li>
-            <li class="nav-item">
-              <%= button_to "Déconnexion", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "nav-link btn btn-link p-0", form_class: "d-inline" %>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to "Connexion", new_user_session_path, class: "nav-link" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Inscription", new_user_registration_path, class: "nav-link" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
     </div>
   </nav>
 
-  <!-- Contenu principal -->
-  <div class="container mt-5 pt-4">
+  <main class="container mt-5 pt-4">
     <%= yield %>
-  </div>
+  </main>
+
+  <footer>
+    <p>© 2025 Le Plaisir - Tous droits réservés</p>
+  </footer>
 </body>
 
 </html>

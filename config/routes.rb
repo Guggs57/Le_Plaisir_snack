@@ -1,40 +1,31 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  get "profiles/show"
+
   get "home/index"
-  resources :order_dishes
-  resources :orders
-  resources :cart_dishes, only: [:update]
-
-   resources :carts, only: [:show, :create, :update, :destroy] do
-    post 'add_to_cart', on: :member
-  end
-
-  resources :dish_ingredients
-
-  resources :cart_dishes, only: [:destroy] do
-    patch :update_quantity, on: :member
-    end
-
-  resources :ingredients
-
-  resources :dishes
-
+  root "home#index"
+  get "up" => "rails/health#show", as: :rails_health_check
 
   devise_for :users
 
-  resource :profile
+  resource :profile, only: [:show, :edit, :update, :destroy]
 
   resources :orders do
-  member do
-    post :checkout
+    member do
+      post :checkout
+    end
   end
-end
 
+  resources :order_dishes
 
-  get "up" => "rails/health#show", as: :rails_health_check
+  resources :cart_dishes, only: [:index, :show, :edit, :update, :destroy] do
+    patch :update_quantity, on: :member
+  end
 
+  resources :carts, only: [:show, :create, :update, :destroy] do
+    post :add_to_cart, on: :member
+  end
 
-  root "home#index"
-
+  resources :dish_ingredients
+  resources :ingredients
+  resources :dishes
 end
