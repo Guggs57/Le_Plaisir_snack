@@ -86,3 +86,5 @@ gem "dotenv-rails", "~> 3.1"
 
 gem "rails_admin", "~> 3.3"
 gem "sassc-rails"
+
+gem "letter_opener"

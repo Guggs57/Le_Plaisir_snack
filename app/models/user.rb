@@ -4,9 +4,22 @@ class User < ApplicationRecord
 
   has_one :cart, dependent: :destroy
 
+  
+  after_create :welcome_send
+
+  def welcome_send
+    UserMailer.welcome_email(self).deliver_now
+  end
+
+
+  after_create :create_cart
+  has_many :orders, dependent: :destroy 
+
+  def create_cart
   after_create :initialize_cart
   has_many :orders, dependent: :destroy
 
+    
   def initialize_cart
     Cart.create(user: self)
   end
