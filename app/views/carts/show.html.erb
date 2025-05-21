@@ -9,7 +9,12 @@
     <% end %>
 
     <div class="mt-4 text-end">
-      <h4>Total : <%= number_to_currency(@cart_dishes.sum { |cd| cd.dish.price * cd.quantity }) %></h4>
+      <% total = @cart_dishes.sum do |cd| 
+        price = cd.dish.price * cd.quantity 
+        price
+      end %>
+      <h4>Total : <%= number_to_currency(total) %></h4>
+
       <%= link_to "Passer la commande", new_order_path, class: "btn btn-success btn-lg" %>
     </div>
   <% else %>

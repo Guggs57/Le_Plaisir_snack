@@ -5,11 +5,23 @@
       <p class="card-text mb-0">Quantité : <%= cart_dish.quantity %></p>
       <p class="card-text">Prix unitaire : <%= number_to_currency(cart_dish.dish.price) %></p>
       <p class="card-text fw-semibold">Sous-total : <%= number_to_currency(cart_dish.dish.price * cart_dish.quantity) %></p>
+
+      <%# --- Affichage des ingrédients retirés tels que cochés --- %>
+      <% if cart_dish.ingredients.present? && cart_dish.ingredients.any? %>
+        <p class="mt-2 mb-0 fw-semibold">Ingrédients retirés :</p>
+        <ul>
+          <% cart_dish.ingredients.each do |ingr| %>
+            <li><%= ingr.capitalize %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <p class="mt-2 mb-0 fst-italic">Ingrédients par défaut.</p>
+      <% end %>
+
     </div>
 
     <div class="d-flex flex-column align-items-end">
       <%= link_to "Modifier", edit_cart_dish_path(cart_dish), class: "btn btn-outline-primary btn-sm mb-2" %>
-      
       <%= button_to "Supprimer", cart_dish_path(cart_dish), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger btn-sm" %>
     </div>
   </div>

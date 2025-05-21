@@ -9,17 +9,32 @@ end
 
   # Action pour ajouter un plat au panier
   def add_to_cart
-    @cart = current_user.cart || Cart.create(user: current_user)  # Crée le panier si aucun n'existe
-    @dish = Dish.find(params[:dish_id])  # Récupérer le plat par son ID
-  
-  # Ajouter le plat au panier (ou augmenter la quantité)
-    @cart_dish = @cart.cart_dishes.find_or_initialize_by(dish: @dish)
-    @cart_dish.quantity ||= 0  # Si quantity est nil, on l'initialise à 0
-    @cart_dish.quantity += 1    # On ajoute 1 à la quantité
-    @cart_dish.save
+  @cart = current_user.cart || Cart.create(user: current_user)
+  @dish = Dish.find(params[:dish_id])
 
-  redirect_to cart_path(@cart), notice: "#{@dish.title} a été ajouté au panier."
+  # On récupère les ingrédients cochés pour suppression (peut être nil)
+  removed_ingredients = params[:removed_ingredients] || []
+
+  # Trouver ou initialiser un CartDish avec les mêmes ingrédients retirés (personnalisation)
+  @cart_dish = @cart.cart_dishes.find do |cd|
+    cd.dish_id == @dish.id && (cd.ingredients || []).sort == removed_ingredients.sort
   end
+
+  if @cart_dish
+    # Si on a déjà un cart_dish avec cette personnalisation, on augmente la quantité
+    @cart_dish.quantity += 1
+  else
+    # Sinon, on en crée un nouveau avec les ingrédients retirés
+    @cart_dish = @cart.cart_dishes.new(dish: @dish, quantity: 1, ingredients: removed_ingredients)
+  end
+
+  if @cart_dish.save
+    redirect_to cart_path(@cart), notice: "#{@dish.title} ajouté au panier avec vos modifications."
+  else
+    redirect_to dish_path(@dish), alert: "Impossible d'ajouter le plat au panier."
+  end
+end
+
 
   # Actions existantes : create, update, destroy
   def create

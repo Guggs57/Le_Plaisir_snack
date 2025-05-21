@@ -12,9 +12,10 @@
     <div class="mb-4">
       <h2 class="font-semibold mb-2">Ingrédients à retirer</h2>
       <% ingrédients = @cart_dish.dish.ingredients %>
+      <% selected_ingredients = @cart_dish.ingredients || [] %>
       <% ingrédients.each do |ingr| %>
         <div>
-          <%= check_box_tag "cart_dish[ingredients][]", ingr, (@cart_dish.ingredients || []).include?(ingr), id: "ingredient_#{ingr.parameterize}" %>
+          <%= check_box_tag "cart_dish[ingredients][]", ingr, selected_ingredients.include?(ingr), id: "ingredient_#{ingr.parameterize}" %>
           <%= label_tag "ingredient_#{ingr.parameterize}", ingr.capitalize %>
         </div>
       <% end %>
@@ -23,9 +24,10 @@
     <div class="mb-4">
       <h2 class="font-semibold mb-2">Sauces (optionnel)</h2>
       <% sauces_disponibles = ["ketchup", "mayonnaise", "harissa", "samouraï"] %> 
+      <% selected_sauces = @cart_dish.sauces || [] %>
       <% sauces_disponibles.each do |sauce| %>
         <div>
-          <%= check_box_tag "cart_dish[sauces][]", sauce, (@cart_dish.sauces || []).include?(sauce), id: "sauce_#{sauce.parameterize}" %>
+          <%= check_box_tag "cart_dish[sauces][]", sauce, selected_sauces.include?(sauce), id: "sauce_#{sauce.parameterize}" %>
           <%= label_tag "sauce_#{sauce.parameterize}", sauce.capitalize %>
         </div>
       <% end %>

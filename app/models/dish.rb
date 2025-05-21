@@ -8,6 +8,8 @@ class Dish < ApplicationRecord
   has_many :order_dishes
   has_many :orders, through: :order_dishes
   has_one_attached :image
+  has_many :dish_ingredients, dependent: :destroy
+  has_many :ingredients, through: :dish_ingredients
 
 def ingredients
     [
