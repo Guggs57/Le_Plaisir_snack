@@ -108,10 +108,11 @@ body, html {
   margin-bottom: 2rem;
 }
 
+/* BOUTONS */
 .btn {
   display: inline-block;
   padding: 1rem 2rem;
-  background-color: #d62828;
+  background-color: #d62828;  /* rouge vif */
   color: #ffffff;
   text-decoration: none;
   font-weight: bold;
@@ -120,10 +121,21 @@ body, html {
   transition: all 0.3s ease;
   border: none;
   font-size: 1rem;
+  cursor: pointer;
 }
 
 .btn:hover {
   background-color: #b91d1d;
+  transform: translateY(-2px);
+}
+
+/* Bouton 'Payer sur place' */
+.btn-pay-on-site {
+  background-color: #007f5f; /* vert foncé */
+}
+
+.btn-pay-on-site:hover {
+  background-color: #00563a;
   transform: translateY(-2px);
 }
 

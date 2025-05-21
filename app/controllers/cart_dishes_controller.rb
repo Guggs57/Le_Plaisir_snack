@@ -1,29 +1,28 @@
 class CartDishesController < ApplicationController
   before_action :set_cart_dish, only: %i[show edit update destroy update_quantity]
-  
 
   def index
     @cart_dishes = CartDish.all
   end
 
   def show
-  @cart = Cart.find(params[:id])
-  @cart_dishes = @cart.cart_dishes.includes(:dish)
-end
-
+    @cart = @cart_dish.cart
+    @dish = @cart_dish.dish
+  end
 
   def new
     @cart_dish = CartDish.new
   end
 
   def edit
+    # rien à changer, @cart_dish chargé par set_cart_dish
   end
 
   def create
     @cart_dish = CartDish.new(cart_dish_params)
 
     if @cart_dish.save
-      redirect_to @cart_dish, notice: "Cart dish was successfully created."
+      redirect_to @cart_dish, notice: "Plat ajouté au panier avec succès."
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,9 +30,9 @@ end
 
   def update
     if @cart_dish.update(cart_dish_params)
-      redirect_to cart_path(@cart_dish.cart), notice: 'Quantité mise à jour avec succès.'
+      redirect_to cart_path(@cart_dish.cart), notice: 'Modification enregistrée avec succès.'
     else
-      redirect_to cart_path(@cart_dish.cart), alert: 'Une erreur est survenue.'
+      render :edit, status: :unprocessable_entity
     end
   end
 

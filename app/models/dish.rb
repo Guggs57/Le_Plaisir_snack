@@ -8,4 +8,20 @@ class Dish < ApplicationRecord
   has_many :order_dishes
   has_many :orders, through: :order_dishes
   has_one_attached :image
+
+def ingredients
+    [
+      "salade",
+      "tomate",
+      "oignons",
+      "choux blanc",
+      "choux rouge",
+      "piment vert",
+      "piment rouge",
+      "concombre"
+    ]
+  end
+
 end
+
+  

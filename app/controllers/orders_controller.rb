@@ -8,11 +8,11 @@ class OrdersController < ApplicationController
 
   # GET /orders/1
   def show
-    # Vérifier si la commande a déjà été payée
+    # Vérifier si la commande a déjà été payée (si paiement Stripe)
     if @order.status == 'pending' && @order.stripe_session_id.present?
       session = Stripe::Checkout::Session.retrieve(@order.stripe_session_id)
 
-      # Si le paiement est réussi, mettez à jour l'état de la commande
+      # Si le paiement est réussi, mettre à jour l'état de la commande
       if session.payment_status == 'paid'
         @order.update(status: 'paid')
       end
@@ -22,6 +22,7 @@ class OrdersController < ApplicationController
   # GET /orders/new
   def new
     @order = Order.new
+    @cart = current_user.cart
   end
 
   # GET /orders/1/edit
@@ -38,8 +39,11 @@ class OrdersController < ApplicationController
       return
     end
 
-    # Créer une nouvelle commande avec le prix total du panier
-    @order = current_user.orders.create!(total_price: @cart.total_price, status: 'pending')
+    # Déterminer le statut de la commande selon le bouton cliqué
+    order_status = params[:pay_on_site].present? ? 'pending_payment' : 'pending'
+
+    # Créer la commande avec le prix total et le statut
+    @order = current_user.orders.create!(total_price: @cart.total_price, status: order_status)
 
     # Ajouter les plats du panier à la commande
     @cart.cart_dishes.each do |cart_dish|
@@ -49,37 +53,42 @@ class OrdersController < ApplicationController
     # Vider le panier après la création de la commande
     @cart.cart_dishes.destroy_all
 
-    # Créer une session de paiement Stripe
-    session = Stripe::Checkout::Session.create({
-      payment_method_types: ['card'],
-      line_items: @order.order_dishes.map do |od|
-        {
-          price_data: {
-            currency: 'usd',  # Ou 'eur' si tu préfères
-            product_data: {
-              name: od.dish.title,  # Utilise `od.dish` pour accéder au plat
+    if params[:pay_on_site].present?
+      # Rediriger vers la page de confirmation commande pour paiement sur place
+      redirect_to order_path(@order), notice: "Commande créée, vous pourrez la régler sur place."
+    else
+      # Créer une session de paiement Stripe
+      session = Stripe::Checkout::Session.create({
+        payment_method_types: ['card'],
+        line_items: @order.order_dishes.map do |od|
+          {
+            price_data: {
+              currency: 'eur',  # adapte selon ta monnaie
+              product_data: {
+                name: od.dish.title,
+              },
+              unit_amount: (od.dish.price * 100).to_i,
             },
-            unit_amount: (od.dish.price * 100).to_i,  # Stripe attend le montant en cents
-          },
-          quantity: od.quantity,
-        }
-      end,
-      mode: 'payment',
-      success_url: order_url(@order), # Rediriger l'utilisateur après paiement réussi
-      cancel_url: cart_url(@cart),    # Rediriger l'utilisateur en cas d'annulation
-    })
+            quantity: od.quantity,
+          }
+        end,
+        mode: 'payment',
+        success_url: order_url(@order),
+        cancel_url: cart_url(@cart),
+      })
 
-    # Mettez à jour la session Stripe ID dans la commande
-    @order.update(stripe_session_id: session.id)
+      # Mettre à jour la session Stripe ID dans la commande
+      @order.update(stripe_session_id: session.id)
 
-    # Rediriger l'utilisateur vers Stripe pour le paiement
-    redirect_to session.url, allow_other_host: true
+      # Rediriger l'utilisateur vers Stripe pour paiement
+      redirect_to session.url, allow_other_host: true
+    end
   end
 
   # PATCH/PUT /orders/1
   def update
     if @order.update(order_params)
-      redirect_to @order, notice: "Order was successfully updated.", status: :see_other
+      redirect_to @order, notice: "Commande mise à jour avec succès.", status: :see_other
     else
       render :edit, status: :unprocessable_entity
     end
@@ -88,17 +97,15 @@ class OrdersController < ApplicationController
   # DELETE /orders/1
   def destroy
     @order.destroy!
-    redirect_to orders_path, notice: "Order was successfully destroyed.", status: :see_other
+    redirect_to orders_path, notice: "Commande supprimée.", status: :see_other
   end
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_order
     @order = Order.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
   def order_params
     params.require(:order).permit(:user_id, :total_price, :status)
   end
