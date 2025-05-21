@@ -29,6 +29,10 @@ class CartDishesController < ApplicationController
   end
 
   def update
+    # Important : forcer tableau vide si aucun ingrédient ou sauce sélectionné
+    params[:cart_dish][:ingredients] ||= []
+    params[:cart_dish][:sauces] ||= []
+
     if @cart_dish.update(cart_dish_params)
       redirect_to cart_path(@cart_dish.cart), notice: 'Modification enregistrée avec succès.'
     else
