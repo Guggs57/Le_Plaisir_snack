@@ -1,54 +1,15 @@
-<div class="w-full max-w-6xl mx-auto px-4 py-10">
-  <% if notice.present? %>
-    <p class="py-2 px-3 bg-green-100 mb-5 text-green-700 font-medium rounded-md shadow-sm" id="notice">
-      <%= notice %>
-    </p>
+<h3>Personnaliser et ajouter au panier</h3>
+
+<%= form_with url: add_to_cart_cart_path(@cart || Cart.new), method: :post, local: true do |form| %>
+  <p>Cochez les ingrédients à <strong>retirer</strong> :</p>
+
+  <% @dish.ingredients.each do |ingredient| %>
+    <div>
+      <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}" %>
+      <%= label_tag "ingr_#{ingredient}", ingredient.capitalize %>
+    </div>
   <% end %>
 
-  <div class="flex flex-col sm:flex-row items-center justify-between mb-8">
-    <!-- Image du plat -->
-    <% if @dish.image.attached? %>
-      <div class="w-full sm:w-1/2 mb-6 sm:mb-0">
-        <%= image_tag @dish.image, class: "w-full h-auto rounded-lg shadow-lg object-cover" %>
-      </div>
-    <% end %>
-
-    <!-- Détails du plat -->
-    <div class="w-full sm:w-1/2">
-      <h1 class="text-3xl font-semibold text-gray-800 mb-3"><%= @dish.title %></h1>
-      <p class="text-lg text-gray-600 mb-4"><%= @dish.description %></p>
-      <p class="text-2xl font-bold text-gray-900 mb-6"><%= number_to_currency(@dish.price) %></p>
-
-      <!-- Formulaire de personnalisation -->
-      <% if @cart.present? %>
-        <%= form_with url: add_to_cart_cart_path(@cart.id, dish_id: @dish.id), method: :post, class: "space-y-4" do |f| %>
-          <div class="space-y-2">
-            <h4 class="text-lg font-semibold text-gray-800">Personnalisez votre plat</h4>
-            
-            <!-- Exemple d'option de personnalisation -->
-            <div>
-              <%= f.check_box :without_onions, class: "mr-2" %>
-              <%= f.label :without_onions, "Sans oignons" %>
-            </div>
-            <div>
-              <%= f.check_box :extra_salad, class: "mr-2" %>
-              <%= f.label :extra_salad, "Ajouter de la salade" %>
-            </div>
-
-            <%= f.submit "Ajouter au panier", class: "w-full px-4 py-2 bg-green-600 hover:bg-green-500 text-white rounded-md font-medium transition-all duration-300 ease-in-out" %>
-          </div>
-        <% end %>
-      <% else %>
-        <p class="text-red-600 font-semibold">
-          Pour ajouter ce plat au panier, veuillez 
-          <%= link_to "vous connecter", new_user_session_path, class: "underline hover:text-red-800" %>.
-        </p>
-      <% end %>
-    </div>
-  </div>
-
-  <!-- Ajouter un retour à la liste des plats -->
-  <div class="text-center mt-10">
-    <%= link_to "Retour à la carte", dishes_path, class: "inline-block px-6 py-3 bg-gray-700 text-white rounded-md hover:bg-gray-600 transition-all duration-300 ease-in-out" %>
-  </div>
-</div>
+  <%= hidden_field_tag :dish_id, @dish.id %>
+  <%= submit_tag "Ajouter au panier", class: "btn btn-primary mt-3" %>
+<% end %>

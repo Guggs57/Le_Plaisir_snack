@@ -15,7 +15,7 @@ class CartDishesController < ApplicationController
   end
 
   def edit
-    # rien à changer, @cart_dish chargé par set_cart_dish
+    # @cart_dish est déjà chargé par set_cart_dish
   end
 
   def create

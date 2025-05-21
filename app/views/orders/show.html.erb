@@ -1,11 +1,47 @@
-<h2>Commande n°<%= @order.id %></h2>
+<h1>Commande n° <%= @order.id %></h1>
 
-<ul>
-  <% @order.order_dishes.each do |od| %>
-    <li>
-      <%= od.quantity %> x <%= od.dish.title %> - <%= number_to_currency(od.dish.price * od.quantity) %>
-    </li>
+<p>
+  <strong>Statut :</strong> <%= @order.status.capitalize %><br>
+  <strong>Prix total :</strong> <%= number_to_currency(@order.total_price, unit: "€") %><br>
+  <strong>Date :</strong> <%= l(@order.created_at, format: :long) %>
+</p>
+
+<h2>Articles commandés :</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Plat</th>
+      <th>Quantité</th>
+      <th>Prix unitaire</th>
+      <th>Sous-total</th>
+      <th>Ingrédients retirés</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @order.order_dishes.each do |order_dish| %>
+      <tr>
+        <td><%= order_dish.dish.title %></td>
+        <td><%= order_dish.quantity %></td>
+        <td><%= number_to_currency(order_dish.dish.price, unit: "€") %></td>
+        <td><%= number_to_currency(order_dish.dish.price * order_dish.quantity, unit: "€") %></td>
+        <td>
+          <% if order_dish.ingredients.present? && order_dish.ingredients.any? %>
+            <%= order_dish.ingredients.join(", ") %>
+          <% else %>
+            Aucun ingrédient retiré
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<p>
+  <% if current_user&.admin? %>
+    <%= link_to "Retour aux commandes", orders_path, class: "btn" %>
+  <% else %>
+    <%= link_to "Retour à l'accueil", root_path, class: "btn" %>
   <% end %>
-</ul>
+</p>
 
-<p><strong>Total :</strong> <%= number_to_currency(@order.total_price) %></p>

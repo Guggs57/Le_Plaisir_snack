@@ -7,17 +7,17 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/1
-  def show
-    # Vérifier si la commande a déjà été payée (si paiement Stripe)
-    if @order.status == 'pending' && @order.stripe_session_id.present?
-      session = Stripe::Checkout::Session.retrieve(@order.stripe_session_id)
-
-      # Si le paiement est réussi, mettre à jour l'état de la commande
-      if session.payment_status == 'paid'
-        @order.update(status: 'paid')
+    def show
+      @order = Order.find(params[:id])
+      # Stripe check et mise à jour de status si nécessaire
+      if @order.status == 'pending' && @order.stripe_session_id.present?
+        session = Stripe::Checkout::Session.retrieve(@order.stripe_session_id)
+        if session.payment_status == 'paid'
+          @order.update(status: 'paid')
+        end
       end
     end
-  end
+
 
   # GET /orders/new
   def new
@@ -33,40 +33,37 @@ class OrdersController < ApplicationController
   def create
     @cart = current_user.cart
 
-    # Vérifier si le panier est vide
     if @cart.cart_dishes.empty?
       redirect_to cart_path(@cart), alert: "Votre panier est vide. Ajoutez des articles avant de passer la commande."
       return
     end
 
-    # Déterminer le statut de la commande selon le bouton cliqué
     order_status = params[:pay_on_site].present? ? 'pending_payment' : 'pending'
 
-    # Créer la commande avec le prix total et le statut
     @order = current_user.orders.create!(total_price: @cart.total_price, status: order_status)
 
-    # Ajouter les plats du panier à la commande
+    # Copier aussi les ingrédients personnalisés depuis cart_dish.ingredients
     @cart.cart_dishes.each do |cart_dish|
-      @order.order_dishes.create!(dish_id: cart_dish.dish_id, quantity: cart_dish.quantity)
+      @order.order_dishes.create!(
+        dish_id: cart_dish.dish_id,
+        quantity: cart_dish.quantity,
+        ingredients: cart_dish.ingredients # <-- copie ici les ingrédients personnalisés
+      )
     end
 
     # Vider le panier après la création de la commande
     @cart.cart_dishes.destroy_all
 
     if params[:pay_on_site].present?
-      # Rediriger vers la page de confirmation commande pour paiement sur place
       redirect_to order_path(@order), notice: "Commande créée, vous pourrez la régler sur place."
     else
-      # Créer une session de paiement Stripe
       session = Stripe::Checkout::Session.create({
         payment_method_types: ['card'],
         line_items: @order.order_dishes.map do |od|
           {
             price_data: {
-              currency: 'eur',  # adapte selon ta monnaie
-              product_data: {
-                name: od.dish.title,
-              },
+              currency: 'eur',
+              product_data: { name: od.dish.title },
               unit_amount: (od.dish.price * 100).to_i,
             },
             quantity: od.quantity,
@@ -77,10 +74,8 @@ class OrdersController < ApplicationController
         cancel_url: cart_url(@cart),
       })
 
-      # Mettre à jour la session Stripe ID dans la commande
       @order.update(stripe_session_id: session.id)
 
-      # Rediriger l'utilisateur vers Stripe pour paiement
       redirect_to session.url, allow_other_host: true
     end
   end
