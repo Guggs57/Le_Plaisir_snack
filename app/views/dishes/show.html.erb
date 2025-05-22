@@ -1,15 +1,46 @@
-<h3>Personnaliser et ajouter au panier</h3>
+<h1><%= @dish.title %></h1>
 
-<%= form_with url: add_to_cart_cart_path(@cart || Cart.new), method: :post, local: true do |form| %>
-  <p>Cochez les ingrédients à <strong>retirer</strong> :</p>
+<p><strong>Description :</strong> <%= @dish.description %></p>
+<p><strong>Prix :</strong> <%= number_to_currency(@dish.price, unit: "€") %></p>
 
-  <% @dish.ingredients.each do |ingredient| %>
-    <div>
-      <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}" %>
-      <%= label_tag "ingr_#{ingredient}", ingredient.capitalize %>
-    </div>
+<% if @dish.image_url.present? %>
+  <div class="my-4">
+    <%= image_tag @dish.image_url, alt: @dish.title, class: "w-64 rounded shadow" %>
+  </div>
+<% end %>
+
+<% if user_signed_in? && @cart %>
+  <h3>Personnaliser et ajouter au panier</h3>
+
+  <%= form_with url: add_to_cart_cart_path(@cart), method: :post, local: true do |form| %>
+    <% if @ingredients.any? %>
+      <p>Cochez les ingrédients à <strong>retirer</strong> :</p>
+
+      <% @ingredients.each do |ingredient| %>
+        <div>
+          <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}" %>
+          <%= label_tag "ingr_#{ingredient}", ingredient.capitalize %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <% if @sauces.any? %>
+      <p class="mt-4">Cochez les <strong>sauces à retirer</strong> :</p>
+
+      <% @sauces.each do |sauce| %>
+        <div>
+          <%= check_box_tag "removed_sauces[]", sauce, false, id: "sauce_#{sauce}" %>
+          <%= label_tag "sauce_#{sauce}", sauce.capitalize %>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= hidden_field_tag :dish_id, @dish.id %>
+    <%= submit_tag "Ajouter au panier", class: "btn btn-primary mt-3" %>
   <% end %>
-
-  <%= hidden_field_tag :dish_id, @dish.id %>
-  <%= submit_tag "Ajouter au panier", class: "btn btn-primary mt-3" %>
+<% else %>
+  <div class="mt-6 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+    <p>Vous devez être connecté pour personnaliser et ajouter ce plat au panier.</p>
+    <%= link_to "Se connecter", new_user_session_path, class: "underline text-blue-700" %>
+  </div>
 <% end %>

@@ -1,7 +1,7 @@
 class DishesController < ApplicationController
   before_action :set_dish, only: %i[show edit update destroy]
   before_action :check_admin, only: %i[new create edit update destroy]
-  before_action :set_cart, only: [:index]  # Ajouter cette ligne pour définir le panier
+  before_action :set_cart, only: [:index]  # Pour définir le panier sur l’index
 
   # GET /dishes
   def index
@@ -10,17 +10,22 @@ class DishesController < ApplicationController
 
   # GET /dishes/1
   def show
-      @dish = Dish.find(params[:id])
-      if user_signed_in?
-        @cart = current_user.cart || current_user.create_cart
-      else
-        @cart = nil
-      end
+    @dish = Dish.find(params[:id])
+
+    if user_signed_in?
+      @cart = current_user.cart || current_user.create_cart
+    else
+      @cart = nil
+    end
+
+    # Séparer les ingrédients des sauces (par nom)
+    @ingredients = @dish.ingredients.reject { |i| i.downcase.include?("sauce") }
+    @sauces = @dish.ingredients.select { |i| i.downcase.include?("sauce") }
   end
 
   # GET /dishes/new
   def new
-      @dish = Dish.new
+    @dish = Dish.new
   end
 
   # GET /dishes/1/edit
@@ -55,24 +60,24 @@ class DishesController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
+  # Récupérer le plat via l’ID
   def set_dish
-    @dish = Dish.find(params[:id])  # Utilisation de `params[:id]` au lieu de `params.expect(:id)`
+    @dish = Dish.find(params[:id])
   end
 
-  # Only allow a list of trusted parameters through.
+  # Autoriser les paramètres
   def dish_params
-    params.require(:dish).permit(:title, :description, :price, :image_url)  # Utilisation de `require` et `permit`
+    params.require(:dish).permit(:title, :description, :price, :image_url)
   end
 
-  # Vérification si l'utilisateur est un administrateur
+  # Empêcher les non-admins d'accéder à certaines actions
   def check_admin
     unless current_user&.admin?
-      redirect_to dishes_path, alert: "You are not authorized to perform this action."  # Redirige si non-admin
+      redirect_to dishes_path, alert: "You are not authorized to perform this action."
     end
   end
 
-  # Méthode pour récupérer ou créer le panier de l'utilisateur
+  # Définir le panier (utilisé pour l'index)
   def set_cart
     if current_user
       @cart = current_user.cart || current_user.create_cart
@@ -80,5 +85,4 @@ class DishesController < ApplicationController
       @cart = nil
     end
   end
-
 end
