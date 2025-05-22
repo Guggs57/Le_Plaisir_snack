@@ -1,39 +1,38 @@
-<h1><%= @dish.title %></h1>
+<h1 class="text-3xl font-bold mb-4"><%= @dish.title %></h1>
 
-<p><strong>Description :</strong> <%= @dish.description %></p>
-<p><strong>Prix :</strong> <%= number_to_currency(@dish.price, unit: "€") %></p>
+<div class="mb-4">
+  <%= image_tag(@dish.image_url, alt: @dish.title, class: "img-fluid rounded shadow") if @dish.image_url.present? %>
+  <p class="mt-3"><%= @dish.description %></p>
+  <p class="text-lg font-semibold mt-2">Prix : <%= number_to_currency(@dish.price) %></p>
+</div>
 
-<% if @dish.image_url.present? %>
-  <div class="my-4">
-    <%= image_tag @dish.image_url, alt: @dish.title, class: "w-64 rounded shadow" %>
-  </div>
-<% end %>
+<h3 class="text-xl font-semibold mt-6 mb-2">Personnaliser et ajouter au panier</h3>
 
 <% if user_signed_in? && @cart %>
-  <h3>Personnaliser et ajouter au panier</h3>
-
   <%= form_with url: add_to_cart_cart_path(@cart), method: :post, local: true do |form| %>
+    
     <% if @ingredients.any? %>
-      <p>Cochez les ingrédients à <strong>retirer</strong> :</p>
-
-      <% @ingredients.each do |ingredient| %>
-        <div>
-          <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}" %>
-          <%= label_tag "ingr_#{ingredient}", ingredient.capitalize %>
-        </div>
-      <% end %>
+      <p class="font-medium mb-1">Cochez les ingrédients à <strong>retirer</strong> :</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+        <% @ingredients.each do |ingredient| %>
+          <div>
+            <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}" %>
+            <%= label_tag "ingr_#{ingredient}", ingredient.capitalize %>
+          </div>
+        <% end %>
+      </div>
     <% end %>
 
-    <% if @sauces.any? %>
-      <p class="mt-4">Cochez les <strong>sauces à retirer</strong> :</p>
-
-      <% @sauces.each do |sauce| %>
+    <p class="font-medium mb-1">Choisissez vos sauces :</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+      <% Dish.available_sauces.each do |sauce| %>
         <div>
-          <%= check_box_tag "removed_sauces[]", sauce, false, id: "sauce_#{sauce}" %>
-          <%= label_tag "sauce_#{sauce}", sauce.capitalize %>
+          <%= check_box_tag "selected_sauces[]", sauce, sauce.downcase.include?("blanche"), id: "sauce_#{sauce.parameterize}" %>
+          <%= label_tag "sauce_#{sauce.parameterize}", sauce.capitalize %>
         </div>
       <% end %>
-    <% end %>
+    </div>
+
 
     <div class="mt-4">
       <%= check_box_tag :menu_option, "1", false, id: "menu_option" %>
@@ -41,11 +40,11 @@
     </div>
 
     <%= hidden_field_tag :dish_id, @dish.id %>
-    <%= submit_tag "Ajouter au panier", class: "btn btn-primary mt-3" %>
+    <%= submit_tag "Ajouter au panier", class: "btn btn-primary" %>
   <% end %>
 <% else %>
-  <div class="mt-6 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
-    <p>Vous devez être connecté pour personnaliser et ajouter ce plat au panier.</p>
-    <%= link_to "Se connecter", new_user_session_path, class: "underline text-blue-700" %>
+  <div class="alert alert-info mt-4">
+    <p>Vous devez être connecté pour ajouter au panier.</p>
+    <%= link_to "Se connecter", new_user_session_path, class: "btn btn-outline-primary mt-2" %>
   </div>
 <% end %>
