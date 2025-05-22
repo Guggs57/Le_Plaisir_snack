@@ -20,16 +20,23 @@ class CartDishesController < ApplicationController
 
   def create
     @cart_dish = CartDish.new(cart_dish_params)
+    @cart_dish.cart = current_user.cart || current_user.create_cart
+
+    # Ingrédients retirés
+    @cart_dish.ingredients = params[:removed_ingredients] || []
+
+    # Sauces choisies ou valeur par défaut
+    @cart_dish.sauces = params[:selected_sauces].present? ? params[:selected_sauces] : ["sauce blanche"]
 
     if @cart_dish.save
-      redirect_to @cart_dish, notice: "Plat ajouté au panier avec succès."
+      redirect_to cart_path(@cart_dish.cart), notice: "Plat ajouté au panier avec succès."
     else
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    # Important : forcer tableau vide si aucun ingrédient ou sauce sélectionné
+    # Sécurise les tableaux vides si rien n’est coché
     params[:cart_dish][:ingredients] ||= []
     params[:cart_dish][:sauces] ||= []
 

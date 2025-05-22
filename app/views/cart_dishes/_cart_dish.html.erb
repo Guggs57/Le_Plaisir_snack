@@ -6,7 +6,7 @@
       <p class="card-text">Prix unitaire : <%= number_to_currency(cart_dish.dish.price) %></p>
       <p class="card-text fw-semibold">Sous-total : <%= number_to_currency(cart_dish.dish.price * cart_dish.quantity) %></p>
 
-      <%# --- Affichage des ingrédients retirés tels que cochés --- %>
+      <%# --- Ingrédients retirés --- %>
       <% if cart_dish.ingredients.present? && cart_dish.ingredients.any? %>
         <p class="mt-2 mb-0 fw-semibold">Ingrédients retirés :</p>
         <ul>
@@ -15,9 +15,22 @@
           <% end %>
         </ul>
       <% else %>
-        <p class="mt-2 mb-0 fst-italic">Ingrédients par défaut.</p>
+        <p class="mt-2 mb-0 fst-italic">Avec tout</p>
       <% end %>
 
+      <%# --- Sauces choisies ou par défaut --- %>
+      <p class="mt-2 mb-0 fw-semibold">Avec sauce :</p>
+      <% if cart_dish.sauces.present? && cart_dish.sauces.any? %>
+        <ul>
+          <% cart_dish.sauces.each do |sauce| %>
+            <li><%= sauce.capitalize %></li>
+          <% end %>
+        </ul>
+      <% else %>
+        <ul>
+          <li>Sauce blanche</li>
+        </ul>
+      <% end %>
     </div>
 
     <div class="d-flex flex-column align-items-end">

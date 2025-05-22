@@ -24,6 +24,23 @@ def ingredients
     ]
   end
 
+   def self.available_sauces
+    [
+      "curry",
+      "ketchup curry",
+      "mayo",
+      "sketchup",
+      "algerienne",
+      "marocaine",
+      "andalouse",
+      "blanche",
+      "samourai",
+      "harissa",
+      "sauce blanche",
+      "fromagère"
+    ]
+  end
+
 end
 
   
