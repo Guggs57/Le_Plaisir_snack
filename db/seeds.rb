@@ -1,51 +1,78 @@
-require 'faker'
-
-puts "🧹 Nettoyage..."
 Dish.destroy_all
-Ingredient.destroy_all
-User.destroy_all
-Cart.destroy_all
 
-puts "🍔 Création de 20 plats..."
+# ----- SANDWICHS -----
+Dish.create!(title: "KEBAB", price: 5.5)
+Dish.create!(title: "KEBAB XL", price: 8)
+Dish.create!(title: "DEMI KEBAB", price: 4)
+Dish.create!(title: "MIX", price: 6)
+Dish.create!(title: "POULET", price: 6)
+Dish.create!(title: "SUCUK", price: 5)
+Dish.create!(title: "FALAFEL", price: 5)
+Dish.create!(title: "VEGETARIEN KEBAB", price: 4.5)
+Dish.create!(title: "TOASTT FROMAGE CHEESE", price: 5)
+Dish.create!(title: "HAMBURGER", price: 5)
+Dish.create!(title: "CHEESE", price: 5.5)
+Dish.create!(title: "AMERICAN", price: 8)
+Dish.create!(title: "KÖFTE", price: 5.5)
 
-20.times do
-  Dish.create!(
-    title: Faker::Food.dish,
-    description: Faker::Food.description,
-    price: rand(5.0..15.0).round(2),
-    image_url: "https://source.unsplash.com/600x400/?food,#{rand(1000)}"
-  )
-end
+# ----- TACOS -----
+Dish.create!(title: "DURUM KEBAB", price: 6)
+Dish.create!(title: "DURUM POULET", price: 6)
+Dish.create!(title: "LAHMACUM KEBAB", price: 6)
+Dish.create!(title: "LAHMACUM POULET", price: 6)
+Dish.create!(title: "TACOS 1 VIANDE", price: 5.5)
+Dish.create!(title: "TACOS 2 VIANDES", price: 7)
+Dish.create!(title: "TACOS 3 VIANDES", price: 8)
 
-puts "✅ Plats créés !"
+# ----- ASSIETTES -----
+Dish.create!(title: "ASSIETTE KEBAB", price: 10)
+Dish.create!(title: "ASSIETTE POULET", price: 10.5)
+Dish.create!(title: "ASSIETTE KÖFTE", price: 10.5)
+Dish.create!(title: "ASSIETTE SUCUK", price: 10)
+Dish.create!(title: "ASSIETTE ROYALE 3 VIANDES", price: 13)
+Dish.create!(title: "ASSIETTE FALAFEL", price: 9.5)
+Dish.create!(title: "ASSIETTE OMELETTE", price: 9.5)
+Dish.create!(title: "ASSIETTE CHEESE", price: 10.5)
+Dish.create!(title: "ASSIETTE HAMBURGER", price: 10.5)
+Dish.create!(title: "ESCALOPE PANÉE", price: 9.5, description: "Servie avec salades et frites")
+Dish.create!(title: "ESCALOPE CRÈME CHAMPIGNONS", price: 9.5, description: "Servie avec salades et frites")
+Dish.create!(title: "ESCALOPE PARMIGIANA", price: 9.5, description: "Servie avec salades et frites")
 
-puts "🌿 Création des ingrédients..."
+# ----- PÂTES -----
+Dish.create!(title: "ARABIATA", price: 6, description: "Tomate douce, basilic")
+Dish.create!(title: "BOLOGNAISE", price: 7.5, description: "Mélanges légumes de saison")
+Dish.create!(title: "POULET (PÂTES)", price: 7.5, description: "Champignons, crème, poivre frais")
+Dish.create!(title: "SAUMON", price: 8, description: "Crème")
+Dish.create!(title: "CARBONARA", price: 7.5, description: "Jambon halal, crème")
 
-ingredients_list = %w[
-  salade tomate oignon fromage poulet bacon avocat cornichon concombre
-  carotte poivron champignon ketchup mayonnaise harissa samouraï
-]
+# ----- PIDE -----
+Dish.create!(title: "PIDÉ KEBAB", price: 7)
+Dish.create!(title: "PIDÉ SUCUK", price: 6.5)
+Dish.create!(title: "PIDÉ FROMAGE", price: 6.5)
+Dish.create!(title: "PIDÉ VIANDE HACHÉE", price: 7.5)
+Dish.create!(title: "CALZONE", price: 7, description: "Sauce tomate, fromage")
+Dish.create!(title: "CALZONE KEBAB", price: 8, description: "Sauce tomate, kebab, fromage")
 
-ingredients_list.each do |name|
-  Ingredient.create!(name: name)
-end
+# ----- SALADES -----
+Dish.create!(title: "SALADE KEBAB COMPOSÉE", price: 7, description: "Salade, olives")
+Dish.create!(title: "SALADE POULET", price: 7.5, description: "Salade, oignons, tomate, concombre, chou")
+Dish.create!(title: "SALADE NIZZA", price: 7.5, description: "Salade, thon, oignon, tomate, concombre, œuf")
+Dish.create!(title: "SALADE DU CHEF", price: 7, description: "Salade, tomate, concombre, oignon, olive, feta, œuf")
+Dish.create!(title: "SALADE KASA", price: 7, description: "Salade, œuf, jambon halal")
 
-puts "✅ Ingrédients créés !"
+# ----- SPÉCIALITÉS TURQUES -----
+Dish.create!(title: "SOUPE DU JOUR CHORBA", price: 4.5)
+Dish.create!(title: "KARNI YARIK", price: 10.5, description: "Aubergine, viande hachée, légumes, sauce tomate")
 
-puts "👤 Création d'un utilisateur de test..."
+# ----- EXTRAS -----
+Dish.create!(title: "PETITE FRITE", price: 2.5)
+Dish.create!(title: "GRANDE FRITE", price: 3.5)
+Dish.create!(title: "PETIT BULGUR", price: 3)
+Dish.create!(title: "GRAND BULGUR", price: 4)
+Dish.create!(title: "SIRAGA BOREGI (6 PIÈCES)", price: 6.5)
+Dish.create!(title: "TENDERS (5 PIÈCES)", price: 6.5)
+Dish.create!(title: "NUGGETS (6 PIÈCES)", price: 5.5)
+Dish.create!(title: "SUPPLÉMENT FROMAGE", price: 0.5)
+Dish.create!(title: "SUPPLÉMENT SAUCE", price: 0.5)
 
-user = User.create!(
-  email: "test@example.com",
-  password: "password",
-  password_confirmation: "password"
-)
-
-puts "✅ Utilisateur créé : #{user.email}"
-
-puts "🛒 Création du panier pour l'utilisateur..."
-
-Cart.create!(user: user)
-
-puts "✅ Panier créé !"
-
-puts "🌟 Seed terminée !"
+puts "Seed terminée avec #{Dish.count} plats."

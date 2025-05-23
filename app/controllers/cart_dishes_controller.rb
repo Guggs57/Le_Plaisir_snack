@@ -22,7 +22,7 @@ class CartDishesController < ApplicationController
     @cart_dish = CartDish.new(cart_dish_params)
 
     if @cart_dish.save
-      redirect_to @cart_dish, notice: "Plat ajouté au panier avec succès."
+      redirect_to @cart_dish.cart, notice: "Plat ajouté au panier avec succès."
     else
       render :new, status: :unprocessable_entity
     end
@@ -59,7 +59,8 @@ class CartDishesController < ApplicationController
     @cart_dish = CartDish.find(params[:id])
   end
 
+  # On autorise maintenant menu_option en plus des autres params
   def cart_dish_params
-    params.require(:cart_dish).permit(:quantity, ingredients: [], sauces: [])
+    params.require(:cart_dish).permit(:quantity, :menu_option, ingredients: [], sauces: [])
   end
 end

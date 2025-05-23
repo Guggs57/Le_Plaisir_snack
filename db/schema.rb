@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_21_202924) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_23_111002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -50,6 +50,7 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_21_202924) do
     t.datetime "updated_at", null: false
     t.json "ingredients", default: []
     t.json "sauces", default: []
+    t.boolean "menu_option", default: false, null: false
     t.index ["cart_id"], name: "index_cart_dishes_on_cart_id"
     t.index ["dish_id"], name: "index_cart_dishes_on_dish_id"
   end
@@ -93,6 +94,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_21_202924) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "ingredients", default: []
+    t.string "sauces"
+    t.boolean "menu_option"
     t.index ["dish_id"], name: "index_order_dishes_on_dish_id"
     t.index ["order_id"], name: "index_order_dishes_on_order_id"
   end

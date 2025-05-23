@@ -8,19 +8,50 @@
     </div>
   <% end %>
 
-  <h1 class="mb-4 display-5 fw-bold">Détail de l'article dans le panier</h1>
+  <h1 class="mb-4 display-5 fw-bold">
+    <% if @cart_dish.menu_option %>
+      MENU - <%= @cart_dish.dish.title %>
+    <% else %>
+      <%= @cart_dish.dish.title %>
+    <% end %>
+  </h1>
 
-  <div class="card mb-4 shadow-sm">
-    <div class="card-body">
-      <%= render @cart_dish %>
+  <p><strong>Description :</strong> <%= @cart_dish.dish.description %></p>
+
+  <p><strong>Prix unitaire :</strong>
+    <%= number_to_currency(@cart_dish.dish.price, unit: "€") %>
+    <% if @cart_dish.menu_option %>
+      + <%= number_to_currency(2.5, unit: "€") %> (supplément menu)
+    <% end %>
+  </p>
+
+  <p><strong>Quantité :</strong> <%= @cart_dish.quantity %></p>
+
+  <% if @cart_dish.dish.image_url.present? %>
+    <div class="my-4">
+      <%= image_tag @cart_dish.dish.image_url, alt: @cart_dish.dish.title, class: "w-64 rounded shadow" %>
     </div>
-  </div>
+  <% end %>
 
-  <div class="d-flex flex-wrap gap-3">
+  <p><strong>Sous-total :</strong>
+    <% unit_price = @cart_dish.dish.price + (@cart_dish.menu_option ? 2.5 : 0) %>
+    <%= number_to_currency(unit_price * @cart_dish.quantity, unit: "€") %>
+  </p>
+
+  <% if @cart_dish.ingredients.present? && @cart_dish.ingredients.any? %>
+    <p class="mt-2 mb-0 fw-semibold">Ingrédients retirés :</p>
+    <ul>
+      <% @cart_dish.ingredients.each do |ingr| %>
+        <li><%= ingr.capitalize %></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="mt-2 mb-0 fst-italic">Ingrédients par défaut.</p>
+  <% end %>
+
+  <div class="d-flex flex-wrap gap-3 mt-4">
     <%= link_to "Modifier cet article", edit_cart_dish_path(@cart_dish), class: "btn btn-outline-primary flex-grow-1 flex-sm-grow-0" %>
-    
     <%= link_to "Retour à la liste", cart_dishes_path, class: "btn btn-outline-secondary flex-grow-1 flex-sm-grow-0" %>
-    
     <%= button_to "Supprimer cet article", @cart_dish, method: :delete, data: { turbo_confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger flex-grow-1 flex-sm-grow-0" %>
   </div>
 </div>

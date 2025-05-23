@@ -7,26 +7,21 @@ class OrdersController < ApplicationController
   end
 
   # GET /orders/1
-    def show
-      @order = Order.find(params[:id])
-      # Stripe check et mise à jour de status si nécessaire
-      if @order.status == 'pending' && @order.stripe_session_id.present?
-        session = Stripe::Checkout::Session.retrieve(@order.stripe_session_id)
-        if session.payment_status == 'paid'
-          @order.update(status: 'paid')
-        end
+  def show
+    @order = Order.find(params[:id])
+    # Stripe check et mise à jour de status si nécessaire
+    if @order.status == 'pending' && @order.stripe_session_id.present?
+      session = Stripe::Checkout::Session.retrieve(@order.stripe_session_id)
+      if session.payment_status == 'paid'
+        @order.update(status: 'paid')
       end
     end
-
+  end
 
   # GET /orders/new
   def new
     @order = Order.new
     @cart = current_user.cart
-  end
-
-  # GET /orders/1/edit
-  def edit
   end
 
   # POST /orders
@@ -40,14 +35,22 @@ class OrdersController < ApplicationController
 
     order_status = params[:pay_on_site].present? ? 'pending_payment' : 'pending'
 
-    @order = current_user.orders.create!(total_price: @cart.total_price, status: order_status)
+    # Calculer le total avec la méthode total_price des cart_dishes
+    total_price = @cart.cart_dishes.sum(&:total_price)
 
-    # Copier aussi les ingrédients personnalisés depuis cart_dish.ingredients
+    @order = current_user.orders.create!(
+      total_price: total_price,
+      status: order_status
+    )
+
+    # Copier aussi les ingrédients personnalisés et menu_option depuis cart_dish
     @cart.cart_dishes.each do |cart_dish|
       @order.order_dishes.create!(
         dish_id: cart_dish.dish_id,
         quantity: cart_dish.quantity,
-        ingredients: cart_dish.ingredients # <-- copie ici les ingrédients personnalisés
+        ingredients: cart_dish.ingredients,
+        sauces: cart_dish.sauces,
+        menu_option: cart_dish.menu_option
       )
     end
 
@@ -63,10 +66,12 @@ class OrdersController < ApplicationController
           {
             price_data: {
               currency: 'eur',
-              product_data: { name: od.dish.title },
-              unit_amount: (od.dish.price * 100).to_i,
+              product_data: {
+                name: od.menu_option ? "MENU - #{od.dish.title}" : od.dish.title
+              },
+              unit_amount: (unit_price_order_dish(od) * 100).to_i
             },
-            quantity: od.quantity,
+            quantity: od.quantity
           }
         end,
         mode: 'payment',
@@ -103,5 +108,12 @@ class OrdersController < ApplicationController
 
   def order_params
     params.require(:order).permit(:user_id, :total_price, :status)
+  end
+
+  # Méthode auxiliaire pour calculer le prix unitaire d'un order_dish en tenant compte du menu_option
+  def unit_price_order_dish(order_dish)
+    base_price = order_dish.dish.price
+    menu_extra = order_dish.menu_option ? CartDish::SOME_MENU_EXTRA_PRICE : 0
+    base_price + menu_extra
   end
 end

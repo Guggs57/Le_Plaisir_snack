@@ -1,10 +1,23 @@
 <div class="card mb-3 shadow-sm">
   <div class="card-body d-flex justify-content-between align-items-center">
     <div>
-      <h5 class="card-title mb-1"><%= cart_dish.dish.title %></h5>
+      <h5 class="card-title mb-1">
+        <% if cart_dish.menu_option %>
+          MENU - <%= cart_dish.dish.title %>
+        <% else %>
+          <%= cart_dish.dish.title %>
+        <% end %>
+      </h5>
+
       <p class="card-text mb-0">Quantité : <%= cart_dish.quantity %></p>
-      <p class="card-text">Prix unitaire : <%= number_to_currency(cart_dish.dish.price) %></p>
-      <p class="card-text fw-semibold">Sous-total : <%= number_to_currency(cart_dish.dish.price * cart_dish.quantity) %></p>
+
+      <p class="card-text">Prix unitaire : 
+        <%= number_to_currency(cart_dish.unit_price) %>
+      </p>
+
+      <p class="card-text fw-semibold">Sous-total : 
+        <%= number_to_currency(cart_dish.total_price) %>
+      </p>
 
       <%# --- Affichage des ingrédients retirés tels que cochés --- %>
       <% if cart_dish.ingredients.present? && cart_dish.ingredients.any? %>
@@ -17,7 +30,6 @@
       <% else %>
         <p class="mt-2 mb-0 fst-italic">Ingrédients par défaut.</p>
       <% end %>
-
     </div>
 
     <div class="d-flex flex-column align-items-end">
