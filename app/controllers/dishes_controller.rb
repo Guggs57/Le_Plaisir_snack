@@ -10,8 +10,7 @@ class DishesController < ApplicationController
 
   # GET /dishes/1
   def show
-    @dish = Dish.find(params[:id])
-
+    # @dish est déjà défini par set_dish
     if user_signed_in?
       @cart = current_user.cart || current_user.create_cart
     else
@@ -21,6 +20,9 @@ class DishesController < ApplicationController
     # Séparer les ingrédients des sauces (par nom)
     @ingredients = @dish.ingredients.reject { |i| i.downcase.include?("sauce") }
     @sauces = @dish.ingredients.select { |i| i.downcase.include?("sauce") }
+
+    # Prix supplémentaire pour passer le plat en menu (boisson + accompagnement)
+    @menu_extra_price = 2.5
   end
 
   # GET /dishes/new

@@ -1,17 +1,21 @@
 <h1 class="mb-6 text-center text-2xl font-bold">Nouvelle commande</h1>
 
-<p class="mb-4">Total à payer : <strong><%= number_to_currency(@cart.total_price, unit: "€") %></strong></p>
+<% if @cart.nil? || @cart.cart_dishes.empty? %>
+  <p>Votre panier est vide.</p>
+<% else %>
+  <p class="mb-4">Total à payer : <strong><%= number_to_currency(@cart.cart_dishes.sum(&:total_price), unit: "€") %></strong></p>
 
-<div class="flex gap-4 justify-center">
-  <!-- Formulaire pour payer en ligne via Stripe -->
-  <%= form_with url: orders_path, method: :post do |f| %>
-    <%= hidden_field_tag :pay_on_site, nil %>
-    <%= f.submit "Payer en ligne", class: "btn" %>
-  <% end %>
+  <div class="flex gap-4 justify-center">
+    <!-- Formulaire pour payer en ligne via Stripe -->
+    <%= form_with url: orders_path, method: :post do |f| %>
+      <%= hidden_field_tag :pay_on_site, nil %>
+      <%= f.submit "Payer en ligne", class: "btn" %>
+    <% end %>
 
-  <!-- Formulaire pour payer sur place -->
-  <%= form_with url: orders_path, method: :post do |f| %>
-    <%= hidden_field_tag :pay_on_site, true %>
-    <%= f.submit "Payer sur place", class: "btn btn-pay-on-site" %>
-  <% end %>
-</div>
+    <!-- Formulaire pour payer sur place -->
+    <%= form_with url: orders_path, method: :post do |f| %>
+      <%= hidden_field_tag :pay_on_site, true %>
+      <%= f.submit "Payer sur place", class: "btn btn-pay-on-site" %>
+    <% end %>
+  </div>
+<% end %>

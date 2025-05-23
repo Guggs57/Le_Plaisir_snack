@@ -35,6 +35,11 @@
       <% end %>
     <% end %>
 
+    <div class="mt-4">
+      <%= check_box_tag :menu_option, "1", false, id: "menu_option" %>
+      <%= label_tag :menu_option, "Ajouter ce plat en menu (boisson + accompagnement) + #{number_to_currency(@menu_extra_price, unit: '€')}" %>
+    </div>
+
     <%= hidden_field_tag :dish_id, @dish.id %>
     <%= submit_tag "Ajouter au panier", class: "btn btn-primary mt-3" %>
   <% end %>

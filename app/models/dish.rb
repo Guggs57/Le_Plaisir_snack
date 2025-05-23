@@ -1,8 +1,8 @@
 class Dish < ApplicationRecord
   validates :title, presence: true
-  validates :description, presence: true
+  #validates :description, presence: true
   validates :price, presence: true, numericality: { greater_than_or_equal_to: 0 }
-  validates :image_url, presence: true  # Correction ici, il manquait la parenthèse fermante
+  #validates :image_url, presence: true  
 
   # Relations
   has_many :order_dishes

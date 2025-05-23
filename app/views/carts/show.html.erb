@@ -3,22 +3,50 @@
 <div class="container my-5">
   <h1 class="mb-4 display-5 fw-bold">Mon Panier</h1>
 
-  <% if @cart_dishes.any? %>
+  <% if @cart_dishes.empty? %>
+    <p>Votre panier est vide.</p>
+  <% else %>
+    <% total_panier = 0 %>
     <% @cart_dishes.each do |cart_dish| %>
-      <%= render cart_dish %>
+      <% total_panier += cart_dish.total_price %>
+
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body d-flex justify-content-between align-items-center">
+          <div>
+            <h5 class="card-title mb-1">
+              <% if cart_dish.menu_option %>
+                MENU - <%= cart_dish.dish.title %>
+              <% else %>
+                <%= cart_dish.dish.title %>
+              <% end %>
+            </h5>
+            <p class="card-text mb-0">Quantité : <%= cart_dish.quantity %></p>
+            <p class="card-text">Prix unitaire : <%= number_to_currency(cart_dish.unit_price) %></p>
+            <p class="card-text fw-semibold">Sous-total : <%= number_to_currency(cart_dish.total_price) %></p>
+
+            <% if cart_dish.ingredients.blank? %>
+              <p class="mt-2 mb-0 fst-italic">Ingrédients par défaut.</p>
+            <% else %>
+              <p class="mt-2 mb-0 fw-semibold">Ingrédients retirés :</p>
+              <ul>
+                <% cart_dish.ingredients.each do |ingr| %>
+                  <li><%= ingr.capitalize %></li>
+                <% end %>
+              </ul>
+            <% end %>
+          </div>
+
+          <div class="d-flex flex-column align-items-end">
+            <%= link_to "Modifier", edit_cart_dish_path(cart_dish), class: "btn btn-outline-primary btn-sm mb-2" %>
+            <%= button_to "Supprimer", cart_dish_path(cart_dish), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger btn-sm" %>
+          </div>
+        </div>
+      </div>
     <% end %>
 
-    <div class="mt-4 text-end">
-      <% total = @cart_dishes.sum do |cd| 
-        price = cd.dish.price * cd.quantity 
-        price
-      end %>
-      <h4>Total : <%= number_to_currency(total) %></h4>
+    <hr>
+    <p class="fs-4 fw-bold">Total : <%= number_to_currency(total_panier) %></p>
 
-      <%= link_to "Passer la commande", new_order_path, class: "btn btn-success btn-lg" %>
-    </div>
-  <% else %>
-    <p class="lead">Votre panier est vide.</p>
-    <%= link_to "Voir nos plats", dishes_path, class: "btn btn-primary" %>
+    <%= link_to "Passer la commande", new_order_path, class: "btn btn-success btn-lg mt-3" %>
   <% end %>
 </div>

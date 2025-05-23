@@ -1,42 +1,55 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[show edit update destroy add_to_cart]
 
-  # Action existante : GET /carts/1
-def show
-  @cart = current_user.cart
-  @cart_dishes = @cart ? @cart.cart_dishes : []
-end
+  # GET /carts/1
+  def show
+    # @cart déjà défini dans set_cart
+    @cart_dishes = @cart ? @cart.cart_dishes.includes(:dish) : []
+  end
 
-  # Action pour ajouter un plat au panier
+  # POST /carts/add_to_cart
   def add_to_cart
-  @cart = current_user.cart || Cart.create(user: current_user)
-  @dish = Dish.find(params[:dish_id])
+    @cart ||= current_user.create_cart
 
-  # On récupère les ingrédients cochés pour suppression (peut être nil)
-  removed_ingredients = params[:removed_ingredients] || []
+    @dish = Dish.find(params[:dish_id])
 
-  # Trouver ou initialiser un CartDish avec les mêmes ingrédients retirés (personnalisation)
-  @cart_dish = @cart.cart_dishes.find do |cd|
-    cd.dish_id == @dish.id && (cd.ingredients || []).sort == removed_ingredients.sort
+    removed_ingredients = params[:removed_ingredients] || []
+    removed_sauces = params[:removed_sauces] || []
+
+    menu_option = params[:menu_option] == "1"
+
+    Rails.logger.debug "PARAMS menu_option: #{params[:menu_option].inspect} => #{menu_option.inspect}"
+
+    # Trouver un CartDish existant avec même plat, mêmes options et personnalisations
+    @cart_dish = @cart.cart_dishes.find do |cd|
+      cd.dish_id == @dish.id &&
+      (cd.ingredients || []).sort == removed_ingredients.sort &&
+      (cd.sauces || []).sort == removed_sauces.sort &&
+      cd.menu_option == menu_option
+    end
+
+    if @cart_dish
+      @cart_dish.quantity += 1
+    else
+      @cart_dish = @cart.cart_dishes.new(
+        dish: @dish,
+        quantity: 1,
+        ingredients: removed_ingredients,
+        sauces: removed_sauces,
+        menu_option: menu_option
+      )
+    end
+
+    if @cart_dish.save
+      notice_msg = "#{@dish.title} ajouté au panier"
+      notice_msg += menu_option ? " en menu (boisson + accompagnement)." : "."
+      redirect_to cart_path(@cart), notice: notice_msg
+    else
+      redirect_to dish_path(@dish), alert: "Impossible d'ajouter le plat au panier."
+    end
   end
 
-  if @cart_dish
-    # Si on a déjà un cart_dish avec cette personnalisation, on augmente la quantité
-    @cart_dish.quantity += 1
-  else
-    # Sinon, on en crée un nouveau avec les ingrédients retirés
-    @cart_dish = @cart.cart_dishes.new(dish: @dish, quantity: 1, ingredients: removed_ingredients)
-  end
-
-  if @cart_dish.save
-    redirect_to cart_path(@cart), notice: "#{@dish.title} ajouté au panier avec vos modifications."
-  else
-    redirect_to dish_path(@dish), alert: "Impossible d'ajouter le plat au panier."
-  end
-end
-
-
-  # Actions existantes : create, update, destroy
+  # POST /carts
   def create
     @cart = Cart.new(cart_params)
 
@@ -47,6 +60,7 @@ end
     end
   end
 
+  # PATCH/PUT /carts/1
   def update
     if @cart.update(cart_params)
       redirect_to @cart, notice: "Panier mis à jour avec succès.", status: :see_other
@@ -55,6 +69,7 @@ end
     end
   end
 
+  # DELETE /carts/1
   def destroy
     @cart.destroy!
     redirect_to carts_path, notice: "Panier supprimé avec succès.", status: :see_other
@@ -62,15 +77,9 @@ end
 
   private
 
-    # Méthode pour récupérer ou créer le panier de l'utilisateur
   def set_cart
-    if current_user
-      @cart = current_user.cart || current_user.create_cart
-    else
-      @cart = nil
-    end
+    @cart = current_user&.cart || current_user&.create_cart
   end
-
 
   def cart_params
     params.require(:cart).permit(:user_id)
