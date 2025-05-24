@@ -6,148 +6,133 @@ html, body {
   font-family: 'Montserrat', sans-serif;
   background-color: #0f0f0f;
   color: #f2f2f2;
+  scroll-behavior: smooth;
 }
 
 /* NAVBAR */
 .navbar {
   width: 100%;
-  background-color: #0f0f0f;
+  background-color: #000;
   border-bottom: 4px solid #d62828;
-  box-shadow: 0 2px 8px rgba(214, 40, 40, 0.3);
+  box-shadow: 0 2px 8px rgba(214, 40, 40, 0.4);
   position: sticky;
   top: 0;
   z-index: 1000;
 }
 
-.navbar-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0.75rem 1.5rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
+/* Boutons personnalisés dans la navbar */
+.navbar .btn-custom {
+  background: linear-gradient(135deg, #d62828, #b22222);
+  color: #fff !important;
+  border-radius: 12px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
+  transition: all 0.3s ease;
+  display: inline-block;
 }
 
-.navbar-logo h1 {
-  font-size: 1.8rem;
-  font-weight: 900;
-  margin: 0;
-  color: #fff;
-}
-
-.navbar-slogan {
-  display: block;
-  font-weight: 400;
-  font-size: 1rem;
-  color: #d62828;
-  margin-top: 0.15rem;
-  font-style: italic;
-}
-
-.navbar-menu {
-  list-style: none;
-  display: flex;
-  gap: 1.5rem;
-  margin: 0;
-  padding: 0;
-}
-
-.navbar-menu li {
-  position: relative;
-}
-
-.navbar-menu li a {
-  color: #f2f2f2;
+.navbar .btn-custom:hover,
+.navbar .btn-custom:focus {
+  background: #b22222;
+  color: #fff !important;
+  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
+  transform: translateY(-3px);
+  border-color: #fff;
   text-decoration: none;
-  font-weight: 600;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.navbar-menu li a:hover,
-.navbar-menu li a:focus {
-  background-color: #d62828;
-  color: #fff;
-  outline: none;
-  box-shadow: 0 0 8px #d62828;
 }
 
 /* BANNIÈRE */
 .home-banner {
   text-align: center;
-  padding: 3rem 1rem;
-  max-width: 800px;
+  padding: 4rem 1rem 2rem;
+  max-width: 900px;
   margin: 0 auto;
+  border-bottom: 2px solid #d62828;
 }
 
 .banner-img, .home-logo {
-  max-width: 600px; /* Taille doublée ici */
+  max-width: 100%;
   height: auto;
   margin-bottom: 2rem;
   border-radius: 12px;
+  box-shadow: 0 0 12px #d62828cc;
 }
 
 .home-banner h1 {
-  font-size: 2.2rem;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
+  font-size: 2.5rem;
+  font-weight: 800;
   color: #ffffff;
+  margin-bottom: 0.5rem;
 }
 
-.slogan {
-  font-size: 1.1rem;
-  margin: 0.5rem 0 1.5rem;
+.slogan, .home-subtitle {
+  font-size: 1.2rem;
   color: #e0e0e0;
+  margin: 1rem 0 1.5rem;
+  font-style: italic;
 }
 
 .hours, .home-hours {
-  font-size: 1rem;
+  font-size: 1.05rem;
   color: #f2f2f2;
   margin-bottom: 2rem;
 }
 
-/* BOUTONS */
+/* CTA */
+.home-cta {
+  margin-top: 1rem;
+}
+
 .btn {
   display: inline-block;
-  padding: 1rem 2rem;
+  padding: 0.9rem 2rem;
   background-color: #d62828;
-  color: #ffffff;
+  color: #fff;
   text-decoration: none;
   font-weight: bold;
-  border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(214, 40, 40, 0.3);
   transition: all 0.3s ease;
-  border: none;
-  font-size: 1rem;
+  font-size: 1.1rem;
   cursor: pointer;
 }
 
 .btn:hover {
   background-color: #b91d1d;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.5);
 }
 
-/* Bouton 'Payer sur place' */
+.btn.btn-primary {
+  background-color: #d62828;
+}
+
 .btn-pay-on-site {
   background-color: #007f5f;
 }
 
 .btn-pay-on-site:hover {
   background-color: #00563a;
-  transform: translateY(-2px);
+  transform: translateY(-3px);
 }
 
-/* SECTION OFFRE ÉTUDIANT */
+/* PROMO ÉTUDIANTE */
 .student-offer,
 .student-menu-promo {
   background-color: #d62828;
-  color: #ffffff;
+  color: #fff;
   text-align: center;
-  padding: 1.5rem 1rem;
-  font-size: 1.3rem;
+  padding: 2rem 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
+  margin-top: 2rem;
+  border-top: 2px solid #fff;
+  border-bottom: 2px solid #fff;
+  box-shadow: 0 0 10px rgba(214, 40, 40, 0.6);
 }
 
 .student-offer small,
@@ -162,23 +147,21 @@ html, body {
 .notice {
   background-color: #007f5f;
   color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  margin: 1rem auto;
+  max-width: 1000px;
+  text-align: center;
 }
 
 .alert {
   background-color: #d62828;
   color: #fff;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  padding: 1rem 1.5rem;
+  border-radius: 6px;
+  margin: 1rem auto;
+  max-width: 1000px;
+  text-align: center;
 }
 
 /* FOOTER */
@@ -189,4 +172,5 @@ footer {
   padding: 1rem;
   margin-top: 3rem;
   font-size: 0.9rem;
+  border-top: 1px solid #d62828;
 }

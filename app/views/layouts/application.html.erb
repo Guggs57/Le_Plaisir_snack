@@ -8,8 +8,11 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <title><%= content_for(:title) || "Le Plaisir Snack" %></title>
 
-  <!-- Bootstrap CSS via CDN -->
+  <!-- Bootstrap CSS -->
   <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css", crossorigin: "anonymous" %>
+
+  <!-- FontAwesome -->
+  <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css", crossorigin: "anonymous" %>
 
   <!-- CSS local -->
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -17,7 +20,7 @@
   <!-- Turbo + Importmap -->
   <%= javascript_importmap_tags %>
 
-  <!-- Bootstrap JS via CDN -->
+  <!-- Bootstrap JS -->
   <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js", crossorigin: "anonymous" %>
 
   <%= csrf_meta_tags %>
@@ -32,80 +35,6 @@
 
   <!-- Stripe (plus tard) -->
   <script src="https://js.stripe.com/v3/"></script>
-
-  <style>
-    /* Couleurs principales */
-    body {
-      background-color: #121212;
-      color: #eee;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    }
-
-    /* Navbar custom */
-    .custom-navbar {
-      background-color: #000;
-      border-bottom: 3px solid #d62828;
-      box-shadow: 0 2px 6px rgba(214, 40, 40, 0.6);
-    }
-
-    /* Liens navbar */
-    .nav-link.btn-custom {
-      color: #d62828 !important;
-      font-weight: 600;
-      text-transform: uppercase;
-      transition: color 0.3s ease;
-    }
-
-    .nav-link.btn-custom:hover,
-    .nav-link.btn-custom:focus {
-      color: #f77f00 !important; /* orange vif */
-      text-decoration: underline;
-    }
-
-    /* Navbar brand logo */
-    .navbar-brand img {
-      filter: drop-shadow(0 0 2px #d62828);
-    }
-
-    /* Flash messages */
-    .alert-success {
-      background-color: #1a4d1a;
-      border-color: #3cb371;
-      color: #d4edda;
-    }
-
-    .alert-danger {
-      background-color: #4a1a1a;
-      border-color: #d62828;
-      color: #f8d7da;
-    }
-
-    /* Boutons dans navbar (button_to) */
-    form.d-inline .nav-link.btn-custom {
-      cursor: pointer;
-      border: none;
-      background: none;
-      padding: 0;
-      margin: 0;
-      font-size: 0.95rem;
-      line-height: 1.5;
-    }
-
-    /* Conteneur principal */
-    .container.mt-5.pt-4 {
-      min-height: 80vh;
-    }
-
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 1rem 0;
-      color: #aaa;
-      background-color: #000;
-      border-top: 1px solid #d62828;
-      margin-top: 3rem;
-    }
-  </style>
 </head>
 
 <body>
@@ -118,8 +47,6 @@
 
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
     <div class="container">
-
-      <!-- Partie gauche -->
       <ul class="navbar-nav navbar-left me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <%= link_to "Accueil", root_path, class: "nav-link btn-custom" %>
@@ -134,12 +61,10 @@
         <% end %>
       </ul>
 
-      <!-- Logo centré -->
       <%= link_to root_path, class: "navbar-brand mx-auto" do %>
         <img src="<%= asset_path('logo.png') %>" alt="Le Plaisir Snack" style="height:40px;" />
       <% end %>
 
-      <!-- Partie droite -->
       <ul class="navbar-nav navbar-right ms-auto mb-2 mb-lg-0">
         <% if user_signed_in? %>
           <% if current_user.admin? %>
@@ -162,7 +87,6 @@
           </li>
         <% end %>
       </ul>
-
     </div>
   </nav>
 

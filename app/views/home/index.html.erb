@@ -1,27 +1,29 @@
 <div class="home-wrapper">
+
   <section class="home-banner">
     <div class="home-logo-container">
-      <%= image_tag 'leplaisir.jpg', alt: 'Le Plaisir', class: 'home-logo' %>
+      <%= image_tag 'leplaisir.jpg', alt: 'Le Plaisir', class: 'home-logo shadowed-logo' %>
     </div>
 
-    <h1 class="home-title">Restauration rapide halal</h1>
-    <p class="home-subtitle">Sur place ou à emporter à Forbach</p>
+    <h1 class="home-title neon-text">Restauration rapide halal</h1>
+    <p class="home-subtitle">Sur place ou à emporter à <strong>Forbach</strong></p>
 
     <div class="home-hours">
       <p>
-        <i class="fa fa-calendar"></i>
+        <i class="fa fa-clock-o"></i>
         <strong>Du lundi au samedi :</strong> 11h00 - 23h00<br>
         <strong>Dimanche :</strong> 11h30 - 23h00
       </p>
     </div>
 
     <div class="home-cta">
-      <%= link_to 'Voir le menu', dishes_path, class: 'btn btn-primary' %>
+      <%= link_to 'Voir le menu', dishes_path, class: 'btn btn-lg custom-btn-red' %>
     </div>
   </section>
 
-  <section class="student-offer">
-    <h2>Menu étudiant <span>7,50€</span></h2>
-    <small>Sur présentation d'une carte étudiante</small>
+  <section class="student-menu-promo">
+    <h2><i class="fa fa-graduation-cap"></i> Menu étudiant <span class="price-tag">7,50€</span></h2>
+    <p>Sur présentation d'une carte étudiante.</p>
   </section>
+
 </div>
