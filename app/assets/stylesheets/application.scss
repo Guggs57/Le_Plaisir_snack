@@ -9,9 +9,21 @@ html, body {
   scroll-behavior: smooth;
 }
 
+/* CONTAINER PRINCIPAL DE LA PAGE D’ACCUEIL */
+.home-wrapper {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
 /* NAVBAR */
 .navbar {
-  width: 100%;
+  width: auto; /* on enlève le 100% pour que la largeur soit automatique */
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
   background-color: #000;
   border-bottom: 4px solid #d62828;
   box-shadow: 0 2px 8px rgba(214, 40, 40, 0.4);
