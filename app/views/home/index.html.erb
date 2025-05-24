@@ -21,9 +21,29 @@
     </div>
   </section>
 
-  <section class="student-menu-promo">
+  <section id="student-menu-promo" class="student-menu-promo">
     <h2><i class="fa fa-graduation-cap"></i> Menu étudiant <span class="price-tag">7,50€</span></h2>
     <p>Sur présentation d'une carte étudiante.</p>
   </section>
 
 </div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const studentMenu = document.getElementById('student-menu-promo');
+
+    function checkVisibility() {
+      const rect = studentMenu.getBoundingClientRect();
+      const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+      if (isVisible) {
+        studentMenu.classList.add('visible');
+      } else {
+        studentMenu.classList.remove('visible');
+      }
+    }
+
+    window.addEventListener('scroll', checkVisibility);
+    checkVisibility(); // check immediately on load
+  });
+</script>
