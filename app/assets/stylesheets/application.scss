@@ -9,6 +9,8 @@ html, body {
   scroll-behavior: smooth;
   position: relative;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 /* CONTAINER PRINCIPAL DE LA PAGE D’ACCUEIL */
@@ -35,7 +37,7 @@ html, body {
 
 /* NAVBAR */
 .navbar {
-  width: auto;
+  width: 100%;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
@@ -201,7 +203,7 @@ footer {
   color: #ccc;
   text-align: center;
   padding: 1rem;
-  margin-top: 3rem;
+  margin-top: auto;
   border-top: 2px solid #d62828;
   font-size: 0.9rem;
   position: relative;
@@ -250,4 +252,47 @@ footer {
 /* UTILE POUR TESTER LA FORME */
 .debug-border {
   border: 1px solid lime;
+}
+
+/* PANIER */
+.panier-wrapper {
+  position: relative;
+  z-index: 10;
+  background-color: transparent;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 5rem; /* pour éviter d’être mangé par la vague */
+}
+
+.panier-wrapper .card {
+  background-color: #1a1a1a;
+  border: 1px solid #d62828;
+}
+
+.panier-wrapper .card-title {
+  color: #fff;
+}
+
+.panier-wrapper .card-text {
+  color: #ccc;
+}
+
+.panier-wrapper .btn-outline-primary {
+  border-color: #007f5f;
+  color: #007f5f;
+}
+
+.panier-wrapper .btn-outline-primary:hover {
+  background-color: #007f5f;
+  color: #fff;
+}
+
+.panier-wrapper .btn-danger {
+  background-color: #d62828;
+  border: none;
+}
+
+.panier-wrapper .btn-danger:hover {
+  background-color: #a91515;
 }

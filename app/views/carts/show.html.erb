@@ -1,6 +1,6 @@
 <% content_for :title, "Mon Panier" %>
 
-<div class="container my-5">
+<div class="container panier-wrapper mt-5 pt-5">
   <h1 class="mb-4 display-5 fw-bold">Mon Panier</h1>
 
   <% if @cart_dishes.empty? %>
@@ -50,3 +50,27 @@
     <%= link_to "Passer la commande", new_order_path, class: "btn btn-success btn-lg mt-3" %>
   <% end %>
 </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const content = document.querySelector('.panier-wrapper');
+    if (!content) return; // Empêche les erreurs sur les pages sans .panier-wrapper
+
+    const onScroll = () => {
+      const contentTop = content.getBoundingClientRect().top + window.scrollY;
+      const contentHeight = content.offsetHeight;
+      const windowScroll = window.scrollY + window.innerHeight;
+
+      const isOnWave = windowScroll >= contentTop && windowScroll <= (contentTop + contentHeight);
+
+      if (isOnWave) {
+        content.classList.add('on-wave');
+      } else {
+        content.classList.remove('on-wave');
+      }
+    };
+
+    window.addEventListener('scroll', onScroll);
+    onScroll(); // Initial call
+  });
+</script>
