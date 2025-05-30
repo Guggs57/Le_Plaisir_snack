@@ -4,8 +4,8 @@
   <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
     <% @dishes.each do |dish| %>
       <div style="background: #111; border-radius: 8px; padding: 1rem; width: 300px; color: #fff; box-shadow: 0 0 8px rgba(214, 40, 40, 0.7);">
-        <% if dish.image_url.present? %>
-          <img src="<%= dish.image_url %>" alt="<%= dish.title %>" style="width: 100%; height: 180px; object-fit: cover; border-radius: 6px;" />
+        <% if dish.image.present? %>
+          <%= image_tag(dish.image, alt: dish.title, style: "width: 100%; height: 180px; object-fit: cover; border-radius: 6px;") %>
         <% else %>
           <div style="width: 100%; height: 180px; background: #333; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #777;">
             Pas d'image

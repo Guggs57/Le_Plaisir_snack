@@ -69,7 +69,7 @@ class DishesController < ApplicationController
 
   # Autoriser les paramètres
   def dish_params
-    params.require(:dish).permit(:title, :description, :price, :image_url)
+    params.require(:dish).permit(:title, :description, :price, :image)
   end
 
   # Empêcher les non-admins d'accéder à certaines actions

@@ -1,7 +1,7 @@
 <h1 class="text-3xl font-bold mb-4"><%= @dish.title %></h1>
 
 <div class="mb-4">
-  <%= image_tag(@dish.image_url, alt: @dish.title, class: "img-fluid rounded shadow") if @dish.image_url.present? %>
+  <%= image_tag(@dish.image, alt: @dish.title, class: "img-fluid rounded shadow") if @dish.image.present? %>
   <p class="mt-3"><%= @dish.description %></p>
   <p class="text-lg font-semibold mt-2">Prix : <%= number_to_currency(@dish.price) %></p>
 </div>
