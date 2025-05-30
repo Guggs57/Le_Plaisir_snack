@@ -1,5 +1,5 @@
 Dish.destroy_all
-
+User.destroy_all
 # ----- SANDWICHS -----
 Dish.create!(title: "KEBAB", price: 5.5)
 Dish.create!(title: "KEBAB XL", price: 8)
@@ -76,3 +76,12 @@ Dish.create!(title: "SUPPLÉMENT FROMAGE", price: 0.5)
 Dish.create!(title: "SUPPLÉMENT SAUCE", price: 0.5)
 
 puts "Seed terminée avec #{Dish.count} plats."
+
+admin = User.find_or_create_by!(email: "admin@example.com") do |user|
+  user.name = "Admin User"
+  user.password = "password123"  # à changer en prod
+  user.password_confirmation = "password123"
+  user.admin = true
+end
+
+puts "✅ Admin created: #{admin.email}"
