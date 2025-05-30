@@ -296,3 +296,45 @@ footer {
 .panier-wrapper .btn-danger:hover {
   background-color: #a91515;
 }
+
+/* ========================= */
+/* BOUTONS NAVBAR POUR <button> générés par button_to */
+
+.btn-navbar-button {
+  background: linear-gradient(135deg, #d62828, #b22222);
+  color: #fff !important;
+  border-radius: 12px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5;
+  vertical-align: middle;
+  border-style: solid;
+  border-width: 1.5px;
+}
+
+.btn-navbar-button:hover,
+.btn-navbar-button:focus {
+  background: #b22222;
+  color: #fff !important;
+  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
+  transform: translateY(-3px);
+  border-color: #fff;
+  text-decoration: none;
+}
+
+/* Form inline utilisé pour button_to dans la navbar */
+form.d-inline {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}

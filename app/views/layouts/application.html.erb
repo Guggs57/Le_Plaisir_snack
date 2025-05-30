@@ -37,50 +37,51 @@
     </div>
   <% end %>
 
-  <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
-    <div class="container container-narrow">
-      <ul class="navbar-nav navbar-left me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <%= link_to "Accueil", root_path, class: "nav-link btn-custom" %>
-        </li>
-        <li class="nav-item">
-          <%= link_to "Nos Plats", dishes_path, class: "nav-link btn-custom" %>
-        </li>
-        <% if user_signed_in? && current_user.cart.present? %>
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
+      <div class="container container-narrow">
+        <ul class="navbar-nav navbar-left me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <%= link_to "Mon Panier", cart_path(current_user.cart), class: "nav-link btn-custom" %>
+            <%= link_to "Accueil", root_path, class: "nav-link btn-custom" %>
           </li>
-        <% end %>
-      </ul>
-
-      <%= link_to root_path, class: "navbar-brand mx-auto" do %>
-        <img src="<%= asset_path('logo.png') %>" alt="Le Plaisir Snack" style="height:40px;" />
-      <% end %>
-
-      <ul class="navbar-nav navbar-right ms-auto mb-2 mb-lg-0">
-        <% if user_signed_in? %>
-          <% if current_user.admin? %>
+          <li class="nav-item">
+            <%= link_to "Nos Plats", dishes_path, class: "nav-link btn-custom" %>
+          </li>
+          <% if user_signed_in? && current_user.cart.present? %>
             <li class="nav-item">
-              <%= link_to "Admin", rails_admin_path, class: "nav-link btn-custom" %>
+              <%= link_to "Mon Panier", cart_path(current_user.cart), class: "nav-link btn-custom" %>
             </li>
           <% end %>
-          <li class="nav-item">
-            <%= button_to "Mon Profil", profile_path, method: :get, class: "nav-link btn-custom p-0 me-2", form_class: "d-inline" %>
-          </li>
-          <li class="nav-item">
-            <%= button_to "Déconnexion", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "nav-link btn-custom p-0", form_class: "d-inline" %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to "Connexion", new_user_session_path, class: "nav-link btn-custom" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Inscription", new_user_registration_path, class: "nav-link btn-custom" %>
-          </li>
+        </ul>
+
+        <%= link_to root_path, class: "navbar-brand mx-auto" do %>
+          <img src="<%= asset_path('logo.png') %>" alt="Le Plaisir Snack" style="height:40px;" />
         <% end %>
-      </ul>
-    </div>
-  </nav>
+
+        <ul class="navbar-nav navbar-right ms-auto mb-2 mb-lg-0">
+          <% if user_signed_in? %>
+            <% if current_user.admin? %>
+              <li class="nav-item">
+                <%= link_to "Admin", rails_admin_path, class: "nav-link btn-custom" %>
+              </li>
+            <% end %>
+            <li class="nav-item">
+              <%= button_to "Mon Profil", profile_path, method: :get, class: "btn-custom nav-link btn-navbar-button", form_class: "d-inline" %>
+            </li>
+            <li class="nav-item">
+              <%= button_to "Déconnexion", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "btn-custom nav-link btn-navbar-button", form_class: "d-inline" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Connexion", new_user_session_path, class: "nav-link btn-custom" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Inscription", new_user_registration_path, class: "nav-link btn-custom" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+
 
   <main class="container mt-5 pt-4 position-relative" style="z-index: 10;">
     <%= yield %>
