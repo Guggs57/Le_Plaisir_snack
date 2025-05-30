@@ -1,49 +1,38 @@
-<div class="home-wrapper">
+<div class="home-wrapper" style="min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem; background-color: #000000;">
 
-  <section class="home-banner">
-    <div class="home-logo-container">
-      <%= image_tag 'leplaisir.jpg', alt: 'Le Plaisir', class: 'home-logo shadowed-logo' %>
-    </div>
+  <!-- Photo centrée, sans fond -->
+  <div class="home-logo-container" style="margin-bottom: 2rem;">
+    <%= image_tag 'leplaisir.jpg', alt: 'Le Plaisir', class: 'home-logo shadowed-logo', style: 'display: block; margin: 0 auto; max-width: 100%; height: auto; border-radius: 8px;' %>
+  </div>
 
-    <h1 class="home-title neon-text">Restauration rapide halal</h1>
-    <p class="home-subtitle">Sur place ou à emporter à <strong>Forbach</strong></p>
+  <!-- Section texte avec fond opaque -->
+  <section class="home-banner" style="max-width: 600px; width: 100%; background-color: #111111; padding: 2rem 3rem; border-radius: 12px; text-align: center; color: #fff; box-shadow: 0 0 15px #d62828;">
+    
+    <h1 class="home-title neon-text" style="font-size: 3rem; font-weight: 800; color: #d62828; text-shadow: 0 0 8px #d62828, 0 0 20px #ff0000; margin-bottom: 0.5rem;">
+      Restauration rapide halal
+    </h1>
+    <p class="home-subtitle" style="font-size: 1.5rem; margin-top: 0; margin-bottom: 1.5rem;">
+      Sur place ou à emporter à <strong>Forbach</strong>
+    </p>
 
-    <div class="home-hours">
+    <div class="home-hours" style="font-size: 1.1rem; color: #ccc; margin-bottom: 2rem;">
       <p>
-        <i class="fa fa-clock-o"></i>
-        <strong>Du lundi au samedi :</strong> 11h00 - 23h00<br>
-        <strong>Dimanche :</strong> 11h30 - 23h00
+        <i class="fa fa-clock-o" aria-hidden="true"></i>
+        <strong style="color: #fff;">Du lundi au samedi :</strong> 11h00 - 23h00<br>
+        <strong style="color: #fff;">Dimanche :</strong> 11h30 - 23h00
       </p>
     </div>
 
     <div class="home-cta">
-      <%= link_to 'Voir le menu', dishes_path, class: 'btn btn-lg custom-btn-red' %>
+      <%= link_to 'Voir le menu', dishes_path, class: 'btn btn-lg custom-btn-red', style: 'font-size: 1.25rem; padding: 1rem 2rem;' %>
     </div>
   </section>
 
-  <section id="student-menu-promo" class="student-menu-promo">
-    <h2><i class="fa fa-graduation-cap"></i> Menu étudiant <span class="price-tag">7,50€</span></h2>
-    <p>Sur présentation d'une carte étudiante.</p>
+  <section id="student-menu-promo" class="student-menu-promo" style="max-width: 600px; width: 100%; background-color: #111111; padding: 1.5rem; margin-top: 3rem; border-radius: 10px; color: #fff; box-shadow: 0 0 10px #d62828; text-align: center;">
+    <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">
+      <i class="fa fa-graduation-cap" aria-hidden="true"></i> Menu étudiant <span class="price-tag" style="color: #d62828; font-weight: 700;">7,50€</span>
+    </h2>
+    <p style="font-size: 1.1rem; margin: 0;">Sur présentation d'une carte étudiante.</p>
   </section>
 
 </div>
-
-<script>
-  document.addEventListener("DOMContentLoaded", function() {
-    const studentMenu = document.getElementById('student-menu-promo');
-
-    function checkVisibility() {
-      const rect = studentMenu.getBoundingClientRect();
-      const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-
-      if (isVisible) {
-        studentMenu.classList.add('visible');
-      } else {
-        studentMenu.classList.remove('visible');
-      }
-    }
-
-    window.addEventListener('scroll', checkVisibility);
-    checkVisibility(); // check immediately on load
-  });
-</script>
