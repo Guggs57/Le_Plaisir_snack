@@ -1,4 +1,6 @@
-/* RESET GÉNÉRAL */
+@import 'layouts/*';
+@import 'orders/*';
+
 html, body {
   margin: 0;
   padding: 0;
@@ -16,7 +18,7 @@ html, body {
 /* CONTAINER PRINCIPAL DE LA PAGE D’ACCUEIL */
 .home-wrapper {
   max-width: 1200px;
-  margin-left: 180px; /* décalage à droite pour laisser place à la barre promo */
+  margin-left: 180px;
   margin-right: auto;
   padding-left: 1rem;
   padding-right: 1rem;
@@ -35,44 +37,6 @@ html, body {
   color: #111;
 }
 
-/* NAVBAR */
-.navbar {
-  width: 100%;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #000;
-  border-bottom: 4px solid #d62828;
-  box-shadow: 0 2px 8px rgba(214, 40, 40, 0.4);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar .btn-custom {
-  background: linear-gradient(135deg, #d62828, #b22222);
-  color: #fff !important;
-  border-radius: 12px;
-  padding: 0.5rem 1.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.navbar .btn-custom:hover,
-.navbar .btn-custom:focus {
-  background: #b22222;
-  color: #fff !important;
-  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
-  transform: translateY(-3px);
-  border-color: #fff;
-  text-decoration: none;
-}
-
 /* BANNIÈRE */
 .home-banner {
   text-align: center;
@@ -82,7 +46,8 @@ html, body {
   border-bottom: 2px solid #d62828;
 }
 
-.banner-img, .home-logo {
+.banner-img,
+.home-logo {
   max-width: 100%;
   height: auto;
   margin-bottom: 2rem;
@@ -97,14 +62,16 @@ html, body {
   margin-bottom: 0.5rem;
 }
 
-.slogan, .home-subtitle {
+.slogan,
+.home-subtitle {
   font-size: 1.2rem;
   color: #e0e0e0;
   margin: 1rem 0 1.5rem;
   font-style: italic;
 }
 
-.hours, .home-hours {
+.hours,
+.home-hours {
   font-size: 1.05rem;
   color: #f2f2f2;
   margin-bottom: 2rem;
@@ -197,19 +164,6 @@ html, body {
   text-align: center;
 }
 
-/* FOOTER */
-footer {
-  background-color: #111;
-  color: #ccc;
-  text-align: center;
-  padding: 1rem;
-  margin-top: auto;
-  border-top: 2px solid #d62828;
-  font-size: 0.9rem;
-  position: relative;
-  z-index: 10;
-}
-
 /* VAGUE HORIZONTALE FIXE EN BAS DE PAGE */
 .wave-container {
   width: 100%;
@@ -262,7 +216,7 @@ footer {
   max-width: 1000px;
   margin-left: auto;
   margin-right: auto;
-  padding-bottom: 5rem; /* pour éviter d’être mangé par la vague */
+  padding-bottom: 5rem;
 }
 
 .panier-wrapper .card {
@@ -295,46 +249,4 @@ footer {
 
 .panier-wrapper .btn-danger:hover {
   background-color: #a91515;
-}
-
-/* ========================= */
-/* BOUTONS NAVBAR POUR <button> générés par button_to */
-
-.btn-navbar-button {
-  background: linear-gradient(135deg, #d62828, #b22222);
-  color: #fff !important;
-  border-radius: 12px;
-  padding: 0.5rem 1.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
-  display: inline-block;
-  text-align: center;
-  line-height: 1.5;
-  vertical-align: middle;
-  border-style: solid;
-  border-width: 1.5px;
-}
-
-.btn-navbar-button:hover,
-.btn-navbar-button:focus {
-  background: #b22222;
-  color: #fff !important;
-  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
-  transform: translateY(-3px);
-  border-color: #fff;
-  text-decoration: none;
-}
-
-/* Form inline utilisé pour button_to dans la navbar */
-form.d-inline {
-  display: inline;
-  margin: 0;
-  padding: 0;
 }

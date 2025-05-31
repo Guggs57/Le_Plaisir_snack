@@ -8,19 +8,10 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <title><%= content_for(:title) || "Le Plaisir Snack" %></title>
 
-  <!-- Bootstrap CSS -->
   <%= stylesheet_link_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css", crossorigin: "anonymous" %>
-
-  <!-- FontAwesome -->
   <%= stylesheet_link_tag "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css", crossorigin: "anonymous" %>
-
-  <!-- CSS local -->
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
-
-  <!-- Turbo + Importmap -->
   <%= javascript_importmap_tags %>
-
-  <!-- Bootstrap JS -->
   <%= javascript_include_tag "https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js", crossorigin: "anonymous" %>
 
   <%= csrf_meta_tags %>
@@ -37,72 +28,25 @@
     </div>
   <% end %>
 
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
-      <div class="container container-narrow">
-        <ul class="navbar-nav navbar-left me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <%= link_to "Accueil", root_path, class: "nav-link btn-custom" %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "Nos Plats", dishes_path, class: "nav-link btn-custom" %>
-          </li>
-          <% if user_signed_in? && current_user.cart.present? %>
-            <li class="nav-item">
-              <%= link_to "Mon Panier", cart_path(current_user.cart), class: "nav-link btn-custom" %>
-            </li>
-          <% end %>
-        </ul>
-
-        <%= link_to root_path, class: "navbar-brand mx-auto" do %>
-          <img src="<%= asset_path('logo.png') %>" alt="Le Plaisir Snack" style="height:40px;" />
-        <% end %>
-
-        <ul class="navbar-nav navbar-right ms-auto mb-2 mb-lg-0">
-          <% if user_signed_in? %>
-            <% if current_user.admin? %>
-              <li class="nav-item">
-                <%= link_to "Admin", rails_admin_path, class: "nav-link btn-custom" %>
-              </li>
-            <% end %>
-            <li class="nav-item">
-              <%= button_to "Mon Profil", profile_path, method: :get, class: "btn-custom nav-link btn-navbar-button", form_class: "d-inline" %>
-            </li>
-            <li class="nav-item">
-              <%= button_to "Déconnexion", destroy_user_session_path, method: :delete, data: { turbo: false }, class: "btn-custom nav-link btn-navbar-button", form_class: "d-inline" %>
-            </li>
-          <% else %>
-            <li class="nav-item">
-              <%= link_to "Connexion", new_user_session_path, class: "nav-link btn-custom" %>
-            </li>
-            <li class="nav-item">
-              <%= link_to "Inscription", new_user_registration_path, class: "nav-link btn-custom" %>
-            </li>
-          <% end %>
-        </ul>
-      </div>
-    </nav>
-
+  <%= render 'layouts/navbar' %>
 
   <main class="container mt-5 pt-4 position-relative" style="z-index: 10;">
     <%= yield %>
   </main>
 
-  <!-- Vague SVG fixe en fond -->
   <div class="wave-container" aria-hidden="true" focusable="false" tabindex="-1">
     <svg viewBox="0 0 1440 320" preserveAspectRatio="none" style="width:100%; height:100%; display:block;">
       <path fill="#d62828" fill-opacity="1" d="M0,64L60,96C120,128,240,192,360,197.3C480,203,600,149,720,149.3C840,149,960,203,1080,213.3C1200,224,1320,192,1380,176L1440,160L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"></path>
     </svg>
   </div>
 
-  <footer class="text-center text-white py-3" style="position: relative; z-index: 10; background-color: #111;">
-    <p>© 2025 Le Plaisir - Tous droits réservés</p>
-  </footer>
+  <%= render 'layouts/footer' %>
 
   <script>
     window.addEventListener('scroll', () => {
       const hauteurPage = window.innerHeight;
       const scrollY = window.scrollY;
-      const seuil = document.body.scrollHeight - hauteurPage * 0.5; // zone basse (dernière moitié)
+      const seuil = document.body.scrollHeight - hauteurPage * 0.5;
 
       const content = document.querySelector('.home-wrapper');
 
