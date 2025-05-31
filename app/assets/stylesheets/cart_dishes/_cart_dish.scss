@@ -1,0 +1,90 @@
+.cart-dish-card {
+  background-color: #fff;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.cart-dish-body {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.cart-dish-info {
+  flex: 1;
+}
+
+.cart-dish-title {
+  margin-bottom: 0.25rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #d62828;
+}
+
+.cart-dish-quantity,
+.cart-dish-unit-price,
+.cart-dish-total-price {
+  margin: 0.25rem 0;
+  font-size: 0.95rem;
+  color: #f8f9fa;
+}
+
+.cart-dish-total-price {
+  font-weight: 600;
+}
+
+.cart-dish-subtitle {
+  margin-top: 0.75rem;
+  margin-bottom: 0.25rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.cart-dish-all-ingredients {
+  font-style: italic;
+  color: #ccc;
+}
+
+.cart-dish-ingredients-list,
+.cart-dish-sauces-list {
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #f8f9fa;
+}
+
+.cart-dish-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.btn-edit {
+  background-color: transparent;
+  border: 1px solid #007bff;
+  color: #007bff;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 4px;
+  text-decoration: none;
+}
+
+.btn-edit:hover {
+  background-color: #007bff;
+  color: white;
+}
+
+.btn-delete {
+  background-color: #d62828;
+  color: white;
+  border: none;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.875rem;
+  border-radius: 4px;
+}
+
+.btn-delete:hover {
+  background-color: #a71d1d;
+}

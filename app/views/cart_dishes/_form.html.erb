@@ -1,8 +1,8 @@
-<%= form_with(model: cart_dish, local: true, class: "contents") do |form| %>
+<%= form_with(model: cart_dish, local: true, class: "cart-dish-form") do |form| %>
   <% if cart_dish.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
+    <div class="error-messages">
       <h2><%= pluralize(cart_dish.errors.count, "error") %> prohibited this cart dish from being saved:</h2>
-      <ul class="list-disc ml-6">
+      <ul>
         <% cart_dish.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
@@ -10,20 +10,19 @@
     </div>
   <% end %>
 
-  <div class="my-5">
+  <div class="field-group">
     <%= form.label :dish_id, "Plat" %>
-    <%= form.collection_select :dish_id, Dish.all, :id, :title, prompt: "Choisissez un plat", class: "block w-full rounded-md border px-3 py-2" %>
+    <%= form.collection_select :dish_id, Dish.all, :id, :title, prompt: "Choisissez un plat" %>
   </div>
 
-  <div class="my-5">
+  <div class="field-group">
     <%= form.label :quantity, "Quantité" %>
-    <%= form.number_field :quantity, min: 1, class: "block w-full rounded-md border px-3 py-2" %>
+    <%= form.number_field :quantity, min: 1 %>
   </div>
 
-  <%# Afficher les ingrédients disponibles pour le plat sélectionné (en mode edit) %>
   <% if cart_dish.dish.present? %>
-    <div class="my-5">
-      <p class="font-semibold mb-2">Ingrédients (modifiable):</p>
+    <div class="ingredients-section">
+      <p>Ingrédients (modifiable):</p>
       <% cart_dish.dish.ingredients.each do |ingredient| %>
         <div>
           <%= check_box_tag "cart_dish[ingredients][]", ingredient.id, cart_dish.ingredients.include?(ingredient.id.to_s), id: "ingredient_#{ingredient.id}" %>
@@ -33,10 +32,8 @@
     </div>
   <% end %>
 
-  <%# Pour les sauces, tu peux faire pareil si tu as une table sauces ou options similaires %>
-  <%# Exemple statique : %>
-  <div class="my-5">
-    <p class="font-semibold mb-2">Sauces :</p>
+  <div class="sauces-section">
+    <p>Sauces :</p>
     <% ["Ketchup", "Mayonnaise", "Samurai"].each do |sauce| %>
       <div>
         <%= check_box_tag "cart_dish[sauces][]", sauce, cart_dish.sauces.include?(sauce), id: "sauce_#{sauce.parameterize}" %>
@@ -45,7 +42,7 @@
     <% end %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-medium cursor-pointer" %>
+  <div class="form-submit">
+    <%= form.submit "Valider" %>
   </div>
 <% end %>
