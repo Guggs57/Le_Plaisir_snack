@@ -1,0 +1,68 @@
+.edit-wrapper {
+  background-color: #1a1a1a;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 16px rgba(214, 40, 40, 0.4);
+  margin: 2rem auto;
+  color: #f2f2f2;
+}
+
+.edit-title {
+  color: #d62828;
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #f2f2f2;
+}
+
+.form-input {
+  background-color: #0f0f0f;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+  color: #f2f2f2;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: #d62828;
+    outline: none;
+  }
+}
+
+.section-title {
+  color: #d62828;
+  margin-bottom: 1rem;
+}
+
+.checkbox-item {
+  margin-bottom: 0.5rem;
+}
+
+.checkbox-label {
+  color: #f2f2f2;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+
+.form-actions {
+  display: flex;
+  align-items: center;
+}
+
+.btn-cancel {
+  color: #999;
+  text-decoration: underline;
+  cursor: pointer;
+
+  &:hover {
+    color: #d62828;
+  }
+}
