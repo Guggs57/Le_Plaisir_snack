@@ -2,13 +2,13 @@
 
 <div class="container my-5">
   <% if notice.present? %>
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="notice">
+    <div class="alert alert-success" id="notice">
       <%= notice %>
-      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fermer"></button>
+      <button type="button" class="alert-close" aria-label="Fermer">&times;</button>
     </div>
   <% end %>
 
-  <h1 class="mb-4 display-5 fw-bold">
+  <h1 class="page-title mb-4">
     <% if @cart_dish.menu_option %>
       MENU - <%= @cart_dish.dish.title %>
     <% else %>
@@ -28,8 +28,8 @@
   <p><strong>Quantité :</strong> <%= @cart_dish.quantity %></p>
 
   <% if @cart_dish.dish.image_url.present? %>
-    <div class="my-4">
-      <%= image_tag @cart_dish.dish.image_url, alt: @cart_dish.dish.title, class: "w-64 rounded shadow" %>
+    <div class="image-wrapper my-4">
+      <%= image_tag @cart_dish.dish.image_url, alt: @cart_dish.dish.title, class: "image-rounded shadow" %>
     </div>
   <% end %>
 
@@ -39,19 +39,19 @@
   </p>
 
   <% if @cart_dish.ingredients.present? && @cart_dish.ingredients.any? %>
-    <p class="mt-2 mb-0 fw-semibold">Ingrédients retirés :</p>
-    <ul>
+    <p class="ingredients-label">Ingrédients retirés :</p>
+    <ul class="ingredients-list">
       <% @cart_dish.ingredients.each do |ingr| %>
         <li><%= ingr.capitalize %></li>
       <% end %>
     </ul>
   <% else %>
-    <p class="mt-2 mb-0 fst-italic">Ingrédients par défaut.</p>
+    <p class="ingredients-default">Ingrédients par défaut.</p>
   <% end %>
 
-  <div class="d-flex flex-wrap gap-3 mt-4">
-    <%= link_to "Modifier cet article", edit_cart_dish_path(@cart_dish), class: "btn btn-outline-primary flex-grow-1 flex-sm-grow-0" %>
-    <%= link_to "Retour à la liste", cart_dishes_path, class: "btn btn-outline-secondary flex-grow-1 flex-sm-grow-0" %>
-    <%= button_to "Supprimer cet article", @cart_dish, method: :delete, data: { turbo_confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger flex-grow-1 flex-sm-grow-0" %>
+  <div class="actions-group mt-4">
+    <%= link_to "Modifier cet article", edit_cart_dish_path(@cart_dish), class: "btn btn-outline-primary action-btn" %>
+    <%= link_to "Retour à la liste", cart_dishes_path, class: "btn btn-outline-secondary action-btn" %>
+    <%= button_to "Supprimer cet article", @cart_dish, method: :delete, data: { turbo_confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger action-btn" %>
   </div>
 </div>

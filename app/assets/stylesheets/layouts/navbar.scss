@@ -1,0 +1,145 @@
+/* Styles personnalisés pour la navbar */
+nav.navbar.custom-navbar {
+  background-color: #000 !important;  /* override bootstrap */
+  border-bottom: 4px solid #d62828;
+  box-shadow: 0 2px 8px rgba(214, 40, 40, 0.4);
+  position: sticky; /* garder en haut même avec fixed-top */
+  top: 0;
+  z-index: 1050; /* plus que le reste du contenu */
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 60px; /* ajuster la hauteur selon ton logo */
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  flex-shrink: 0; /* éviter rétrécissement avec flex */
+
+  /* Important: Bootstrap ajoute padding et line-height sur .navbar, on annule */
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  line-height: normal !important;
+}
+
+/* Container perso pour centrer et limiter largeur */
+nav.navbar.custom-navbar > .container.container-narrow {
+  max-width: 1200px;
+  padding-left: 0;
+  padding-right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Boutons links dans la navbar */
+nav.navbar.custom-navbar .btn-custom {
+  background: linear-gradient(135deg, #d62828, #b22222);
+  color: #fff !important;
+  border-radius: 12px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
+  transition: all 0.3s ease;
+  display: inline-block;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+nav.navbar.custom-navbar .btn-custom:hover,
+nav.navbar.custom-navbar .btn-custom:focus {
+  background: #b22222;
+  color: #fff !important;
+  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
+  transform: translateY(-3px);
+  border-color: #fff;
+  text-decoration: none;
+}
+
+/* Boutons générés via <button> (ex: button_to) */
+nav.navbar.custom-navbar .btn-navbar-button {
+  background: linear-gradient(135deg, #d62828, #b22222);
+  color: #fff !important;
+  border-radius: 12px;
+  padding: 0.5rem 1.2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.9rem;
+  display: inline-block;
+  text-align: center;
+  line-height: 1.5;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+nav.navbar.custom-navbar .btn-navbar-button:hover,
+nav.navbar.custom-navbar .btn-navbar-button:focus {
+  background: #b22222;
+  color: #fff !important;
+  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
+  transform: translateY(-3px);
+  border-color: #fff;
+  text-decoration: none;
+}
+
+/* Form inline (ex: form_with method: :delete) */
+nav.navbar.custom-navbar form.d-inline {
+  display: inline;
+  margin: 0;
+  padding: 0;
+}
+
+/* Centrer le logo */
+nav.navbar.custom-navbar .navbar-brand.mx-auto {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  z-index: 1100; /* devant les menus */
+}
+
+nav.navbar.custom-navbar .navbar-brand.mx-auto img {
+  height: 40px; /* adapté à ton logo */
+  max-height: 100%;
+}
+
+/* Ajuster la taille des menus à gauche et droite */
+nav.navbar.custom-navbar ul.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding-left: 0;
+  margin-bottom: 0;
+}
+
+/* Styles spécifiques pour aligner la gauche et la droite */
+nav.navbar.custom-navbar ul.navbar-left {
+  justify-content: flex-start;
+  margin-right: auto;
+}
+
+nav.navbar.custom-navbar ul.navbar-right {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+/* Liens dans les menus */
+nav.navbar.custom-navbar ul.navbar-nav li.nav-item a.nav-link.btn-custom,
+nav.navbar.custom-navbar ul.navbar-nav li.nav-item form button.btn-navbar-button {
+  padding: 0.3rem 0.9rem;
+  font-size: 0.85rem;
+}
+

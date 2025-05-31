@@ -1,41 +1,41 @@
 <% content_for :title, "Modifier le plat dans le panier" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl mb-6">Modifier votre plat</h1>
+<div class="edit-wrapper md:w-2/3 w-full mx-auto p-6 bg-dark rounded-lg shadow-lg">
+  <h1 class="edit-title font-bold text-4xl mb-6 text-white">Modifier votre plat</h1>
 
-  <%= form_with(model: @cart_dish, local: true) do |form| %>
-    <div class="mb-4">
-      <%= form.label :quantity, "Quantité", class: "block font-medium mb-1" %>
-      <%= form.number_field :quantity, min: 1, class: "border rounded px-2 py-1 w-20" %>
+  <%= form_with(model: @cart_dish, local: true, class: "edit-form") do |form| %>
+    <div class="form-group mb-4">
+      <%= form.label :quantity, "Quantité", class: "form-label" %>
+      <%= form.number_field :quantity, min: 1, class: "form-input w-20" %>
     </div>
 
-    <div class="mb-4">
-      <h2 class="font-semibold mb-2">Ingrédients à retirer</h2>
+    <div class="form-group mb-4">
+      <h2 class="section-title font-semibold mb-2 text-white">Ingrédients à retirer</h2>
       <% ingrédients = @cart_dish.dish.ingredients %>
       <% selected_ingredients = @cart_dish.ingredients || [] %>
       <% ingrédients.each do |ingr| %>
-        <div>
+        <div class="checkbox-item">
           <%= check_box_tag "cart_dish[ingredients][]", ingr, selected_ingredients.include?(ingr), id: "ingredient_#{ingr.parameterize}" %>
-          <%= label_tag "ingredient_#{ingr.parameterize}", ingr.capitalize %>
+          <%= label_tag "ingredient_#{ingr.parameterize}", ingr.capitalize, class: "checkbox-label" %>
         </div>
       <% end %>
     </div>
 
-    <div class="mb-4">
-      <h2 class="font-semibold mb-2">Sauces (optionnel)</h2>
-      <% sauces_disponibles = ["ketchup", "mayonnaise", "harissa", "samouraï"] %> 
+    <div class="form-group mb-4">
+      <h2 class="section-title font-semibold mb-2 text-white">Sauces (optionnel)</h2>
+      <% sauces_disponibles = ["ketchup", "mayonnaise", "harissa", "samouraï"] %>
       <% selected_sauces = @cart_dish.sauces || [] %>
       <% sauces_disponibles.each do |sauce| %>
-        <div>
+        <div class="checkbox-item">
           <%= check_box_tag "cart_dish[sauces][]", sauce, selected_sauces.include?(sauce), id: "sauce_#{sauce.parameterize}" %>
-          <%= label_tag "sauce_#{sauce.parameterize}", sauce.capitalize %>
+          <%= label_tag "sauce_#{sauce.parameterize}", sauce.capitalize, class: "checkbox-label" %>
         </div>
       <% end %>
     </div>
 
-    <div class="mt-6">
-      <%= form.submit "Enregistrer les modifications", class: "bg-red-600 text-white rounded px-4 py-2 hover:bg-red-700" %>
-      <%= link_to "Annuler", cart_path(@cart_dish.cart), class: "ml-4 text-gray-600 hover:underline" %>
+    <div class="form-actions mt-6">
+      <%= form.submit "Enregistrer les modifications", class: "btn btn-danger" %>
+      <%= link_to "Annuler", cart_path(@cart_dish.cart), class: "btn-cancel ml-4" %>
     </div>
   <% end %>
 </div>

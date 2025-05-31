@@ -1,0 +1,83 @@
+.cart-dish-form {
+  max-width: 600px;
+  margin: 2rem auto;
+
+  .field-group {
+    margin-bottom: 1.5rem;
+
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #f2f2f2;
+    }
+
+    select,
+    input[type="number"] {
+      width: 100%;
+      padding: 0.5rem 0.75rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      background-color: #1a1a1a;
+      color: #f2f2f2;
+    }
+  }
+
+  .ingredients-section,
+  .sauces-section {
+    margin-bottom: 2rem;
+
+    p {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #f2f2f2;
+    }
+
+    label {
+      margin-left: 0.25rem;
+      color: #ccc;
+    }
+
+    div {
+      margin-bottom: 0.25rem;
+    }
+  }
+
+  .form-submit {
+    display: flex;
+    justify-content: flex-start;
+
+    input[type="submit"] {
+      padding: 0.75rem 1.5rem;
+      background-color: #1d4ed8;
+      border: none;
+      color: #fff;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #2563eb;
+    }
+  }
+
+  .error-messages {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.5rem;
+
+    h2 {
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+
+    ul {
+      padding-left: 1.5rem;
+      list-style: disc;
+    }
+  }
+}

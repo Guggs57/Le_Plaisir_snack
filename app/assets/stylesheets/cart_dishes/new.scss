@@ -1,0 +1,45 @@
+.form-container {
+  max-width: 600px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.page-title {
+  font-weight: 700;
+  font-size: 2.5rem;
+  color: #f2f2f2;
+  margin-bottom: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary {
+  background-color: #e5e7eb; // gris clair
+  color: #1f2937; // gris foncé
+}
+
+.btn-secondary:hover {
+  background-color: #f9fafb; // gris très clair
+}
+
+.btn-back {
+  margin-top: 0.5rem;
+  display: block;
+  width: 100%;
+
+  @media (min-width: 640px) {
+    display: inline-block;
+    width: auto;
+    margin-top: 0;
+    margin-left: 0.5rem;
+  }
+}

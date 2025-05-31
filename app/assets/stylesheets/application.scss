@@ -1,4 +1,9 @@
-/* RESET GÉNÉRAL */
+@import 'layouts/*';
+@import 'orders/*';
+@import 'home/*';
+@import 'cart_dishes/*';
+
+/* ===== BASE ===== */
 html, body {
   margin: 0;
   padding: 0;
@@ -13,19 +18,18 @@ html, body {
   flex-direction: column;
 }
 
-/* CONTAINER PRINCIPAL DE LA PAGE D’ACCUEIL */
+/* ===== CONTAINER PRINCIPAL - PAGE D'ACCUEIL ===== */
 .home-wrapper {
   max-width: 1200px;
-  margin-left: 180px; /* décalage à droite pour laisser place à la barre promo */
+  margin-left: 180px;
   margin-right: auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0 1rem;
   position: relative;
   z-index: 10;
   transition: margin-left 0.3s ease;
 }
 
-/* GESTION DES COULEURS CHEVAUCHANT LA VAGUE ROUGE */
+/* ===== COULEURS SPÉCIALES ===== */
 .text-red {
   color: #d62828;
   transition: color 0.4s ease;
@@ -35,54 +39,8 @@ html, body {
   color: #111;
 }
 
-/* NAVBAR */
-.navbar {
-  width: 100%;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  background-color: #000;
-  border-bottom: 4px solid #d62828;
-  box-shadow: 0 2px 8px rgba(214, 40, 40, 0.4);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-.navbar .btn-custom {
-  background: linear-gradient(135deg, #d62828, #b22222);
-  color: #fff !important;
-  border-radius: 12px;
-  padding: 0.5rem 1.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
-  transition: all 0.3s ease;
-  display: inline-block;
-}
-
-.navbar .btn-custom:hover,
-.navbar .btn-custom:focus {
-  background: #b22222;
-  color: #fff !important;
-  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
-  transform: translateY(-3px);
-  border-color: #fff;
-  text-decoration: none;
-}
-
-/* BANNIÈRE */
-.home-banner {
-  text-align: center;
-  padding: 4rem 1rem 2rem;
-  max-width: 900px;
-  margin: 0 auto;
-  border-bottom: 2px solid #d62828;
-}
-
-.banner-img, .home-logo {
+/* ===== BANNIÈRE ===== */
+.banner-img {
   max-width: 100%;
   height: auto;
   margin-bottom: 2rem;
@@ -93,28 +51,18 @@ html, body {
 .home-banner h1 {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #ffffff;
+  color: #fff;
   margin-bottom: 0.5rem;
 }
 
-.slogan, .home-subtitle {
+.slogan {
   font-size: 1.2rem;
   color: #e0e0e0;
   margin: 1rem 0 1.5rem;
   font-style: italic;
 }
 
-.hours, .home-hours {
-  font-size: 1.05rem;
-  color: #f2f2f2;
-  margin-bottom: 2rem;
-}
-
-/* CTA */
-.home-cta {
-  margin-top: 1rem;
-}
-
+/* ===== BOUTONS (CTA, PAYMENTS) ===== */
 .btn {
   display: inline-block;
   padding: 0.9rem 2rem;
@@ -154,29 +102,7 @@ html, body {
   transform: translateY(-3px);
 }
 
-/* BARRE LATÉRALE PROMO ÉTUDIANTE */
-.student-menu-promo {
-  position: fixed;
-  top: 50%;
-  left: 0;
-  transform: translateY(-50%);
-  background-color: #d62828;
-  color: white;
-  padding: 1rem 1.5rem;
-  font-weight: 700;
-  border-top-right-radius: 12px;
-  border-bottom-right-radius: 12px;
-  z-index: 9999;
-  white-space: nowrap;
-  cursor: default;
-  user-select: none;
-  box-shadow: 2px 2px 8px rgba(214, 40, 40, 0.6);
-  font-size: 1.3rem;
-  letter-spacing: 0.05em;
-  writing-mode: horizontal-tb;
-}
-
-/* MESSAGES FLASH */
+/* ===== MESSAGES FLASH ===== */
 .notice {
   background-color: #007f5f;
   color: #fff;
@@ -197,20 +123,7 @@ html, body {
   text-align: center;
 }
 
-/* FOOTER */
-footer {
-  background-color: #111;
-  color: #ccc;
-  text-align: center;
-  padding: 1rem;
-  margin-top: auto;
-  border-top: 2px solid #d62828;
-  font-size: 0.9rem;
-  position: relative;
-  z-index: 10;
-}
-
-/* VAGUE HORIZONTALE FIXE EN BAS DE PAGE */
+/* ===== VAGUE FIXE EN BAS DE PAGE ===== */
 .wave-container {
   width: 100%;
   height: 50vh;
@@ -249,92 +162,7 @@ footer {
   opacity: 1;
 }
 
-/* UTILE POUR TESTER LA FORME */
+/* ===== UTILITAIRES ===== */
 .debug-border {
   border: 1px solid lime;
-}
-
-/* PANIER */
-.panier-wrapper {
-  position: relative;
-  z-index: 10;
-  background-color: transparent;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 5rem; /* pour éviter d’être mangé par la vague */
-}
-
-.panier-wrapper .card {
-  background-color: #1a1a1a;
-  border: 1px solid #d62828;
-}
-
-.panier-wrapper .card-title {
-  color: #fff;
-}
-
-.panier-wrapper .card-text {
-  color: #ccc;
-}
-
-.panier-wrapper .btn-outline-primary {
-  border-color: #007f5f;
-  color: #007f5f;
-}
-
-.panier-wrapper .btn-outline-primary:hover {
-  background-color: #007f5f;
-  color: #fff;
-}
-
-.panier-wrapper .btn-danger {
-  background-color: #d62828;
-  border: none;
-}
-
-.panier-wrapper .btn-danger:hover {
-  background-color: #a91515;
-}
-
-/* ========================= */
-/* BOUTONS NAVBAR POUR <button> générés par button_to */
-
-.btn-navbar-button {
-  background: linear-gradient(135deg, #d62828, #b22222);
-  color: #fff !important;
-  border-radius: 12px;
-  padding: 0.5rem 1.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
-  display: inline-block;
-  text-align: center;
-  line-height: 1.5;
-  vertical-align: middle;
-  border-style: solid;
-  border-width: 1.5px;
-}
-
-.btn-navbar-button:hover,
-.btn-navbar-button:focus {
-  background: #b22222;
-  color: #fff !important;
-  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
-  transform: translateY(-3px);
-  border-color: #fff;
-  text-decoration: none;
-}
-
-/* Form inline utilisé pour button_to dans la navbar */
-form.d-inline {
-  display: inline;
-  margin: 0;
-  padding: 0;
 }
