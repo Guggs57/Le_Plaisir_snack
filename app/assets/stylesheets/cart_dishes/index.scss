@@ -1,0 +1,72 @@
+.index-wrapper {
+  color: #f2f2f2;
+}
+
+.notice-message {
+  @extend .notice; // réutilise ta classe notice globale (fond vert clair)
+  margin-bottom: 1.25rem;
+  padding: 0.75rem 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+}
+
+.header {
+  .page-title {
+    color: #d62828;
+  }
+}
+
+.btn {
+  border-radius: 10px;
+  font-weight: 600;
+  padding: 0.7rem 1.5rem;
+  text-decoration: none;
+  display: inline-block;
+  transition: all 0.3s ease;
+
+  &.btn-primary {
+    background-color: #007f5f;
+    color: #fff;
+
+    &:hover {
+      background-color: #00563a;
+    }
+  }
+
+  &.btn-secondary {
+    background-color: #444;
+    color: #eee;
+
+    &:hover {
+      background-color: #555;
+    }
+  }
+
+  &.btn-danger {
+    background-color: #d62828;
+    color: #fff;
+
+    &:hover {
+      background-color: #a91515;
+    }
+  }
+}
+
+.cart-dishes-list {
+  .cart-dish-item {
+    background-color: #1a1a1a;
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: 0 0 10px rgba(214, 40, 40, 0.3);
+  }
+
+  .actions {
+    button, a {
+      text-align: center;
+    }
+  }
+}
+
+.no-items {
+  font-size: 1.125rem;
+}
