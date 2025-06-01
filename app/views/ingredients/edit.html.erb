@@ -1,10 +1,12 @@
-<% content_for :title, "Editing ingredient" %>
+<% content_for :title, "Modifier l'ingrédient" %>
 
-<div class="md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">Editing ingredient</h1>
+<div class="ingredient-edit-container">
+  <h1 class="ingredient-edit-title">Modifier l'ingrédient</h1>
 
   <%= render "form", ingredient: @ingredient %>
 
-  <%= link_to "Show this ingredient", @ingredient, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to ingredients", ingredients_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <div class="ingredient-edit-links">
+    <%= link_to "Voir cet ingrédient", @ingredient, class: "btn btn-primary" %>
+    <%= link_to "Retour à la liste", ingredients_path, class: "btn btn-secondary" %>
+  </div>
 </div>

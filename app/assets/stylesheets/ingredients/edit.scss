@@ -1,0 +1,50 @@
+.ingredient-edit-container {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  background-color: #111;  // Fond noir foncé pour coller au thème
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(214, 40, 40, 0.7);
+}
+
+.ingredient-edit-title {
+  font-weight: 800;
+  font-size: 2.5rem;
+  color: #d62828;
+  margin-bottom: 1.5rem;
+}
+
+.ingredient-edit-links {
+  margin-top: 2rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 2rem;
+  font-weight: 600;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn-primary {
+  background-color: #d62828;
+  color: #fff;
+  &:hover {
+    background-color: #b91d1d;
+  }
+}
+
+.btn-secondary {
+  background-color: #e5e7eb; // gris clair
+  color: #111;
+  &:hover {
+    background-color: #d1d5db;
+  }
+}
