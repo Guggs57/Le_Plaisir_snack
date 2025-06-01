@@ -1,22 +1,22 @@
-<h1 style="color: #d62828;">Notre Menu</h1>
+<h1 class="menu-title">Notre Menu</h1>
 
 <% if @dishes.any? %>
-  <div style="display: flex; flex-wrap: wrap; gap: 1.5rem;">
+  <div class="dish-list">
     <% @dishes.each do |dish| %>
-      <div style="background: #111; border-radius: 8px; padding: 1rem; width: 300px; color: #fff; box-shadow: 0 0 8px rgba(214, 40, 40, 0.7);">
+      <div class="dish-card">
         <% if dish.image.present? %>
-          <%= image_tag(dish.image, alt: dish.title, style: "width: 100%; height: 180px; object-fit: cover; border-radius: 6px;") %>
+          <%= image_tag(dish.image, alt: dish.title, class: "dish-image") %>
         <% else %>
-          <div style="width: 100%; height: 180px; background: #333; border-radius: 6px; display: flex; align-items: center; justify-content: center; color: #777;">
+          <div class="dish-no-image">
             Pas d'image
           </div>
         <% end %>
 
-        <h2 style="margin-top: 0.75rem; color: #d62828;"><%= dish.title %></h2>
-        <p style="min-height: 3em;"><%= truncate(dish.description, length: 80) %></p>
-        <p style="font-weight: bold; font-size: 1.1rem; margin-bottom: 0.75rem;"><%= number_to_currency(dish.price, unit: "€") %></p>
+        <h2 class="dish-title"><%= dish.title %></h2>
+        <p class="dish-description"><%= truncate(dish.description, length: 80) %></p>
+        <p class="dish-price"><%= number_to_currency(dish.price, unit: "€") %></p>
 
-        <%= link_to "Voir le détail", dish_path(dish), style: "color: #fff; background-color: #d62828; padding: 0.5rem 1rem; border-radius: 4px; text-decoration: none;" %>
+        <%= link_to "Voir le détail", dish_path(dish), class: "btn-primary" %>
       </div>
     <% end %>
   </div>
