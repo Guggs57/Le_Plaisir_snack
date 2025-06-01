@@ -1,50 +1,58 @@
-<h1 class="text-3xl font-bold mb-4"><%= @dish.title %></h1>
+<h1 class="text-3xl font-bold mb-6 text-red-500"><%= @dish.title %></h1>
 
-<div class="mb-4">
-  <%= image_tag(@dish.image, alt: @dish.title, class: "img-fluid rounded shadow") if @dish.image.present? %>
-  <p class="mt-3"><%= @dish.description %></p>
-  <p class="text-lg font-semibold mt-2">Prix : <%= number_to_currency(@dish.price) %></p>
+<div class="bg-[#111] p-6 rounded-lg shadow-md text-white mb-8">
+  <% if @dish.image.present? %>
+    <%= image_tag @dish.image, alt: @dish.title, class: "w-full max-w-md mx-auto rounded-lg shadow-lg mb-4" %>
+  <% else %>
+    <div class="w-full h-64 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 mb-4">
+      Pas d'image
+    </div>
+  <% end %>
+
+  <p class="mb-3 text-lg"><%= @dish.description %></p>
+  <p class="text-xl font-semibold">Prix : <%= number_to_currency(@dish.price, unit: "€") %></p>
 </div>
 
-<h3 class="text-xl font-semibold mt-6 mb-2">Personnaliser et ajouter au panier</h3>
+<h3 class="text-2xl font-semibold text-red-500 mb-4">Personnaliser et ajouter au panier</h3>
 
 <% if user_signed_in? && @cart %>
-  <%= form_with url: add_to_cart_cart_path(@cart), method: :post, local: true do |form| %>
-    
+  <%= form_with url: add_to_cart_cart_path(@cart), method: :post, local: true, class: "bg-[#1a1a1a] p-6 rounded-lg shadow" do |form| %>
+
     <% if @ingredients.any? %>
-      <p class="font-medium mb-1">Cochez les ingrédients à <strong>retirer</strong> :</p>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+      <p class="text-white font-medium mb-2">Ingrédients à <strong>retirer</strong> :</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
         <% @ingredients.each do |ingredient| %>
-          <div>
-            <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}" %>
-            <%= label_tag "ingr_#{ingredient}", ingredient.capitalize %>
-          </div>
+          <label class="inline-flex items-center text-white">
+            <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}", class: "mr-2" %>
+            <%= ingredient.capitalize %>
+          </label>
         <% end %>
       </div>
     <% end %>
 
-    <p class="font-medium mb-1">Choisissez vos sauces :</p>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-2 mb-4">
+    <p class="text-white font-medium mb-2">Choisissez vos sauces :</p>
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
       <% Dish.available_sauces.each do |sauce| %>
-        <div>
-          <%= check_box_tag "selected_sauces[]", sauce, sauce.downcase.include?("blanche"), id: "sauce_#{sauce.parameterize}" %>
-          <%= label_tag "sauce_#{sauce.parameterize}", sauce.capitalize %>
-        </div>
+        <label class="inline-flex items-center text-white">
+          <%= check_box_tag "selected_sauces[]", sauce, sauce.downcase.include?("blanche"), id: "sauce_#{sauce.parameterize}", class: "mr-2" %>
+          <%= sauce.capitalize %>
+        </label>
       <% end %>
     </div>
 
-
-    <div class="mt-4">
-      <%= check_box_tag :menu_option, "1", false, id: "menu_option" %>
-      <%= label_tag :menu_option, "Ajouter ce plat en menu (boisson + accompagnement) + #{number_to_currency(@menu_extra_price, unit: '€')}" %>
+    <div class="mt-4 mb-6 text-white">
+      <label class="inline-flex items-center">
+        <%= check_box_tag :menu_option, "1", false, id: "menu_option", class: "mr-2" %>
+        <%= label_tag :menu_option, "Ajouter en menu (+ #{number_to_currency(@menu_extra_price, unit: '€')})" %>
+      </label>
     </div>
 
     <%= hidden_field_tag :dish_id, @dish.id %>
     <%= submit_tag "Ajouter au panier", class: "btn btn-primary" %>
   <% end %>
 <% else %>
-  <div class="alert alert-info mt-4">
-    <p>Vous devez être connecté pour ajouter au panier.</p>
-    <%= link_to "Se connecter", new_user_session_path, class: "btn btn-outline-primary mt-2" %>
+  <div class="bg-[#222] text-white p-6 rounded-lg shadow mt-6">
+    <p class="mb-3">Vous devez être connecté pour ajouter ce plat au panier.</p>
+    <%= link_to "Se connecter", new_user_session_path, class: "btn btn-primary" %>
   </div>
 <% end %>
