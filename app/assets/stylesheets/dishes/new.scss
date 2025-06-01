@@ -1,0 +1,48 @@
+h1 {
+  color: #d62828;
+}
+
+form {
+  background-color: #1a1a1a;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(214, 40, 40, 0.3);
+}
+
+form label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #f2f2f2;
+}
+
+form input,
+form textarea,
+form select {
+  background-color: #0f0f0f;
+  border: 1px solid #444;
+  color: #fff;
+  width: 100%;
+  padding: 0.6rem;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+form input[type="file"] {
+  background-color: transparent;
+}
+
+form .submit {
+  background-color: #d62828;
+  color: #fff;
+  padding: 0.6rem 1.5rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+form .submit:hover {
+  background-color: darken(#d62828, 10%);
+}
