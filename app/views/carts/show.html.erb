@@ -1,34 +1,34 @@
 <% content_for :title, "Mon Panier" %>
 
 <div class="container panier-wrapper mt-5 pt-5">
-  <h1 class="mb-4 display-5 fw-bold">Mon Panier</h1>
+  <h1 class="page-title">Mon Panier</h1>
 
   <% if @cart_dishes.empty? %>
-    <p>Votre panier est vide.</p>
+    <p class="empty-message">Votre panier est vide.</p>
   <% else %>
     <% total_panier = 0 %>
     <% @cart_dishes.each do |cart_dish| %>
       <% total_panier += cart_dish.total_price %>
 
-      <div class="card mb-3 shadow-sm">
-        <div class="card-body d-flex justify-content-between align-items-center">
-          <div>
-            <h5 class="card-title mb-1">
+      <div class="cart-item-card">
+        <div class="cart-item-body">
+          <div class="cart-item-info">
+            <h5 class="cart-item-title">
               <% if cart_dish.menu_option %>
                 MENU - <%= cart_dish.dish.title %>
               <% else %>
                 <%= cart_dish.dish.title %>
               <% end %>
             </h5>
-            <p class="card-text mb-0">Quantité : <%= cart_dish.quantity %></p>
-            <p class="card-text">Prix unitaire : <%= number_to_currency(cart_dish.unit_price) %></p>
-            <p class="card-text fw-semibold">Sous-total : <%= number_to_currency(cart_dish.total_price) %></p>
+            <p>Quantité : <%= cart_dish.quantity %></p>
+            <p>Prix unitaire : <%= number_to_currency(cart_dish.unit_price) %></p>
+            <p class="subtotal">Sous-total : <%= number_to_currency(cart_dish.total_price) %></p>
 
             <% if cart_dish.ingredients.blank? %>
-              <p class="mt-2 mb-0 fst-italic">Ingrédients par défaut.</p>
+              <p class="default-ingredients">Ingrédients par défaut.</p>
             <% else %>
-              <p class="mt-2 mb-0 fw-semibold">Ingrédients retirés :</p>
-              <ul>
+              <p class="removed-ingredients-label">Ingrédients retirés :</p>
+              <ul class="removed-ingredients-list">
                 <% cart_dish.ingredients.each do |ingr| %>
                   <li><%= ingr.capitalize %></li>
                 <% end %>
@@ -36,7 +36,7 @@
             <% end %>
           </div>
 
-          <div class="d-flex flex-column align-items-end">
+          <div class="cart-item-actions">
             <%= link_to "Modifier", edit_cart_dish_path(cart_dish), class: "btn btn-outline-primary btn-sm mb-2" %>
             <%= button_to "Supprimer", cart_dish_path(cart_dish), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn btn-danger btn-sm" %>
           </div>
@@ -45,32 +45,8 @@
     <% end %>
 
     <hr>
-    <p class="fs-4 fw-bold">Total : <%= number_to_currency(total_panier) %></p>
+    <p class="total-price">Total : <%= number_to_currency(total_panier) %></p>
 
     <%= link_to "Passer la commande", new_order_path, class: "btn btn-success btn-lg mt-3" %>
   <% end %>
 </div>
-
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const content = document.querySelector('.panier-wrapper');
-    if (!content) return; // Empêche les erreurs sur les pages sans .panier-wrapper
-
-    const onScroll = () => {
-      const contentTop = content.getBoundingClientRect().top + window.scrollY;
-      const contentHeight = content.offsetHeight;
-      const windowScroll = window.scrollY + window.innerHeight;
-
-      const isOnWave = windowScroll >= contentTop && windowScroll <= (contentTop + contentHeight);
-
-      if (isOnWave) {
-        content.classList.add('on-wave');
-      } else {
-        content.classList.remove('on-wave');
-      }
-    };
-
-    window.addEventListener('scroll', onScroll);
-    onScroll(); // Initial call
-  });
-</script>

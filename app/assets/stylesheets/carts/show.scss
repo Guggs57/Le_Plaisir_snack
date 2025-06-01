@@ -1,0 +1,156 @@
+.panier-wrapper {
+  margin-top: 1.25rem;  // mt-5
+  padding-top: 1.25rem; // pt-5
+  color: #f2f2f2;
+
+  .page-title {
+    margin-bottom: 1rem;  // mb-4
+    font-weight: 700;
+    font-size: 2rem;      // display-5 approximé
+  }
+
+  .empty-message {
+    font-style: italic;
+    text-align: center;
+    margin-top: 2rem;
+    color: #bbb;
+  }
+
+  .cart-item-card {
+    background-color: #121212;
+    border-radius: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+    margin-bottom: 1rem;
+
+    .cart-item-body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .cart-item-info {
+      flex: 1 1 auto;
+
+      .cart-item-title {
+        margin-bottom: 0.25rem;
+        font-weight: 600;
+        font-size: 1.125rem;
+        color: #eaeaea;
+      }
+
+      p {
+        margin-bottom: 0.25rem;
+        color: #ccc;
+      }
+
+      .subtotal {
+        font-weight: 600;
+        color: #d62828;
+      }
+
+      .default-ingredients {
+        margin-top: 0.5rem;
+        font-style: italic;
+        color: #888;
+      }
+
+      .removed-ingredients-label {
+        margin-top: 0.5rem;
+        font-weight: 600;
+        color: #d62828;
+      }
+
+      .removed-ingredients-list {
+        margin-top: 0.25rem;
+        padding-left: 1rem;
+        color: #ccc;
+
+        li {
+          margin-bottom: 0.125rem;
+        }
+      }
+    }
+
+    .cart-item-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+
+      .btn {
+        cursor: pointer;
+      }
+
+      .btn-outline-primary {
+        background-color: transparent;
+        border: 1px solid #007bff;
+        color: #007bff;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 0.5rem;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover {
+          background-color: #007bff;
+          color: white;
+        }
+      }
+
+      .btn-danger {
+        background-color: #d62828;
+        border: none;
+        color: white;
+        padding: 0.25rem 0.5rem;
+        border-radius: 0.25rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        &:hover {
+          background-color: #b22222;
+        }
+      }
+    }
+  }
+
+  hr {
+    border-color: #444;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .total-price {
+    font-size: 1.25rem; // fs-4 approx.
+    font-weight: 700;
+    color: #d62828;
+  }
+
+  .btn-success {
+    background-color: #007f5f;
+    color: white;
+    font-size: 1.125rem;
+    font-weight: 600;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.375rem;
+    text-align: center;
+    display: inline-block;
+    margin-top: 1rem;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: #005f40;
+    }
+  }
+}
+
+/* Pour la classe on-wave qui est ajoutée dynamiquement */
+.panier-wrapper.on-wave {
+  box-shadow: 0 0 20px 5px rgba(214, 40, 40, 0.7);
+  transition: box-shadow 0.3s ease-in-out;
+}
