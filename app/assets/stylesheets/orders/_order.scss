@@ -1,0 +1,27 @@
+.order-card {
+  width: 100%;
+  @media (min-width: 640px) {
+    width: auto;
+  }
+  margin: 1.25rem 0;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: #1a1a1a;
+  color: #fff;
+  box-shadow: 0 0 0 1px #333;
+
+  > div {
+    margin-bottom: 1rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.order-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+  color: #d62828;
+}
