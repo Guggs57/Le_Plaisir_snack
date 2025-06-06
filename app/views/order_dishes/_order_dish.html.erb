@@ -1,14 +1,14 @@
-<div id="<%= dom_id order_dish %>" class="w-full sm:w-auto my-5 space-y-5">
-  <div>
-    <strong class="block font-medium mb-1">Order:</strong>
+<div id="<%= dom_id order_dish %>" class="order-dish">
+  <div class="order-dish-field">
+    <strong class="label">Order:</strong>
     <%= order_dish.order_id %>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Dish:</strong>
+  <div class="order-dish-field">
+    <strong class="label">Dish:</strong>
     <%= order_dish.dish_id %>
   </div>
-  <div>
-    <strong class="block font-medium mb-1">Quantity:</strong>
+  <div class="order-dish-field">
+    <strong class="label">Quantity:</strong>
     <%= order_dish.quantity %>
   </div>
 </div>
