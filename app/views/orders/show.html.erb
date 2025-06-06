@@ -1,57 +1,57 @@
-<h1 style="color: #fff;">Commande n° <%= @order.id %></h1>
+<div class="order-show">
+  <h1>Commande n° <%= @order.id %></h1>
 
-<p style="color: #ccc;">
-  <strong>Statut :</strong> <%= @order.status.capitalize %><br>
-  <strong>Prix total :</strong> <%= number_to_currency(@order.total_price, unit: "€") %><br>
-  <strong>Date :</strong> <%= l(@order.created_at, format: :long) %>
-</p>
+  <p class="order-info">
+    <strong>Statut :</strong> <%= @order.status.capitalize %><br>
+    <strong>Prix total :</strong> <%= number_to_currency(@order.total_price, unit: "€") %><br>
+    <strong>Date :</strong> <%= l(@order.created_at, format: :long) %>
+  </p>
 
-<h2 style="color: #d62828;">Articles commandés :</h2>
+  <h2>Articles commandés :</h2>
 
-<table style="width: 100%; border-collapse: collapse; color: #fff;">
-  <thead>
-    <tr style="background-color: #333; color: #d62828;">
-      <th style="padding: 10px; border: 1px solid #555;">Plat</th>
-      <th style="padding: 10px; border: 1px solid #555;">Quantité</th>
-      <th style="padding: 10px; border: 1px solid #555;">Prix unitaire</th>
-      <th style="padding: 10px; border: 1px solid #555;">Sous-total</th>
-      <th style="padding: 10px; border: 1px solid #555;">Ingrédients retirés</th>
-      <th style="padding: 10px; border: 1px solid #555;">Sauces</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @order.order_dishes.each do |order_dish| %>
-      <% unit_price = order_dish.dish.price + (order_dish.menu_option ? CartDish::SOME_MENU_EXTRA_PRICE : 0) %>
-      <tr style="background-color: #111;">
-        <td style="padding: 10px; border: 1px solid #444;">
-          <%= order_dish.menu_option ? "MENU - #{order_dish.dish.title}" : order_dish.dish.title %>
-        </td>
-        <td style="padding: 10px; border: 1px solid #444;"><%= order_dish.quantity %></td>
-        <td style="padding: 10px; border: 1px solid #444;"><%= number_to_currency(unit_price, unit: "€") %></td>
-        <td style="padding: 10px; border: 1px solid #444;"><%= number_to_currency(unit_price * order_dish.quantity, unit: "€") %></td>
-        <td style="padding: 10px; border: 1px solid #444;">
-          <% if order_dish.ingredients.present? && order_dish.ingredients.any? %>
-            <%= order_dish.ingredients.join(", ") %>
-          <% else %>
-            Aucun ingrédient retiré
-          <% end %>
-        </td>
-        <td style="padding: 10px; border: 1px solid #444;">
-          <% if order_dish.sauces.present? %>
-            <%= order_dish.sauces.is_a?(Array) ? order_dish.sauces.join(", ") : order_dish.sauces %>
-          <% else %>
-            Aucune
-          <% end %>
-        </td>
+  <table class="order-items">
+    <thead>
+      <tr>
+        <th>Plat</th>
+        <th>Quantité</th>
+        <th>Prix unitaire</th>
+        <th>Sous-total</th>
+        <th>Ingrédients retirés</th>
+        <th>Sauces</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @order.order_dishes.each do |order_dish| %>
+        <% unit_price = order_dish.dish.price + (order_dish.menu_option ? CartDish::SOME_MENU_EXTRA_PRICE : 0) %>
+        <tr>
+          <td><%= order_dish.menu_option ? "MENU - #{order_dish.dish.title}" : order_dish.dish.title %></td>
+          <td><%= order_dish.quantity %></td>
+          <td><%= number_to_currency(unit_price, unit: "€") %></td>
+          <td><%= number_to_currency(unit_price * order_dish.quantity, unit: "€") %></td>
+          <td>
+            <% if order_dish.ingredients.present? && order_dish.ingredients.any? %>
+              <%= order_dish.ingredients.join(", ") %>
+            <% else %>
+              Aucun ingrédient retiré
+            <% end %>
+          </td>
+          <td>
+            <% if order_dish.sauces.present? %>
+              <%= order_dish.sauces.is_a?(Array) ? order_dish.sauces.join(", ") : order_dish.sauces %>
+            <% else %>
+              Aucune
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 
-<p style="margin-top: 20px;">
-  <% if current_user&.admin? %>
-    <%= link_to "Retour aux commandes", orders_path, class: "btn", style: "background-color: #d62828; color: #fff; padding: 10px 20px; border-radius: 5px;" %>
-  <% else %>
-    <%= link_to "Retour à l'accueil", root_path, class: "btn", style: "background-color: #d62828; color: #fff; padding: 10px 20px; border-radius: 5px;" %>
-  <% end %>
-</p>
+  <div class="order-return">
+    <% if current_user&.admin? %>
+      <%= link_to "Retour aux commandes", orders_path, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Retour à l'accueil", root_path, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>
