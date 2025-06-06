@@ -1,0 +1,22 @@
+.order-dish-new {
+  width: 100%;
+
+  @media (min-width: 768px) {
+    width: 66.666667%;
+  }
+
+  h1 {
+    font-size: 2.25rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+
+  .btn {
+    margin-top: 0.5rem;
+
+    @media (min-width: 640px) {
+      margin-top: 0;
+      margin-left: 0.5rem;
+    }
+  }
+}
