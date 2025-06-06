@@ -30,7 +30,64 @@
           <td><%= number_to_currency(unit_price * order_dish.quantity, unit: "€") %></td>
           <td>
             <% if order_dish.ingredients.present? && order_dish.ingredients.any? %>
+              <%= order_dish.ingredients.join(", ") %><div class="order-show">
+  <h1 class="order-title">Commande n° <%= @order.id %></h1>
+
+  <p class="order-info">
+    <strong>Statut :</strong> <%= @order.status.capitalize %><br>
+    <strong>Prix total :</strong> <%= number_to_currency(@order.total_price, unit: "€") %><br>
+    <strong>Date :</strong> <%= l(@order.created_at, format: :long) %>
+  </p>
+
+  <h2 class="order-subtitle">Articles commandés :</h2>
+
+  <table class="order-items">
+    <thead>
+      <tr>
+        <th>Plat</th>
+        <th>Quantité</th>
+        <th>Prix unitaire</th>
+        <th>Sous-total</th>
+        <th>Ingrédients retirés</th>
+        <th>Sauces</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order.order_dishes.each do |order_dish| %>
+        <% unit_price = order_dish.dish.price + (order_dish.menu_option ? CartDish::SOME_MENU_EXTRA_PRICE : 0) %>
+        <tr>
+          <td><%= order_dish.menu_option ? "MENU - #{order_dish.dish.title}" : order_dish.dish.title %></td>
+          <td><%= order_dish.quantity %></td>
+          <td><%= number_to_currency(unit_price, unit: "€") %></td>
+          <td><%= number_to_currency(unit_price * order_dish.quantity, unit: "€") %></td>
+          <td>
+            <% if order_dish.ingredients.present? && order_dish.ingredients.any? %>
               <%= order_dish.ingredients.join(", ") %>
+            <% else %>
+              Aucun ingrédient retiré
+            <% end %>
+          </td>
+          <td>
+            <% if order_dish.sauces.present? %>
+              <%= order_dish.sauces.is_a?(Array) ? order_dish.sauces.join(", ") : order_dish.sauces %>
+            <% else %>
+              Aucune
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="order-return">
+    <% if current_user&.admin? %>
+      <%= link_to "Retour aux commandes", orders_path, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to "Retour à l'accueil", root_path, class: "btn btn-danger" %>
+    <% end %>
+  </div>
+</div>
+
             <% else %>
               Aucun ingrédient retiré
             <% end %>

@@ -1,0 +1,71 @@
+.order-show {
+  color: #fff;
+  padding: 2rem 0;
+
+  .order-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1rem;
+  }
+
+  .order-subtitle {
+    font-size: 1.25rem;
+    color: #d62828;
+    margin: 2rem 0 1rem;
+  }
+
+  .order-info {
+    color: #ccc;
+    line-height: 1.6;
+  }
+
+  .order-items {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+
+    th, td {
+      padding: 0.75rem;
+      border: 1px solid #444;
+      text-align: left;
+    }
+
+    th {
+      background-color: #222;
+      color: #d62828;
+      font-weight: 600;
+    }
+
+    tr:nth-child(even) {
+      background-color: #111;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #1a1a1a;
+    }
+  }
+
+  .order-return {
+    margin-top: 2rem;
+    text-align: center;
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      border-radius: 5px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-danger {
+      background-color: #d62828;
+      color: #fff;
+
+      &:hover {
+        background-color: #b91c1c;
+      }
+    }
+  }
+}
