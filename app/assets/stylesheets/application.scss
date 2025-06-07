@@ -17,21 +17,23 @@ html, body {
   background-color: #0f0f0f;
   color: #f2f2f2;
   scroll-behavior: smooth;
-  position: relative;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;     /* Ajout pour centrer horizontalement */
 }
+
 
 /* ===== CONTAINER PRINCIPAL - PAGE D'ACCUEIL ===== */
 .home-wrapper {
   max-width: 1200px;
-  margin-left: 180px;
-  margin-right: auto;
-  padding: 0 1rem;
+  margin: 0 auto;
+  padding: 0; // supprime le padding horizontal
   position: relative;
   z-index: 10;
-  transition: margin-left 0.3s ease;
+  background-color: transparent !important; // assure la transparence
+  box-shadow: none;
+  border: none;
 }
 
 /* ===== COULEURS SPÉCIALES ===== */
@@ -46,11 +48,12 @@ html, body {
 
 /* ===== BANNIÈRE ===== */
 .banner-img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  margin-bottom: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 12px #d62828cc;
+  margin: 0 auto 2rem;
+  display: block;
+  border-radius: 0;
+  box-shadow: none; // supprime l'effet "encadré lumineux"
 }
 
 .home-banner h1 {
