@@ -1,25 +1,37 @@
-<!-- Affichage des informations de l'utilisateur -->
-<p><strong>Nom :</strong> <%= current_user.name.presence || "Non renseigné" %></p>
-<p><strong>Email :</strong> <%= current_user.email %></p>
+<div class="profile-show">
+  <h2 class="profile-header">Mes informations</h2>
 
-<!-- Lien pour modifier les informations -->
-<%= link_to "Modifier mes informations", edit_user_registration_path %>
+  <div class="profile-info">
+    <p><strong>Nom :</strong> <%= current_user.name.presence || "Non renseigné" %></p>
+    <p><strong>Email :</strong> <%= current_user.email %></p>
 
-<!-- Récap des commandes -->
-<h3>Mes commandes :</h3>
-<table class="table">
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Status</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @orders.each do |order| %>
-      <tr>
-        <td><%= order.id %></td>
-        <td><%= order.status.capitalize %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <%= link_to "Modifier mes informations", edit_user_registration_path, class: "btn btn-secondary mt-3" %>
+  </div>
+
+  <h3 class="orders-title">Mes commandes</h3>
+
+  <% if @orders.any? %>
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Statut</th>
+          <th>Date</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.id %></td>
+            <td><%= order.status.capitalize %></td>
+            <td><%= l(order.created_at, format: :short) %></td>
+            <td><%= link_to "Voir", order_path(order), class: "btn btn-sm" %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <p class="no-orders">Vous n'avez passé aucune commande.</p>
+  <% end %>
+</div>

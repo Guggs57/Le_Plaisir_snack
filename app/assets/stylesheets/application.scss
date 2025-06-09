@@ -2,6 +2,11 @@
 @import 'orders/*';
 @import 'home/*';
 @import 'cart_dishes/*';
+@import 'carts/*';
+@import 'dishes/*';
+@import 'ingredients/*';
+@import 'oder_dishes/*';
+@import 'profiles/*';
 
 /* ===== BASE ===== */
 html, body {
@@ -12,21 +17,23 @@ html, body {
   background-color: #0f0f0f;
   color: #f2f2f2;
   scroll-behavior: smooth;
-  position: relative;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
+  align-items: center;     /* Ajout pour centrer horizontalement */
 }
+
 
 /* ===== CONTAINER PRINCIPAL - PAGE D'ACCUEIL ===== */
 .home-wrapper {
   max-width: 1200px;
-  margin-left: 180px;
-  margin-right: auto;
-  padding: 0 1rem;
+  margin: 0 auto;
+  padding: 0; // supprime le padding horizontal
   position: relative;
   z-index: 10;
-  transition: margin-left 0.3s ease;
+  background-color: transparent !important; // assure la transparence
+  box-shadow: none;
+  border: none;
 }
 
 /* ===== COULEURS SPÉCIALES ===== */
@@ -41,11 +48,12 @@ html, body {
 
 /* ===== BANNIÈRE ===== */
 .banner-img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
-  margin-bottom: 2rem;
-  border-radius: 12px;
-  box-shadow: 0 0 12px #d62828cc;
+  margin: 0 auto 2rem;
+  display: block;
+  border-radius: 0;
+  box-shadow: none; // supprime l'effet "encadré lumineux"
 }
 
 .home-banner h1 {
@@ -68,13 +76,13 @@ html, body {
   padding: 0.9rem 2rem;
   background-color: #d62828;
   color: #fff;
-  text-decoration: none;
   font-weight: bold;
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(214, 40, 40, 0.3);
   transition: all 0.3s ease;
   font-size: 1.1rem;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .btn:hover {
@@ -103,8 +111,7 @@ html, body {
 }
 
 /* ===== MESSAGES FLASH ===== */
-.notice {
-  background-color: #007f5f;
+.notice, .alert {
   color: #fff;
   padding: 1rem 1.5rem;
   border-radius: 6px;
@@ -113,14 +120,12 @@ html, body {
   text-align: center;
 }
 
+.notice {
+  background-color: #007f5f;
+}
+
 .alert {
   background-color: #d62828;
-  color: #fff;
-  padding: 1rem 1.5rem;
-  border-radius: 6px;
-  margin: 1rem auto;
-  max-width: 1000px;
-  text-align: center;
 }
 
 /* ===== VAGUE FIXE EN BAS DE PAGE ===== */

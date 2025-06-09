@@ -1,9 +1,10 @@
-<% content_for :title, "Editing dish" %>
+<% content_for :title, "Modification d’un plat" %>
 
-<div class="md:w-2/3 w-full">
-<h1 class="text-2xl font-bold mb-6">Modifier le plat</h1>
-<%= render 'form', dish: @dish %>
+<div class="dish-edit-container">
+  <h1 class="page-title">Modifier le plat</h1>
 
-  <%= link_to "Show this dish", @dish, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to dishes", dishes_path, class: "w-full sm:w-auto text-center mt-2 sm:mt-0 sm:ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= render 'form', dish: @dish %>
+
+  <%= link_to "Voir ce plat", @dish, class: "btn-secondary" %>
+  <%= link_to "Retour à la liste", dishes_path, class: "btn-secondary" %>
 </div>

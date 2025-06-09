@@ -1,0 +1,52 @@
+.order-show {
+  color: #fff;
+
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    color: #d62828;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .order-info {
+    color: #ccc;
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  .order-items {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+
+    thead tr {
+      background-color: #333;
+      color: #d62828;
+    }
+
+    th, td {
+      padding: 10px;
+      border: 1px solid #444;
+      text-align: left;
+    }
+
+    tbody tr {
+      background-color: #111;
+    }
+  }
+
+  .order-return {
+    margin-top: 2rem;
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: 500;
+    }
+  }
+}

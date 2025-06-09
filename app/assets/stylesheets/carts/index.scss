@@ -1,0 +1,118 @@
+.carts-index-container {
+  width: 100%;
+  color: #f2f2f2;
+  padding: 1rem;
+
+  .notice-message {
+    padding: 0.5rem 1rem;
+    background-color: #d1fae5; // bg-green-50
+    color: #059669; // text-green-500
+    font-weight: 600;
+    border-radius: 0.375rem;
+    display: inline-block;
+    margin-bottom: 1.25rem;
+  }
+
+  .carts-index-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    h1 {
+      font-weight: 700;
+      font-size: 2.5rem; // text-4xl
+    }
+
+    .btn-primary {
+      background-color: #2563eb; // bleu standard
+      color: #fff;
+      font-weight: 600;
+      padding: 0.625rem 1rem; // px-3.5 py-2.5
+      border-radius: 0.375rem;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #1d4ed8; // hover bleu un peu plus foncé
+      }
+    }
+  }
+
+  .carts-list {
+    width: 100%;
+    min-width: 100%;
+    border-top: 1px solid #374151; // divide-gray-200 en foncé
+    border-bottom: 1px solid #374151;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem; // space-y-5
+
+    .cart-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 1.25rem;
+
+      @media (min-width: 640px) { // sm breakpoint
+        flex-direction: row;
+        padding-bottom: 0;
+        border-bottom: 1px solid #4b5563; // divide-gray-700
+      }
+
+      .cart-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        width: 100%;
+        margin-top: 1rem;
+
+        @media (min-width: 640px) {
+          width: auto;
+          margin-top: 0;
+        }
+
+        a,
+        button {
+          flex: 1 1 auto;
+          min-width: 150px;
+          text-align: center;
+          border-radius: 0.375rem;
+          padding: 0.625rem 1rem;
+          font-weight: 600;
+          cursor: pointer;
+          text-decoration: none;
+          display: inline-block;
+          transition: background-color 0.3s ease;
+          border: none;
+        }
+
+        a.btn-secondary {
+          background-color: #f3f4f6; // bg-gray-100
+          color: #111;
+          &:hover {
+            background-color: #f9fafb; // hover:bg-gray-50
+          }
+        }
+
+        button.btn-danger {
+          background-color: #dc2626; // bg-red-600
+          color: white;
+
+          &:hover {
+            background-color: #b91c1c; // hover:bg-red-500
+          }
+        }
+      }
+    }
+  }
+
+  .no-carts-msg {
+    text-align: center;
+    margin: 2.5rem 0;
+    color: #9ca3af; // text-gray-400
+  }
+}

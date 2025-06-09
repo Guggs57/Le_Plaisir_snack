@@ -1,0 +1,45 @@
+.ingredient-form-container {
+  width: 100%;
+  max-width: 640px; // équivaut md:w-2/3 sur desktop environ
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.ingredient-form-title {
+  font-weight: 700;
+  font-size: 2.5rem; // text-4xl
+  margin-bottom: 1.5rem;
+  color: #d62828; // rouge vif du branding
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.7rem 1.5rem;
+  border-radius: 0.4rem;
+  font-weight: 600;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary {
+  background-color: #f3f4f6; // gris clair (bg-gray-100)
+  color: #111;
+  width: 100%;
+
+  &:hover {
+    background-color: #e5e7eb; // bg-gray-50
+  }
+
+  @media (min-width: 640px) {
+    width: auto; // sm:w-auto
+    margin-left: 0.5rem; // sm:ml-2
+    margin-top: 0;
+  }
+
+  margin-top: 0.5rem; // mt-2
+  text-align: center;
+  display: inline-block;
+}

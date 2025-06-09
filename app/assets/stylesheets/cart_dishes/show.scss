@@ -1,129 +1,111 @@
-.container {
-  max-width: 900px;
-  margin: 3rem auto;
-  padding: 0 2rem;
+.index-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
   color: #f2f2f2;
-  line-height: 1.6;
 }
 
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-}
-
-p {
-  margin-bottom: 1.25rem;
-  font-size: 1.1rem;
-  color: #ddd;
-}
-
-.image-wrapper img {
-  max-width: 100%;
-  border-radius: 10px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
-  margin: 1.5rem 0;
-  display: block;
-}
-
-.ingredients-label {
-  font-weight: 700;
-  margin-top: 1rem;
-  margin-bottom: 0.75rem;
-  color: #eee;
-}
-
-.ingredients-list {
-  list-style-type: disc;
-  padding-left: 1.5rem;
-  margin-bottom: 1.5rem;
-  color: #ccc;
-}
-
-.ingredients-default {
-  font-style: italic;
-  color: #999;
-  margin-bottom: 1.5rem;
-}
-
-.actions-group {
+.header {
   display: flex;
-  gap: 1.25rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+
+  h1.page-title {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #fff;
+  }
 }
 
-.actions-group a,
-.actions-group form button {
-  flex: 1 1 160px;
-  padding: 0.75rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  text-decoration: none;
-  border: 2px solid transparent;
-  transition: background-color 0.25s ease;
+.cart-dishes-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.cart-dish-item {
+  background-color: #1a1a1a;
+  border-radius: 10px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 220px;
   color: #f2f2f2;
-  background-color: #d62828; /* rouge snack */
-  box-shadow: 0 2px 8px rgba(214, 40, 40, 0.6);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(214, 40, 40, 0.7);
+  }
 }
 
-.actions-group a.btn-outline-primary {
-  background-color: transparent;
-  border-color: #d62828;
-  color: #d62828;
+.cart-dish-item > * {
+  margin-bottom: 0.75rem;
 }
 
-.actions-group a.btn-outline-primary:hover {
-  background-color: #d62828;
-  color: #fff;
-  box-shadow: 0 4px 14px rgba(214, 40, 40, 0.9);
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: auto;
+
+  a.btn,
+  form button.btn {
+    flex: 1 1 auto;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 6px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  a.btn.btn-secondary {
+    background-color: #444;
+    color: #ddd;
+    border: 1px solid transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+
+    &:hover {
+      background-color: #d62828;
+      color: #fff;
+      box-shadow: 0 4px 14px rgba(214, 40, 40, 0.8);
+    }
+  }
+
+  form button.btn-danger {
+    background-color: #a91515;
+    border: none;
+    color: white;
+    box-shadow: 0 2px 8px rgba(169, 21, 21, 0.7);
+
+    &:hover {
+      background-color: #7f0f0f;
+      box-shadow: 0 4px 14px rgba(127, 15, 15, 0.9);
+    }
+  }
 }
 
-.actions-group a.btn-outline-secondary {
-  background-color: transparent;
-  border-color: #aaa;
-  color: #aaa;
-}
-
-.actions-group a.btn-outline-secondary:hover {
-  background-color: #aaa;
-  color: #111;
-  box-shadow: none;
-}
-
-.actions-group form button.btn-danger {
-  background-color: #a91515;
-  border: none;
-  color: white;
-  box-shadow: 0 2px 8px rgba(169, 21, 21, 0.7);
-}
-
-.actions-group form button.btn-danger:hover {
-  background-color: #7f0f0f;
-  box-shadow: 0 4px 14px rgba(127, 15, 15, 0.9);
-}
-
-.alert {
+.notice-message {
   background-color: #007f5f;
   color: white;
-  padding: 1.25rem 1.75rem;
+  padding: 1rem 1.5rem;
   border-radius: 8px;
-  position: relative;
-  margin-bottom: 2rem;
-  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
   box-shadow: 0 4px 15px rgba(0, 127, 95, 0.7);
 }
 
-.alert-close {
-  position: absolute;
-  right: 1rem;
-  top: 1rem;
-  background: none;
-  border: none;
-  font-size: 1.3rem;
-  color: white;
-  cursor: pointer;
-  line-height: 1;
+.no-items {
+  font-style: italic;
+  color: #999;
 }

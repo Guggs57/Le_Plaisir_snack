@@ -1,0 +1,21 @@
+.dish-card {
+  width: 100%;
+  margin: 1.25rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+
+  @media (min-width: 640px) {
+    width: auto;
+  }
+}
+
+.dish-attribute {
+  display: block;
+}
+
+.dish-label {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}

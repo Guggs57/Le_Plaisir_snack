@@ -1,29 +1,31 @@
 class DishesController < ApplicationController
   before_action :set_dish, only: %i[show edit update destroy]
   before_action :check_admin, only: %i[new create edit update destroy]
-  before_action :set_cart, only: [:index]  # Pour définir le panier sur l’index
+  before_action :set_cart, only: [ :index ]  # Pour définir le panier sur l’index
 
   # GET /dishes
   def index
     @dishes = Dish.all
   end
 
-  # GET /dishes/1
-  def show
-    # @dish est déjà défini par set_dish
-    if user_signed_in?
-      @cart = current_user.cart || current_user.create_cart
-    else
-      @cart = nil
-    end
+# GET /dishes/1
+def show
+  @dish = Dish.find(params[:id])
 
-    # Séparer les ingrédients des sauces (par nom)
-    @ingredients = @dish.ingredients.reject { |i| i.downcase.include?("sauce") }
-    @sauces = @dish.ingredients.select { |i| i.downcase.include?("sauce") }
-
-    # Prix supplémentaire pour passer le plat en menu (boisson + accompagnement)
-    @menu_extra_price = 2.5
+  if user_signed_in?
+    @cart = current_user.cart || current_user.create_cart
+  else
+    @cart = nil
   end
+
+  # Liste d'ingrédients statique (à retirer) :
+  @ingredients = @dish.default_ingredients_list
+
+  # Sauces statiques :
+  @sauces = Dish.available_sauces
+
+  @menu_extra_price = 2.5
+end
 
   # GET /dishes/new
   def new

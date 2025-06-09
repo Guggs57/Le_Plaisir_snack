@@ -1,0 +1,78 @@
+.ingredient-show-container {
+  width: 100%;
+  max-width: 640px; // md:w-2/3 approx
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.notice {
+  padding: 0.5rem 1rem;
+  background-color: #dcfce7; // vert très clair proche de green-50
+  color: #22c55e; // vert-500
+  font-weight: 500;
+  border-radius: 0.4rem;
+  margin-bottom: 1.25rem;
+  display: inline-block;
+}
+
+.ingredient-show-title {
+  font-weight: 700;
+  font-size: 2.5rem; // text-4xl
+  margin-bottom: 1.5rem;
+  color: #d62828; // rouge vif branding
+}
+
+.ingredient-show-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    border-radius: 0.4rem;
+    font-weight: 600;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+    transition: background-color 0.3s ease;
+    width: 100%;
+
+    @media (min-width: 640px) {
+      width: auto;
+    }
+  }
+
+  .btn-secondary {
+    background-color: #f3f4f6; // bg-gray-100
+    color: #111;
+
+    &:hover {
+      background-color: #e5e7eb; // bg-gray-50
+    }
+  }
+
+  .btn-danger {
+    background-color: #dc2626; // rouge-600
+    color: white;
+
+    &:hover {
+      background-color: #b91c1c; // rouge-500
+    }
+  }
+
+  .ml-sm {
+    margin-left: 0.5rem; // sm:ml-2
+  }
+
+  .mt-sm {
+    margin-top: 0.5rem; // sm:mt-0 ou mt-2
+  }
+
+  .inline-sm {
+    @media (min-width: 640px) {
+      display: inline-block;
+    }
+  }
+}

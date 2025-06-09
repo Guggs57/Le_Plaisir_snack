@@ -1,9 +1,8 @@
-<%= form_with(model: ingredient, class: "contents") do |form| %>
+<%= form_with(model: ingredient, class: "bg-[#111] text-white p-6 rounded-lg shadow-md") do |form| %>
   <% if ingredient.errors.any? %>
-    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-md mt-3">
-      <h2><%= pluralize(ingredient.errors.count, "error") %> prohibited this ingredient from being saved:</h2>
-
-      <ul class="list-disc ml-6">
+    <div id="error_explanation" class="bg-red-500/10 text-red-400 px-4 py-3 rounded-md mb-4 border border-red-500/30">
+      <h2 class="font-bold mb-2"><%= pluralize(ingredient.errors.count, "erreur") %> ont empêché l’enregistrement :</h2>
+      <ul class="list-disc list-inside">
         <% ingredient.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -11,17 +10,23 @@
     </div>
   <% end %>
 
-  <div class="my-5">
-    <%= form.label :name %>
-    <%= form.text_field :name, class: ["block shadow-sm rounded-md border px-3 py-2 mt-2 w-full", {"border-gray-400 focus:outline-blue-600": ingredient.errors[:name].none?, "border-red-400 focus:outline-red-600": ingredient.errors[:name].any?}] %>
+  <div class="mb-5">
+    <%= form.label :name, class: "block font-semibold mb-1 text-white" %>
+    <%= form.text_field :name, class: [
+      "w-full bg-[#1c1c1c] text-white border px-3 py-2 rounded-md",
+      ingredient.errors[:name].any? ? "border-red-500 focus:outline-red-600" : "border-gray-400 focus:outline-green-600"
+    ] %>
   </div>
 
-  <div class="my-5 flex items-center gap-2">
-    <%= form.label :is_allergen %>
-    <%= form.checkbox :is_allergen, class: ["block shadow-sm rounded-md border order-first h-5 w-5", {"border-gray-400 focus:outline-blue-600": ingredient.errors[:is_allergen].none?, "border-red-400 focus:outline-red-600": ingredient.errors[:is_allergen].any?}] %>
+  <div class="mb-5 flex items-center gap-3">
+    <%= form.check_box :is_allergen, class: [
+      "h-5 w-5 rounded-sm",
+      ingredient.errors[:is_allergen].any? ? "border-red-500 focus:outline-red-600" : "border-gray-400 focus:outline-green-600"
+    ] %>
+    <%= form.label :is_allergen, "Est un allergène", class: "text-white" %>
   </div>
 
-  <div class="inline">
-    <%= form.submit class: "w-full sm:w-auto rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white inline-block font-medium cursor-pointer" %>
+  <div class="text-right">
+    <%= form.submit "Enregistrer", class: "bg-[#d62828] hover:bg-red-600 text-white font-bold py-2 px-5 rounded-md shadow transition-all" %>
   </div>
 <% end %>

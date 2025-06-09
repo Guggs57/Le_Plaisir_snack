@@ -1,0 +1,101 @@
+.contents {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem 2rem;
+  background-color: #121212; /* fond sombre */
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(214, 40, 40, 0.5); /* léger halo rouge snack */
+  color: #f2f2f2;
+  font-family: 'Montserrat', sans-serif;
+
+  #error_explanation {
+    background-color: #fee2e2; /* rouge clair fond d'erreur */
+    color: #b91c1c; /* rouge foncé texte d'erreur */
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+
+    h2 {
+      margin-bottom: 0.5rem;
+      font-size: 1.25rem;
+    }
+
+    ul {
+      margin-left: 1.5rem;
+      list-style-type: disc;
+      font-size: 1rem;
+    }
+  }
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #d62828; /* rouge snack */
+    font-size: 1.1rem;
+  }
+
+  input[type="text"],
+  input[type="number"],
+  textarea {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    border: 2px solid #666;
+    background-color: #1a1a1a;
+    color: #f2f2f2;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+    font-family: 'Montserrat', sans-serif;
+
+    &:focus {
+      outline: none;
+      border-color: #007f5f; /* vert modéré au focus */
+      box-shadow: 0 0 8px #007f5f;
+      background-color: #222;
+    }
+  }
+
+  input.border-red-400,
+  input.border-red-400:focus {
+    border-color: #f87171 !important; /* rouge clair erreur */
+    box-shadow: 0 0 8px #f87171 !important;
+    background-color: #3f1f1f !important;
+  }
+
+  .my-5 {
+    margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+
+  .inline {
+    margin-top: 1rem;
+    text-align: right;
+
+    input[type="submit"] {
+      background-color: #d62828; /* rouge snack */
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(214, 40, 40, 0.7);
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #a91919;
+        box-shadow: 0 5px 16px rgba(169, 25, 25, 0.9);
+      }
+
+      &:focus {
+        outline: none;
+        box-shadow: 0 0 10px 3px #d62828;
+      }
+    }
+  }
+}

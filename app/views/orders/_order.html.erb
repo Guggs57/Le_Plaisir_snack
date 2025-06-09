@@ -1,14 +1,16 @@
-<div id="<%= dom_id order %>" class="w-full sm:w-auto my-5 space-y-5">
+<div id="<%= dom_id order %>" class="order-card">
   <div>
-    <strong class="block font-medium mb-1">User:</strong>
+    <strong class="order-label">Utilisateur :</strong>
     <%= order.user_id %>
   </div>
+
   <div>
-    <strong class="block font-medium mb-1">Total price:</strong>
-    <%= order.total_price %>
+    <strong class="order-label">Prix total :</strong>
+    <%= number_to_currency(order.total_price, unit: "€") %>
   </div>
+
   <div>
-    <strong class="block font-medium mb-1">Status:</strong>
-    <%= order.status %>
+    <strong class="order-label">Statut :</strong>
+    <%= order.status.capitalize %>
   </div>
 </div>
