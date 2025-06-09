@@ -16,33 +16,35 @@
 <h3 class="text-2xl font-semibold text-red-500 mb-4">Personnaliser et ajouter au panier</h3>
 
 <% if user_signed_in? && @cart %>
-  <%= form_with url: add_to_cart_cart_path(@cart), method: :post, local: true, class: "bg-[#1a1a1a] p-6 rounded-lg shadow" do |form| %>
+  <%= form_with url: add_to_cart_cart_path(@cart), method: :post, local: true, class: "custom-form" do |form| %>
 
     <% if @ingredients.any? %>
-      <p class="text-white font-medium mb-2">Ingrédients à <strong>retirer</strong> :</p>
-      <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
+      <p class="section-title">Ingrédients à <strong>retirer</strong> :</p>
+      <div class="ingredients-grid">
         <% @ingredients.each do |ingredient| %>
-          <label class="inline-flex items-center text-white">
-            <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}", class: "mr-2" %>
+          <label class="ingredient-label">
+            <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}" %>
             <%= ingredient.capitalize %>
           </label>
         <% end %>
       </div>
     <% end %>
 
-    <p class="text-white font-medium mb-2">Choisissez vos sauces :</p>
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-3 mb-4">
-      <% Dish.available_sauces.each do |sauce| %>
-        <label class="inline-flex items-center text-white">
-          <%= check_box_tag "selected_sauces[]", sauce, sauce.downcase.include?("blanche"), id: "sauce_#{sauce.parameterize}", class: "mr-2" %>
-          <%= sauce.capitalize %>
-        </label>
-      <% end %>
-    </div>
+    <% if @sauces.any? %>
+      <p class="section-title">Choisissez vos sauces :</p>
+      <div class="sauces-grid">
+        <% @sauces.each do |sauce| %>
+          <label class="sauce-label">
+            <%= check_box_tag "selected_sauces[]", sauce, sauce.downcase.include?("blanche"), id: "sauce_#{sauce.parameterize}" %>
+            <%= sauce.capitalize %>
+          </label>
+        <% end %>
+      </div>
+    <% end %>
 
-    <div class="mt-4 mb-6 text-white">
-      <label class="inline-flex items-center">
-        <%= check_box_tag :menu_option, "1", false, id: "menu_option", class: "mr-2" %>
+    <div class="menu-option">
+      <label>
+        <%= check_box_tag :menu_option, "1", false, id: "menu_option" %>
         <%= label_tag :menu_option, "Ajouter en menu (+ #{number_to_currency(@menu_extra_price, unit: '€')})" %>
       </label>
     </div>

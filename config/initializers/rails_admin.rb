@@ -1,7 +1,7 @@
 RailsAdmin.config do |config|
   config.asset_source = :sprockets
 
-  # ... tes autres configs ...
+  # Authentification/autorisation si nécessaire ici (Devise, Pundit, etc.)
 
   config.actions do
     dashboard
@@ -15,17 +15,19 @@ RailsAdmin.config do |config|
     show_in_app
   end
 
-  config.model 'Dish' do
-    # Ne pas afficher la méthode ingredients (qui n'est pas une association ActiveRecord)
+  config.model "Dish" do
+    # ⚠️ On exclut l'association ActiveRecord ingredients de l'affichage (pas utilisée ici)
     exclude_fields :ingredients
 
-    # Champ virtuel affichant la liste des ingrédients par défaut
+    # ✅ Champ virtuel pour afficher les ingrédients par défaut (définis dans le modèle)
     field :default_ingredients do
-      label 'Ingrédients par défaut'
-      pretty_value do
-        bindings[:object].ingredients.join(', ')
-      end
+      label "Ingrédients par défaut"
       read_only true
+
+      # 👇 On cache ce champ dans l'action "delete" pour éviter les erreurs de rendu
+      visible do
+        bindings[:controller].action_name != "delete"
+      end
     end
   end
 end

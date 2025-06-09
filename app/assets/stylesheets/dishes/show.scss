@@ -1,3 +1,4 @@
+// Bouton rouge existant
 .btn.btn-primary {
   background-color: #d62828;
   color: #fff;
@@ -12,4 +13,70 @@
 .btn.btn-primary:hover {
   background-color: darken(#d62828, 10%);
   transform: translateY(-2px);
+}
+
+// Formulaire personnalisé
+.custom-form {
+  background-color: #1a1a1a;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.7);
+  color: white;
+}
+
+// Titres de sections
+.section-title {
+  font-weight: 600;
+  color: #d62828;
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+}
+
+// Grilles
+.ingredients-grid, .sauces-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+// Label ingrédients
+.ingredient-label {
+  display: flex;
+  align-items: center;
+  background-color: #2b2b2b;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  input[type="checkbox"] {
+    margin-right: 0.6rem;
+    cursor: pointer;
+  }
+
+  &:hover {
+    background-color: #3f3f3f;
+  }
+}
+
+// Label sauces
+.sauce-label {
+  @extend .ingredient-label;
+  background-color: #3a1a1a;
+
+  &:hover {
+    background-color: #5a2222;
+  }
+}
+
+// Option menu
+.menu-option {
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+
+  input[type="checkbox"] {
+    margin-right: 0.5rem;
+  }
 }
