@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+  mount RailsAdmin::Engine => "/admin", as: "rails_admin"
     root "home#index"
   devise_for :users
 
-  resource :profile, only: [:show, :edit, :update, :destroy]
+  resource :profile, only: [ :show, :edit, :update, :destroy ]
 
   resources :orders do
     member do
@@ -13,15 +13,18 @@ Rails.application.routes.draw do
 
   resources :order_dishes
 
-  resources :cart_dishes, only: [:index, :show, :edit, :update, :destroy] do
+  resources :cart_dishes, only: [ :index, :show, :edit, :update, :destroy ] do
     patch :update_quantity, on: :member
   end
 
-  resources :carts, only: [:show, :create, :update, :destroy] do
+  resources :carts, only: [ :show, :create, :update, :destroy ] do
     post :add_to_cart, on: :member
   end
 
   resources :dish_ingredients
   resources :ingredients
   resources :dishes
+
+  get "/cgu", to: "home#terms", as: :terms
+  get "/confidentialite", to: "home#privacy", as: :privacy
 end

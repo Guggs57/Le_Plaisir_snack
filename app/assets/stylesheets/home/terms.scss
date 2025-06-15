@@ -1,0 +1,37 @@
+.terms-page {
+  background-color: #111; // même fond sombre
+  padding: 2rem 1.5rem 8rem; // padding bas large pour ne pas cacher par la vague rouge
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(214, 40, 40, 0.5); // lueur rouge douce autour
+
+  h1 {
+    font-size: 2.5rem;
+    color: #d62828;
+    margin-bottom: 1.5rem;
+    font-weight: 800;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+    color: #d62828;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 700;
+  }
+
+  p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #f2f2f2;
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: #007f5f;
+    text-decoration: underline;
+
+    &:hover {
+      color: #d62828;
+    }
+  }
+}
