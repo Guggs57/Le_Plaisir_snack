@@ -1,7 +1,7 @@
 <div class="cart-dish-card">
   <div class="cart-dish-body">
     <div class="cart-dish-info">
-      <h5 class="cart-dish-title">
+      <h5 class="cart-dish-title text-white text-lg font-semibold">
         <% if cart_dish.menu_option %>
           MENU - <%= cart_dish.dish.title %>
         <% else %>
@@ -9,44 +9,36 @@
         <% end %>
       </h5>
 
-      <p class="cart-dish-quantity">Quantité : <%= cart_dish.quantity %></p>
-
-      <p class="cart-dish-unit-price">
-        Prix unitaire : <%= number_to_currency(cart_dish.unit_price) %>
-      </p>
-
-      <p class="cart-dish-total-price">
-        Sous-total : <%= number_to_currency(cart_dish.total_price) %>
-      </p>
+      <p class="cart-dish-quantity text-sm text-gray-300">Quantité : <%= cart_dish.quantity %></p>
+      <p class="cart-dish-unit-price text-sm text-gray-300">Prix unitaire : <%= number_to_currency(cart_dish.unit_price) %></p>
+      <p class="cart-dish-total-price text-sm text-gray-300">Sous-total : <%= number_to_currency(cart_dish.total_price) %></p>
 
       <% if cart_dish.ingredients.present? && cart_dish.ingredients.any? %>
-        <p class="cart-dish-subtitle">Ingrédients retirés :</p>
-        <ul class="cart-dish-ingredients-list">
+        <p class="cart-dish-subtitle text-sm text-white mt-2">Ingrédients retirés :</p>
+        <ul class="cart-dish-ingredients-list list-disc list-inside text-gray-200">
           <% cart_dish.ingredients.each do |ingr| %>
             <li><%= ingr.capitalize %></li>
           <% end %>
         </ul>
       <% else %>
-        <p class="cart-dish-all-ingredients">Avec tout</p>
+        <p class="cart-dish-all-ingredients text-sm text-gray-300 mt-2">Avec tous les ingrédients</p>
       <% end %>
 
-      <p class="cart-dish-subtitle">Avec sauce :</p>
+      <p class="cart-dish-subtitle text-sm text-white mt-2">Sauces :</p>
       <% if cart_dish.sauces.present? && cart_dish.sauces.any? %>
-        <ul class="cart-dish-sauces-list">
+        <ul class="cart-dish-sauces-list list-disc list-inside text-gray-200">
           <% cart_dish.sauces.each do |sauce| %>
             <li><%= sauce.capitalize %></li>
           <% end %>
         </ul>
       <% else %>
-        <ul class="cart-dish-sauces-list">
-          <li>Sauce blanche</li>
-        </ul>
+        <p class="text-gray-300">Sauce blanche</p>
       <% end %>
     </div>
 
-    <div class="cart-dish-actions">
-      <%= link_to "Modifier", edit_cart_dish_path(cart_dish), class: "btn-edit" %>
-      <%= button_to "Supprimer", cart_dish_path(cart_dish), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn-delete" %>
+    <div class="cart-dish-actions mt-4 flex gap-2">
+      <%= link_to "Modifier", edit_cart_dish_path(cart_dish), class: "btn-edit bg-yellow-600 hover:bg-yellow-700 text-white px-3 py-1 rounded" %>
+      <%= button_to "Supprimer", cart_dish_path(cart_dish), method: :delete, data: { confirm: "Êtes-vous sûr ?" }, class: "btn-delete bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded" %>
     </div>
   </div>
 </div>

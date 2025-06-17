@@ -35,15 +35,14 @@ class Dish < ApplicationRecord
     [
       "curry",
       "ketchup curry",
-      "mayo",
-      "sketchup",
-      "algerienne",
+      "mayonnaise",
+      "ketchup",
+      "algérienne",
       "marocaine",
       "andalouse",
-      "blanche",
-      "samourai",
-      "harissa",
       "sauce blanche",
+      "samouraï",
+      "harissa",
       "fromagère"
     ]
   end

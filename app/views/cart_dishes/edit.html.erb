@@ -11,19 +11,19 @@
 
     <div class="form-group mb-4">
       <h2 class="section-title font-semibold mb-2 text-white">Ingrédients à retirer</h2>
-      <% ingrédients = @cart_dish.dish.ingredients %>
+      <% ingredients = @cart_dish.dish.default_ingredients_list %>
       <% selected_ingredients = @cart_dish.ingredients || [] %>
-      <% ingrédients.each do |ingr| %>
+      <% ingredients.each do |ingredient| %>
         <div class="checkbox-item">
-          <%= check_box_tag "cart_dish[ingredients][]", ingr, selected_ingredients.include?(ingr), id: "ingredient_#{ingr.parameterize}" %>
-          <%= label_tag "ingredient_#{ingr.parameterize}", ingr.capitalize, class: "checkbox-label" %>
+          <%= check_box_tag "cart_dish[ingredients][]", ingredient, selected_ingredients.include?(ingredient), id: "ingredient_#{ingredient.parameterize}" %>
+          <%= label_tag "ingredient_#{ingredient.parameterize}", ingredient.capitalize, class: "checkbox-label" %>
         </div>
       <% end %>
     </div>
 
     <div class="form-group mb-4">
       <h2 class="section-title font-semibold mb-2 text-white">Sauces (optionnel)</h2>
-      <% sauces_disponibles = ["ketchup", "mayonnaise", "harissa", "samouraï"] %>
+      <% sauces_disponibles = Dish.available_sauces %>
       <% selected_sauces = @cart_dish.sauces || [] %>
       <% sauces_disponibles.each do |sauce| %>
         <div class="checkbox-item">
