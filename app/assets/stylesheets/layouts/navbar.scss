@@ -1,66 +1,63 @@
 /* Styles personnalisés pour la navbar */
 nav.navbar.custom-navbar {
-  background-color: #000 !important;  /* override bootstrap */
-  border-bottom: 4px solid #d62828;
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(6px);
   box-shadow: 0 2px 8px rgba(214, 40, 40, 0.4);
-  position: sticky; /* garder en haut même avec fixed-top */
+  position: sticky;
   top: 0;
-  z-index: 1050; /* plus que le reste du contenu */
+  z-index: 1050;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  height: 60px; /* ajuster la hauteur selon ton logo */
+  height: 60px;
   display: flex;
   align-items: center;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  flex-shrink: 0; /* éviter rétrécissement avec flex */
-
-  /* Important: Bootstrap ajoute padding et line-height sur .navbar, on annule */
+  padding: 0 1rem;
+  flex-shrink: 0;
+  line-height: normal !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  line-height: normal !important;
+
+    border-top-left-radius: 28px;
+    border-bottom-right-radius: 28px;
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    background-color: #d62828;
+    z-index: 1060;
+  }
+
+
+  &::before {
+    top: 0;
+    right: 0;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+  }
+
+ 
+  &::after {
+    bottom: 0;
+    left: 0;
+    clip-path: polygon(0 100%, 100% 100%, 0 0);
+  }
+
 }
 
 /* Container perso pour centrer et limiter largeur */
 nav.navbar.custom-navbar > .container.container-narrow {
   max-width: 1200px;
-  padding-left: 0;
-  padding-right: 0;
+  padding: 0;
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-/* Boutons links dans la navbar */
-nav.navbar.custom-navbar .btn-custom {
-  background: linear-gradient(135deg, #d62828, #b22222);
-  color: #fff !important;
-  border-radius: 12px;
-  padding: 0.5rem 1.2rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
-  transition: all 0.3s ease;
-  display: inline-block;
-  line-height: 1.2;
-  white-space: nowrap;
-}
-
-nav.navbar.custom-navbar .btn-custom:hover,
-nav.navbar.custom-navbar .btn-custom:focus {
-  background: #b22222;
-  color: #fff !important;
-  box-shadow: 0 6px 14px rgba(214, 40, 40, 0.9);
-  transform: translateY(-3px);
-  border-color: #fff;
-  text-decoration: none;
-}
-
-/* Boutons générés via <button> (ex: button_to) */
+/* Boutons liens dans la navbar */
+nav.navbar.custom-navbar .btn-custom,
 nav.navbar.custom-navbar .btn-navbar-button {
   background: linear-gradient(135deg, #d62828, #b22222);
   color: #fff !important;
@@ -72,16 +69,18 @@ nav.navbar.custom-navbar .btn-navbar-button {
   border: 1.5px solid rgba(255, 255, 255, 0.3);
   box-shadow: 0 3px 8px rgba(214, 40, 40, 0.6);
   transition: all 0.3s ease;
-  cursor: pointer;
+  display: inline-block;
+  white-space: nowrap;
+  line-height: 1.2;
   font-family: 'Montserrat', sans-serif;
   font-size: 0.9rem;
-  display: inline-block;
   text-align: center;
-  line-height: 1.5;
   vertical-align: middle;
-  white-space: nowrap;
+  cursor: pointer;
 }
 
+nav.navbar.custom-navbar .btn-custom:hover,
+nav.navbar.custom-navbar .btn-custom:focus,
 nav.navbar.custom-navbar .btn-navbar-button:hover,
 nav.navbar.custom-navbar .btn-navbar-button:focus {
   background: #b22222;
@@ -92,7 +91,7 @@ nav.navbar.custom-navbar .btn-navbar-button:focus {
   text-decoration: none;
 }
 
-/* Form inline (ex: form_with method: :delete) */
+/* Form inline */
 nav.navbar.custom-navbar form.d-inline {
   display: inline;
   margin: 0;
@@ -108,15 +107,15 @@ nav.navbar.custom-navbar .navbar-brand.mx-auto {
   height: 60px;
   display: flex;
   align-items: center;
-  z-index: 1100; /* devant les menus */
+  z-index: 1100;
 }
 
 nav.navbar.custom-navbar .navbar-brand.mx-auto img {
-  height: 40px; /* adapté à ton logo */
+  height: 40px;
   max-height: 100%;
 }
 
-/* Ajuster la taille des menus à gauche et droite */
+/* Menu alignement */
 nav.navbar.custom-navbar ul.navbar-nav {
   display: flex;
   align-items: center;
@@ -125,7 +124,6 @@ nav.navbar.custom-navbar ul.navbar-nav {
   margin-bottom: 0;
 }
 
-/* Styles spécifiques pour aligner la gauche et la droite */
 nav.navbar.custom-navbar ul.navbar-left {
   justify-content: flex-start;
   margin-right: auto;
@@ -136,10 +134,58 @@ nav.navbar.custom-navbar ul.navbar-right {
   margin-left: auto;
 }
 
-/* Liens dans les menus */
+/* Liens dans les boutons de menu */
 nav.navbar.custom-navbar ul.navbar-nav li.nav-item a.nav-link.btn-custom,
 nav.navbar.custom-navbar ul.navbar-nav li.nav-item form button.btn-navbar-button {
   padding: 0.3rem 0.9rem;
   font-size: 0.85rem;
 }
 
+/* Liens classiques */
+nav.navbar.custom-navbar a.nav-link {
+  color: #ccc;
+  font-weight: 500;
+  transition: color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    color: #fff;
+    text-shadow: 0 0 6px #d62828;
+  }
+}
+
+/* Lien actif */
+nav.navbar.custom-navbar .nav-link.active {
+  color: #fff !important;
+  font-weight: 700;
+  border-bottom: 2px solid #d62828;
+}
+
+/* Accessibilité focus */
+nav.navbar.custom-navbar a:focus,
+nav.navbar.custom-navbar button:focus {
+  outline: 2px solid #d62828;
+  outline-offset: 2px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  nav.navbar.custom-navbar ul.navbar-nav {
+    gap: 0.3rem;
+  }
+
+  nav.navbar.custom-navbar {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+
+  nav.navbar.custom-navbar .btn-custom,
+  nav.navbar.custom-navbar .btn-navbar-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.8rem;
+  }
+
+  nav.navbar.custom-navbar .navbar-brand.mx-auto img {
+    height: 32px;
+  }
+}
