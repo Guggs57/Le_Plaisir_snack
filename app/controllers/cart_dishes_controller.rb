@@ -22,12 +22,6 @@ class CartDishesController < ApplicationController
     @cart_dish = CartDish.new(cart_dish_params)
     @cart_dish.cart = current_user.cart || current_user.create_cart
 
-    # Ingrédients retirés
-    @cart_dish.ingredients = params[:removed_ingredients] || []
-
-    # Sauces choisies ou valeur par défaut
-    @cart_dish.sauces = params[:selected_sauces].present? ? params[:selected_sauces] : ["sauce blanche"]
-
     if @cart_dish.save
       redirect_to cart_path(@cart_dish.cart), notice: "Plat ajouté au panier avec succès."
     else
@@ -41,7 +35,7 @@ class CartDishesController < ApplicationController
     params[:cart_dish][:sauces] ||= []
 
     if @cart_dish.update(cart_dish_params)
-      redirect_to cart_path(@cart_dish.cart), notice: 'Modification enregistrée avec succès.'
+      redirect_to cart_path(@cart_dish.cart), notice: "Modification enregistrée avec succès."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -66,7 +60,6 @@ class CartDishesController < ApplicationController
     @cart_dish = CartDish.find(params[:id])
   end
 
-  # On autorise maintenant menu_option en plus des autres params
   def cart_dish_params
     params.require(:cart_dish).permit(:quantity, :menu_option, ingredients: [], sauces: [])
   end
