@@ -46,7 +46,7 @@ nav.navbar.custom-navbar {
 
 }
 
-/* Container perso pour centrer et limiter largeur */
+
 nav.navbar.custom-navbar > .container.container-narrow {
   max-width: 1200px;
   padding: 0;
@@ -56,7 +56,7 @@ nav.navbar.custom-navbar > .container.container-narrow {
   align-items: center;
 }
 
-/* Boutons liens dans la navbar */
+
 nav.navbar.custom-navbar .btn-custom,
 nav.navbar.custom-navbar .btn-navbar-button {
   background: linear-gradient(135deg, #d62828, #b22222);
@@ -91,14 +91,14 @@ nav.navbar.custom-navbar .btn-navbar-button:focus {
   text-decoration: none;
 }
 
-/* Form inline */
+
 nav.navbar.custom-navbar form.d-inline {
   display: inline;
   margin: 0;
   padding: 0;
 }
 
-/* Centrer le logo */
+
 nav.navbar.custom-navbar .navbar-brand.mx-auto {
   position: absolute;
   left: 50%;
@@ -115,7 +115,7 @@ nav.navbar.custom-navbar .navbar-brand.mx-auto img {
   max-height: 100%;
 }
 
-/* Menu alignement */
+
 nav.navbar.custom-navbar ul.navbar-nav {
   display: flex;
   align-items: center;
@@ -134,14 +134,14 @@ nav.navbar.custom-navbar ul.navbar-right {
   margin-left: auto;
 }
 
-/* Liens dans les boutons de menu */
+
 nav.navbar.custom-navbar ul.navbar-nav li.nav-item a.nav-link.btn-custom,
 nav.navbar.custom-navbar ul.navbar-nav li.nav-item form button.btn-navbar-button {
   padding: 0.3rem 0.9rem;
   font-size: 0.85rem;
 }
 
-/* Liens classiques */
+
 nav.navbar.custom-navbar a.nav-link {
   color: #ccc;
   font-weight: 500;
@@ -154,21 +154,21 @@ nav.navbar.custom-navbar a.nav-link {
   }
 }
 
-/* Lien actif */
+
 nav.navbar.custom-navbar .nav-link.active {
   color: #fff !important;
   font-weight: 700;
   border-bottom: 2px solid #d62828;
 }
 
-/* Accessibilité focus */
+
 nav.navbar.custom-navbar a:focus,
 nav.navbar.custom-navbar button:focus {
   outline: 2px solid #d62828;
   outline-offset: 2px;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   nav.navbar.custom-navbar ul.navbar-nav {
     gap: 0.3rem;

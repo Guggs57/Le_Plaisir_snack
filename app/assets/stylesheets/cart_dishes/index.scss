@@ -3,7 +3,7 @@
 }
 
 .notice-message {
-  @extend .notice; // réutilise ta classe notice globale (fond vert clair)
+  @extend .notice;
   margin-bottom: 1.25rem;
   padding: 0.75rem 1rem;
   font-weight: 600;

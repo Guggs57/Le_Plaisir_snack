@@ -2,15 +2,15 @@
   max-width: 500px;
   margin: 2rem auto;
   padding: 1.5rem 2rem;
-  background-color: #121212; /* fond sombre */
+  background-color: #121212; 
   border-radius: 12px;
-  box-shadow: 0 4px 18px rgba(214, 40, 40, 0.5); /* léger halo rouge snack */
+  box-shadow: 0 4px 18px rgba(214, 40, 40, 0.5); 
   color: #f2f2f2;
   font-family: 'Montserrat', sans-serif;
 
   #error_explanation {
-    background-color: #fee2e2; /* rouge clair fond d'erreur */
-    color: #b91c1c; /* rouge foncé texte d'erreur */
+    background-color: #fee2e2; 
+    color: #b91c1c; 
     padding: 1rem 1.25rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
@@ -32,7 +32,7 @@
     display: block;
     font-weight: 600;
     margin-bottom: 0.5rem;
-    color: #d62828; /* rouge snack */
+    color: #d62828; 
     font-size: 1.1rem;
   }
 
@@ -53,7 +53,7 @@
 
     &:focus {
       outline: none;
-      border-color: #007f5f; /* vert modéré au focus */
+      border-color: #007f5f; 
       box-shadow: 0 0 8px #007f5f;
       background-color: #222;
     }
@@ -61,7 +61,7 @@
 
   input.border-red-400,
   input.border-red-400:focus {
-    border-color: #f87171 !important; /* rouge clair erreur */
+    border-color: #f87171 !important;
     box-shadow: 0 0 8px #f87171 !important;
     background-color: #3f1f1f !important;
   }
@@ -76,7 +76,7 @@
     text-align: right;
 
     input[type="submit"] {
-      background-color: #d62828; /* rouge snack */
+      background-color: #d62828;
       color: #fff;
       border: none;
       padding: 0.6rem 1.25rem;

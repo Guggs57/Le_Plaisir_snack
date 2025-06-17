@@ -2,7 +2,7 @@
   max-width: 640px;
   margin: 0 auto;
   padding: 1.5rem;
-  background-color: #111;  // Fond noir foncé pour coller au thème
+  background-color: #111; 
   border-radius: 0.5rem;
   box-shadow: 0 0 10px rgba(214, 40, 40, 0.7);
 }
@@ -42,7 +42,7 @@
 }
 
 .btn-secondary {
-  background-color: #e5e7eb; // gris clair
+  background-color: #e5e7eb; 
   color: #111;
   &:hover {
     background-color: #d1d5db;

@@ -1,12 +1,12 @@
 .edit-cart-container {
   width: 100%;
-  max-width: 66.6667%; // équivalent md:w-2/3
+  max-width: 66.6667%; 
 
   h1 {
     font-weight: 700;
-    font-size: 2.5rem; // 4xl environ 2.25rem à 2.5rem
+    font-size: 2.5rem; 
     margin-bottom: 1.5rem;
-    color: #f2f2f2; // blanc cassé pour cohérence avec le reste
+    color: #f2f2f2;
   }
 }
 
@@ -18,19 +18,19 @@
 
   .btn-link {
     flex: 1 1 auto;
-    min-width: 150px; // s'adapte comme "w-full sm:w-auto"
+    min-width: 150px;
     text-align: center;
-    padding: 0.625rem 1rem; // px-3.5 py-2.5
+    padding: 0.625rem 1rem;
     border-radius: 0.375rem;
-    background-color: #f5f5f5; // gris clair proche bg-gray-100
-    color: #111; // texte sombre
+    background-color: #f5f5f5;
+    color: #111;
     font-weight: 500;
     text-decoration: none;
     display: inline-block;
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #e5e5e5; // gris un peu plus clair au hover
+      background-color: #e5e5e5;
     }
   }
 }

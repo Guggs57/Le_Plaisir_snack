@@ -5,8 +5,8 @@
 
   .notice-message {
     padding: 0.5rem 1rem;
-    background-color: #d1fae5; // bg-green-50
-    color: #059669; // text-green-500
+    background-color: #d1fae5; 
+    color: #059669; 
     font-weight: 600;
     border-radius: 0.375rem;
     display: inline-block;
@@ -21,14 +21,13 @@
 
     h1 {
       font-weight: 700;
-      font-size: 2.5rem; // text-4xl
+      font-size: 2.5rem; 
     }
 
     .btn-primary {
-      background-color: #2563eb; // bleu standard
-      color: #fff;
+      background-color: #2563eb; 
       font-weight: 600;
-      padding: 0.625rem 1rem; // px-3.5 py-2.5
+      padding: 0.625rem 1rem; 
       border-radius: 0.375rem;
       text-decoration: none;
       display: inline-block;
@@ -36,7 +35,7 @@
       cursor: pointer;
 
       &:hover {
-        background-color: #1d4ed8; // hover bleu un peu plus foncé
+        background-color: #1d4ed8; 
       }
     }
   }
@@ -44,11 +43,11 @@
   .carts-list {
     width: 100%;
     min-width: 100%;
-    border-top: 1px solid #374151; // divide-gray-200 en foncé
+    border-top: 1px solid #374151; 
     border-bottom: 1px solid #374151;
     display: flex;
     flex-direction: column;
-    gap: 1.25rem; // space-y-5
+    gap: 1.25rem; 
 
     .cart-item {
       display: flex;
@@ -57,10 +56,10 @@
       align-items: center;
       padding-bottom: 1.25rem;
 
-      @media (min-width: 640px) { // sm breakpoint
+      @media (min-width: 640px) { 
         flex-direction: row;
         padding-bottom: 0;
-        border-bottom: 1px solid #4b5563; // divide-gray-700
+        border-bottom: 1px solid #4b5563; 
       }
 
       .cart-actions {
@@ -91,19 +90,19 @@
         }
 
         a.btn-secondary {
-          background-color: #f3f4f6; // bg-gray-100
+          background-color: #f3f4f6; 
           color: #111;
           &:hover {
-            background-color: #f9fafb; // hover:bg-gray-50
+            background-color: #f9fafb; 
           }
         }
 
         button.btn-danger {
-          background-color: #dc2626; // bg-red-600
+          background-color: #dc2626;
           color: white;
 
           &:hover {
-            background-color: #b91c1c; // hover:bg-red-500
+            background-color: #b91c1c;
           }
         }
       }
@@ -113,6 +112,6 @@
   .no-carts-msg {
     text-align: center;
     margin: 2.5rem 0;
-    color: #9ca3af; // text-gray-400
+    color: #9ca3af; 
   }
 }

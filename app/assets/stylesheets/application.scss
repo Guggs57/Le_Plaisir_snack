@@ -21,23 +21,22 @@ html, body {
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
-  align-items: center;     /* Ajout pour centrer horizontalement */
+  align-items: center;     
 }
 
 
-/* ===== CONTAINER PRINCIPAL - PAGE D'ACCUEIL ===== */
 .home-wrapper {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0; // supprime le padding horizontal
+  padding: 0; 
   position: relative;
   z-index: 10;
-  background-color: transparent !important; // assure la transparence
+  background-color: transparent !important;
   box-shadow: none;
   border: none;
 }
 
-/* ===== COULEURS SPÉCIALES ===== */
+
 .text-red {
   color: #d62828;
   transition: color 0.4s ease;
@@ -47,14 +46,14 @@ html, body {
   color: #111;
 }
 
-/* ===== BANNIÈRE ===== */
+
 .banner-img {
   width: 100%;
   height: auto;
   margin: 0 auto 2rem;
   display: block;
   border-radius: 0;
-  box-shadow: none; // supprime l'effet "encadré lumineux"
+  box-shadow: none; 
 }
 
 .home-banner h1 {
@@ -71,7 +70,7 @@ html, body {
   font-style: italic;
 }
 
-/* ===== BOUTONS (CTA, PAYMENTS) ===== */
+
 .btn {
   display: inline-block;
   padding: 0.9rem 2rem;
@@ -111,7 +110,7 @@ html, body {
   transform: translateY(-3px);
 }
 
-/* ===== MESSAGES FLASH ===== */
+
 .notice, .alert {
   color: #fff;
   padding: 1rem 1.5rem;
@@ -129,7 +128,7 @@ html, body {
   background-color: #d62828;
 }
 
-/* ===== VAGUE FIXE EN BAS DE PAGE ===== */
+
 .wave-container {
   width: 100%;
   height: 50vh;
@@ -168,7 +167,7 @@ html, body {
   opacity: 1;
 }
 
-/* ===== UTILITAIRES ===== */
+
 .debug-border {
   border: 1px solid lime;
 }
