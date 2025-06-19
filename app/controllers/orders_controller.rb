@@ -1,30 +1,30 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: %i[show edit update destroy]
 
-  # GET /orders
+
   def index
     @orders = Order.all
   end
 
-  # GET /orders/1
+
   def show
     @order = Order.find(params[:id])
-    # Stripe check et mise à jour de status si nécessaire
-    if @order.status == 'pending' && @order.stripe_session_id.present?
+
+    if @order.status == "pending" && @order.stripe_session_id.present?
       session = Stripe::Checkout::Session.retrieve(@order.stripe_session_id)
-      if session.payment_status == 'paid'
-        @order.update(status: 'paid')
+      if session.payment_status == "paid"
+        @order.update(status: "paid")
       end
     end
   end
 
-  # GET /orders/new
+
   def new
     @order = Order.new
     @cart = current_user.cart
   end
 
-  # POST /orders
+
   def create
     @cart = current_user.cart
 
@@ -33,9 +33,9 @@ class OrdersController < ApplicationController
       return
     end
 
-    order_status = params[:pay_on_site].present? ? 'pending_payment' : 'pending'
+    order_status = params[:pay_on_site].present? ? "pending_payment" : "pending"
 
-    # Calculer le total avec la méthode total_price des cart_dishes
+
     total_price = @cart.cart_dishes.sum(&:total_price)
 
     @order = current_user.orders.create!(
@@ -43,7 +43,7 @@ class OrdersController < ApplicationController
       status: order_status
     )
 
-    # Copier aussi les ingrédients personnalisés et menu_option depuis cart_dish
+
     @cart.cart_dishes.each do |cart_dish|
       @order.order_dishes.create!(
         dish_id: cart_dish.dish_id,
@@ -54,18 +54,18 @@ class OrdersController < ApplicationController
       )
     end
 
-    # Vider le panier après la création de la commande
+
     @cart.cart_dishes.destroy_all
 
     if params[:pay_on_site].present?
       redirect_to order_path(@order), notice: "Commande créée, vous pourrez la régler sur place."
     else
       session = Stripe::Checkout::Session.create({
-        payment_method_types: ['card'],
+        payment_method_types: [ "card" ],
         line_items: @order.order_dishes.map do |od|
           {
             price_data: {
-              currency: 'eur',
+              currency: "eur",
               product_data: {
                 name: od.menu_option ? "MENU - #{od.dish.title}" : od.dish.title
               },
@@ -74,9 +74,9 @@ class OrdersController < ApplicationController
             quantity: od.quantity
           }
         end,
-        mode: 'payment',
+        mode: "payment",
         success_url: order_url(@order),
-        cancel_url: cart_url(@cart),
+        cancel_url: cart_url(@cart)
       })
 
       @order.update(stripe_session_id: session.id)
@@ -85,7 +85,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /orders/1
+
   def update
     if @order.update(order_params)
       redirect_to @order, notice: "Commande mise à jour avec succès.", status: :see_other
@@ -94,7 +94,7 @@ class OrdersController < ApplicationController
     end
   end
 
-  # DELETE /orders/1
+
   def destroy
     @order.destroy!
     redirect_to orders_path, notice: "Commande supprimée.", status: :see_other
@@ -110,7 +110,7 @@ class OrdersController < ApplicationController
     params.require(:order).permit(:user_id, :total_price, :status)
   end
 
-  # Méthode auxiliaire pour calculer le prix unitaire d'un order_dish en tenant compte du menu_option
+
   def unit_price_order_dish(order_dish)
     base_price = order_dish.dish.price
     menu_extra = order_dish.menu_option ? CartDish::SOME_MENU_EXTRA_PRICE : 0

@@ -4,7 +4,7 @@ class CartDish < ApplicationRecord
 
   SOME_MENU_EXTRA_PRICE = 2.5
 
-  # Par défaut, menu_option est false
+
   attribute :menu_option, :boolean, default: false
 
   def ingredients_objects

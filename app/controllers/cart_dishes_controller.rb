@@ -15,7 +15,6 @@ class CartDishesController < ApplicationController
   end
 
   def edit
-    # @cart_dish déjà chargé par set_cart_dish
   end
 
   def create
@@ -23,7 +22,7 @@ class CartDishesController < ApplicationController
     @cart_dish.cart = current_user.cart || current_user.create_cart
     @cart_dish.quantity ||= 1
 
-    # Sécuriser les tableaux vides pour ingrédients et sauces
+
     @cart_dish.ingredients ||= []
     @cart_dish.sauces ||= []
 
@@ -36,7 +35,6 @@ class CartDishesController < ApplicationController
   end
 
   def update
-    # Sécuriser les tableaux vides si rien n’est coché
     params[:cart_dish][:ingredients] ||= []
     params[:cart_dish][:sauces] ||= []
 
