@@ -1,41 +1,55 @@
 <% content_for :title, "Modifier le plat dans le panier" %>
 
-<div class="edit-wrapper md:w-2/3 w-full mx-auto p-6 bg-dark rounded-lg shadow-lg">
-  <h1 class="edit-title font-bold text-4xl mb-6 text-white">Modifier votre plat</h1>
+<div class="edit-wrapper">
+  <h1 class="section-title">Modifier votre plat</h1>
 
-  <%= form_with(model: @cart_dish, local: true, class: "edit-form") do |form| %>
-    <div class="form-group mb-4">
-      <%= form.label :quantity, "Quantité", class: "form-label" %>
+  <%= form_with(model: @cart_dish, local: true, class: "custom-form") do |form| %>
+    <div class="form-group">
+      <%= form.label :quantity, "Quantité", class: "section-title" %>
       <%= form.number_field :quantity, min: 1, class: "form-input w-20" %>
     </div>
 
-    <div class="form-group mb-4">
-      <h2 class="section-title font-semibold mb-2 text-white">Ingrédients à retirer</h2>
-      <% ingredients = @cart_dish.dish.default_ingredients_list %>
-      <% selected_ingredients = @cart_dish.ingredients || [] %>
-      <% ingredients.each do |ingredient| %>
-        <div class="checkbox-item">
-          <%= check_box_tag "cart_dish[ingredients][]", ingredient, selected_ingredients.include?(ingredient), id: "ingredient_#{ingredient.parameterize}" %>
-          <%= label_tag "ingredient_#{ingredient.parameterize}", ingredient.capitalize, class: "checkbox-label" %>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div>
+        <p class="section-title">Ingrédients à retirer</p>
+        <div class="ingredients-grid">
+          <% ingredients = @cart_dish.dish.default_ingredients_list %>
+          <% selected_ingredients = @cart_dish.ingredients || [] %>
+          <% ingredients.each do |ingredient| %>
+            <label class="ingredient-label" for="ingredient_<%= ingredient.parameterize %>">
+              <%= check_box_tag "cart_dish[ingredients][]", ingredient, selected_ingredients.include?(ingredient), id: "ingredient_#{ingredient.parameterize}" %>
+              <%= ingredient.capitalize %>
+            </label>
+          <% end %>
         </div>
-      <% end %>
+      </div>
+
+      <div>
+        <p class="section-title">Sauces (optionnel)</p>
+        <div class="sauces-grid">
+          <% sauces_disponibles = Dish.available_sauces %>
+          <% selected_sauces = @cart_dish.sauces || [] %>
+          <% sauces_disponibles.each do |sauce| %>
+            <label class="sauce-label" for="sauce_<%= sauce.parameterize %>">
+              <%= check_box_tag "cart_dish[sauces][]", sauce, selected_sauces.include?(sauce), id: "sauce_#{sauce.parameterize}" %>
+              <%= sauce.capitalize %>
+            </label>
+          <% end %>
+        </div>
+      </div>
     </div>
 
-    <div class="form-group mb-4">
-      <h2 class="section-title font-semibold mb-2 text-white">Sauces (optionnel)</h2>
-      <% sauces_disponibles = Dish.available_sauces %>
-      <% selected_sauces = @cart_dish.sauces || [] %>
-      <% sauces_disponibles.each do |sauce| %>
-        <div class="checkbox-item">
-          <%= check_box_tag "cart_dish[sauces][]", sauce, selected_sauces.include?(sauce), id: "sauce_#{sauce.parameterize}" %>
-          <%= label_tag "sauce_#{sauce.parameterize}", sauce.capitalize, class: "checkbox-label" %>
-        </div>
-      <% end %>
+    <div class="menu-option">
+      <label for="cart_dish_menu_option">
+        <%= check_box_tag "cart_dish[menu_option]", "1", @cart_dish.menu_option, id: "cart_dish_menu_option" %>
+        <span class="icon">🍽️</span>
+        Ajouter en menu (+ <%= number_to_currency(@menu_extra_price || 0, unit: "€") %>)
+      </label>
     </div>
 
-    <div class="form-actions mt-6">
-      <%= form.submit "Enregistrer les modifications", class: "btn btn-danger" %>
-      <%= link_to "Annuler", cart_path(@cart_dish.cart), class: "btn-cancel ml-4" %>
+    <div class="form-actions" style="margin-top: 1.5rem;">
+      <%= form.submit "Enregistrer les modifications", class: "btn btn-primary" %>
+      <%= link_to "Annuler", cart_path(@cart_dish.cart), class: "btn-cancel", style: "margin-left: 1rem;" %>
     </div>
   <% end %>
 </div>

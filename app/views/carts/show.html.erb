@@ -34,6 +34,17 @@
                 <% end %>
               </ul>
             <% end %>
+
+            <% if cart_dish.sauces.present? %>
+              <p class="selected-sauces-label">Sauces choisies :</p>
+              <ul class="selected-sauces-list">
+                <% cart_dish.sauces.each do |sauce| %>
+                  <li><%= sauce.capitalize %></li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="no-sauces">Aucune sauce sélectionnée</p>
+            <% end %>
           </div>
 
           <div class="cart-item-actions">

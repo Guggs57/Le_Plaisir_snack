@@ -1,30 +1,32 @@
 class CartsController < ApplicationController
   before_action :set_cart, only: %i[show edit update destroy add_to_cart]
 
-  # GET /carts/1
+  # GET /carts/:id
   def show
-    # @cart déjà défini dans set_cart
+    # Si pas de panier, renvoyer tableau vide pour la vue
     @cart_dishes = @cart ? @cart.cart_dishes.includes(:dish) : []
   end
 
-  # POST /carts/add_to_cart
+  # POST /carts/:id/add_to_cart
   def add_to_cart
+    # Création du panier si absent (normalement set_cart l’a fait)
     @cart ||= current_user.create_cart
 
+    Rails.logger.debug "Params reçus dans add_to_cart : #{params.inspect}"
+
+    # Chercher le plat, erreur si nil
     @dish = Dish.find(params[:dish_id])
 
     removed_ingredients = params[:removed_ingredients] || []
-    removed_sauces = params[:removed_sauces] || []
+    selected_sauces = params[:selected_sauces] || []
 
     menu_option = params[:menu_option] == "1"
 
-    Rails.logger.debug "PARAMS menu_option: #{params[:menu_option].inspect} => #{menu_option.inspect}"
-
-    # Trouver un CartDish existant avec même plat, mêmes options et personnalisations
+    # Trouver un cart_dish existant avec mêmes options
     @cart_dish = @cart.cart_dishes.find do |cd|
       cd.dish_id == @dish.id &&
       (cd.ingredients || []).sort == removed_ingredients.sort &&
-      (cd.sauces || []).sort == removed_sauces.sort &&
+      (cd.sauces || []).sort == selected_sauces.sort &&
       cd.menu_option == menu_option
     end
 
@@ -35,7 +37,7 @@ class CartsController < ApplicationController
         dish: @dish,
         quantity: 1,
         ingredients: removed_ingredients,
-        sauces: removed_sauces,
+        sauces: selected_sauces,
         menu_option: menu_option
       )
     end
@@ -60,7 +62,7 @@ class CartsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /carts/1
+  # PATCH/PUT /carts/:id
   def update
     if @cart.update(cart_params)
       redirect_to @cart, notice: "Panier mis à jour avec succès.", status: :see_other
@@ -69,7 +71,7 @@ class CartsController < ApplicationController
     end
   end
 
-  # DELETE /carts/1
+  # DELETE /carts/:id
   def destroy
     @cart.destroy!
     redirect_to carts_path, notice: "Panier supprimé avec succès.", status: :see_other
@@ -78,6 +80,7 @@ class CartsController < ApplicationController
   private
 
   def set_cart
+    # Cherche le panier via params[:id] (l’ID est obligatoire sur cette route)
     @cart = current_user&.cart || current_user&.create_cart
   end
 
