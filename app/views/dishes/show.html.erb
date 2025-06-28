@@ -1,60 +1,57 @@
-<h1 class="text-3xl font-bold mb-6 text-red-500"><%= @dish.title %></h1>
+<h1 class="section-title"><%= @dish.title %></h1>
 
-<div class="bg-[#111] p-6 rounded-lg shadow-md text-white mb-8">
+<div>
   <% if @dish.image.present? %>
-    <%= image_tag @dish.image, alt: @dish.title, class: "w-full max-w-md mx-auto rounded-lg shadow-lg mb-4" %>
+    <%= image_tag @dish.image, alt: @dish.title %>
   <% else %>
-    <div class="w-full h-64 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 mb-4">
-      Pas d'image
-    </div>
+    <div>Pas d'image</div>
   <% end %>
 
-  <p class="mb-3 text-lg"><%= @dish.description %></p>
-  <p class="text-xl font-semibold">Prix : <%= number_to_currency(@dish.price, unit: "€") %></p>
+  <p><%= @dish.description %></p>
+  <p>Prix : <%= number_to_currency(@dish.price, unit: "€") %></p>
 </div>
 
-<h3 class="text-2xl font-semibold text-red-500 mb-4">Personnaliser et ajouter au panier</h3>
+<h2 class="section-title">Personnalisez votre commande</h2>
 
-<% if user_signed_in? && @cart %>
-  <%= form_with url: add_to_cart_cart_path(@cart), method: :post, local: true, class: "custom-form" do |form| %>
+<%= form_with url: add_to_cart_cart_path(current_user.cart), method: :post, local: true, html: { class: "custom-form" } do |f| %>
+  <%= hidden_field_tag :dish_id, @dish.id %>
 
-    <% if @ingredients.any? %>
-      <p class="section-title">Ingrédients à <strong>retirer</strong> :</p>
-      <div class="ingredients-grid">
-        <% @ingredients.each do |ingredient| %>
-          <label class="ingredient-label">
-            <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "ingr_#{ingredient}" %>
-            <%= ingredient.capitalize %>
-          </label>
-        <% end %>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+    <% if @ingredients.present? %>
+      <div>
+        <p class="section-title">Ingrédients à retirer :</p>
+        <div class="ingredients-grid">
+          <% @ingredients.each do |ingredient| %>
+            <label class="ingredient-label" for="remove_<%= ingredient.parameterize %>">
+              <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "remove_#{ingredient.parameterize}" %>
+              <%= ingredient.capitalize %>
+            </label>
+          <% end %>
+        </div>
       </div>
     <% end %>
 
-    <% if @sauces.any? %>
-      <p class="section-title">Choisissez vos sauces :</p>
-      <div class="sauces-grid">
-        <% @sauces.each do |sauce| %>
-          <label class="sauce-label">
-            <%= check_box_tag "selected_sauces[]", sauce, sauce.downcase.include?("blanche"), id: "sauce_#{sauce.parameterize}" %>
-            <%= sauce.capitalize %>
-          </label>
-        <% end %>
+    <% if @sauces.present? %>
+      <div>
+        <p class="section-title">Choix des sauces :</p>
+        <div class="sauces-grid">
+          <% @sauces.each do |sauce| %>
+            <label class="sauce-label" for="sauce_<%= sauce.parameterize %>">
+              <%= check_box_tag "selected_sauces[]", sauce, false, id: "sauce_#{sauce.parameterize}" %>
+              <%= sauce.capitalize %>
+            </label>
+          <% end %>
+        </div>
       </div>
     <% end %>
-
-    <div class="menu-option">
-      <label>
-        <%= check_box_tag :menu_option, "1", false, id: "menu_option" %>
-        <%= label_tag :menu_option, "Ajouter en menu (+ #{number_to_currency(@menu_extra_price, unit: '€')})" %>
-      </label>
-    </div>
-
-    <%= hidden_field_tag :dish_id, @dish.id %>
-    <%= submit_tag "Ajouter au panier", class: "btn btn-primary" %>
-  <% end %>
-<% else %>
-  <div class="bg-[#222] text-white p-6 rounded-lg shadow mt-6">
-    <p class="mb-3">Vous devez être connecté pour ajouter ce plat au panier.</p>
-    <%= link_to "Se connecter", new_user_session_path, class: "btn btn-primary" %>
   </div>
+
+  <div class="menu-option">
+    <label for="menu_option">
+      <%= check_box_tag :menu_option, "1", false, id: "menu_option" %>
+      Ajouter en menu (+ <%= number_to_currency(@menu_extra_price || 0, unit: "€") %>)
+    </label>
+  </div>
+
+  <%= submit_tag "Ajouter au panier", class: "btn btn-primary" %>
 <% end %>

@@ -15,22 +15,26 @@ class CartDishesController < ApplicationController
   end
 
   def edit
-    # @cart_dish est déjà chargé par set_cart_dish
   end
 
   def create
     @cart_dish = CartDish.new(cart_dish_params)
     @cart_dish.cart = current_user.cart || current_user.create_cart
+    @cart_dish.quantity ||= 1
+
+
+    @cart_dish.ingredients ||= []
+    @cart_dish.sauces ||= []
 
     if @cart_dish.save
       redirect_to cart_path(@cart_dish.cart), notice: "Plat ajouté au panier avec succès."
     else
+      flash.now[:alert] = "Erreur lors de l'ajout au panier."
       render :new, status: :unprocessable_entity
     end
   end
 
   def update
-    # Sécurise les tableaux vides si rien n’est coché
     params[:cart_dish][:ingredients] ||= []
     params[:cart_dish][:sauces] ||= []
 
@@ -61,6 +65,6 @@ class CartDishesController < ApplicationController
   end
 
   def cart_dish_params
-    params.require(:cart_dish).permit(:quantity, :menu_option, ingredients: [], sauces: [])
+    params.require(:cart_dish).permit(:dish_id, :quantity, :menu_option, ingredients: [], sauces: [])
   end
 end

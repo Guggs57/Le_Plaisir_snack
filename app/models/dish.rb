@@ -11,7 +11,7 @@ class Dish < ApplicationRecord
   has_many :dish_ingredients, dependent: :destroy
   has_many :ingredients, through: :dish_ingredients
 
-  # Liste statique des ingrédients par défaut
+
   def default_ingredients_list
     [
       "salade",
@@ -25,12 +25,12 @@ class Dish < ApplicationRecord
     ]
   end
 
-  # Version affichable pour RailsAdmin ou les vues
+
   def default_ingredients
     default_ingredients_list.join(", ")
   end
 
-  # Liste des sauces disponibles
+
   def self.available_sauces
     [
       "curry",
