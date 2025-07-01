@@ -22,8 +22,8 @@
         <p class="section-title">Ingrédients à retirer :</p>
         <div class="ingredients-grid">
           <% @ingredients.each do |ingredient| %>
-            <label class="ingredient-label" for="remove_<%= ingredient.parameterize %>">
-              <%= check_box_tag "removed_ingredients[]", ingredient, false, id: "remove_#{ingredient.parameterize}" %>
+            <label class="ingredient-label">
+              <%= check_box_tag "removed_ingredients[]", ingredient, false %>
               <%= ingredient.capitalize %>
             </label>
           <% end %>
@@ -36,8 +36,8 @@
         <p class="section-title">Choix des sauces :</p>
         <div class="sauces-grid">
           <% @sauces.each do |sauce| %>
-            <label class="sauce-label" for="sauce_<%= sauce.parameterize %>">
-              <%= check_box_tag "selected_sauces[]", sauce, false, id: "sauce_#{sauce.parameterize}" %>
+            <label class="sauce-label">
+              <%= check_box_tag "selected_sauces[]", sauce, false %>
               <%= sauce.capitalize %>
             </label>
           <% end %>
@@ -47,8 +47,8 @@
   </div>
 
   <div class="menu-option">
-    <label for="menu_option">
-      <%= check_box_tag :menu_option, "1", false, id: "menu_option" %>
+    <label>
+      <%= check_box_tag :menu_option, "1", false %>
       Ajouter en menu (+ <%= number_to_currency(@menu_extra_price || 0, unit: "€") %>)
     </label>
   </div>
