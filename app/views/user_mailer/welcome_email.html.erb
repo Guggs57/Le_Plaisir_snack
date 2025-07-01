@@ -1,16 +1,77 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <meta charset="UTF-8">
+    <style>
+      body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+      }
+
+      .container {
+        max-width: 600px;
+        margin: auto;
+        background-color: #1a1a1a;
+        padding: 30px;
+        border-radius: 10px;
+        border: 2px solid #d62828;
+      }
+
+      h1 {
+        color: #d62828;
+        font-size: 24px;
+      }
+
+      p {
+        font-size: 16px;
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      .button {
+        display: inline-block;
+        padding: 12px 20px;
+        background-color: #d62828;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+
+      .footer {
+        font-size: 12px;
+        color: #aaaaaa;
+        margin-top: 30px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
-    <h1>Bonjour <%= @user.name %> et bienvenue chez Le Plaisir !</h1>
-    <p>
-      Tu t'es inscrit sur le-plaisir-snack.fr en utilisant l'e-mail suivant : <%= @user.email %>.
-    </p>
-    <p>
-      Pour accéder à ton espace client, connecte-toi via : <%= "http://127.0.0.1:3000/users/sign_in" %>.
-    </p>
-    <p> À très vite pour ta prochaine commande !
+    <div class="container">
+      <h1>Bienvenue chez Le Plaisir, <%= @user.name %> !</h1>
+
+      <p>
+        Merci pour ton inscription sur <strong>le-plaisir-snack.fr</strong> avec l’adresse : <%= @user.email %>.
+      </p>
+
+      <p>
+        Tu peux dès maintenant accéder à ton espace client en cliquant sur le bouton ci-dessous :
+      </p>
+
+      <p>
+        <a href="http://127.0.0.1:3000/users/sign_in" class="button">Me connecter</a>
+      </p>
+
+      <p>
+        À très vite pour ta prochaine commande gourmande 😋
+      </p>
+
+      <div class="footer">
+        © Le Plaisir – Snack halal à Forbach
+      </div>
+    </div>
   </body>
 </html>
