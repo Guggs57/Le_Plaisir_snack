@@ -81,7 +81,7 @@ gem "simple_form", "~> 5.3"
 
 gem "administrate", "~> 0.19.0"
 
-gem "stripe", "~> 15.2"
+gem "stripe", "~> 15.3"
 
 gem "dotenv-rails", "~> 3.1"
 
