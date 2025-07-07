@@ -13,45 +13,52 @@
 
 <h2 class="section-title">Personnalisez votre commande</h2>
 
-<%= form_with url: add_to_cart_cart_path(current_user.cart), method: :post, local: true, html: { class: "custom-form" } do |f| %>
-  <%= hidden_field_tag :dish_id, @dish.id %>
+<% if @cart %>
+  <%= form_with url: add_to_cart_cart_path(@cart), method: :post, local: true, html: { class: "custom-form" } do |f| %>
+    <%= hidden_field_tag :dish_id, @dish.id %>
 
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-    <% if @ingredients.present? %>
-      <div>
-        <p class="section-title">Ingrédients à retirer :</p>
-        <div class="ingredients-grid">
-          <% @ingredients.each do |ingredient| %>
-            <label class="ingredient-label">
-              <%= check_box_tag "removed_ingredients[]", ingredient, false %>
-              <%= ingredient.capitalize %>
-            </label>
-          <% end %>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <% if @ingredients.present? %>
+        <div>
+          <p class="section-title">Ingrédients à retirer :</p>
+          <div class="ingredients-grid">
+            <% @ingredients.each do |ingredient| %>
+              <label class="ingredient-label">
+                <%= check_box_tag "removed_ingredients[]", ingredient, false %>
+                <%= ingredient.capitalize %>
+              </label>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
+      <% end %>
 
-    <% if @sauces.present? %>
-      <div>
-        <p class="section-title">Choix des sauces :</p>
-        <div class="sauces-grid">
-          <% @sauces.each do |sauce| %>
-            <label class="sauce-label">
-              <%= check_box_tag "selected_sauces[]", sauce, false %>
-              <%= sauce.capitalize %>
-            </label>
-          <% end %>
+      <% if @sauces.present? %>
+        <div>
+          <p class="section-title">Choix des sauces :</p>
+          <div class="sauces-grid">
+            <% @sauces.each do |sauce| %>
+              <label class="sauce-label">
+                <%= check_box_tag "selected_sauces[]", sauce, false %>
+                <%= sauce.capitalize %>
+              </label>
+            <% end %>
+          </div>
         </div>
-      </div>
-    <% end %>
-  </div>
+      <% end %>
+    </div>
 
-  <div class="menu-option">
-    <label>
-      <%= check_box_tag :menu_option, "1", false %>
-      Ajouter en menu (+ <%= number_to_currency(@menu_extra_price || 0, unit: "€") %>)
-    </label>
-  </div>
+    <div class="menu-option">
+      <label>
+        <%= check_box_tag :menu_option, "1", false %>
+        Ajouter en menu (+ <%= number_to_currency(@menu_extra_price || 0, unit: "€") %>)
+      </label>
+    </div>
 
-  <%= submit_tag "Ajouter au panier", class: "btn btn-primary" %>
+    <%= submit_tag "Ajouter au panier", class: "btn btn-primary" %>
+  <% end %>
+<% else %>
+  <div class="login-notice">
+    <p>Connectez-vous pour personnaliser et ajouter ce plat à votre panier.</p>
+    <%= link_to "Se connecter", new_user_session_path, class: "btn btn-primary" %>
+  </div>
 <% end %>
